@@ -33,10 +33,10 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		System.out.println(DRIVER);
-		System.out.println(URL);
-		System.out.println(USER);
-		System.out.println(PW);
+//		System.out.println(DRIVER);
+//		System.out.println(URL);
+//		System.out.println(USER);
+//		System.out.println(PW);
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
