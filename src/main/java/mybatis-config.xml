@@ -8,4 +8,7 @@
      <!-- name명을 아무거나 넣으면 프로그램이 인식을 못함 -->
      <setting name="logImpl" value="LOG4J2" />
   </settings>  
+  <!-- <typeAliases>
+	  <typeAlias alias="TestVO" type="vo.TestVO"></typeAlias>
+  </typeAliases> -->
 </configuration>

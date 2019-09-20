@@ -19,6 +19,7 @@
 
 - Server
 
+  - AWS
   - Spring MVC FrameWork
   - Tomcat 9
   - Naver Open API(Login, Map)
@@ -32,19 +33,19 @@
 
 - Database
 
-  - Oracle XE(Express Edition) 11g
-  - MariaDB(변경예정)
-
+  - MariaDB-10.3.18
   
 
+  
 - Development Flatform
 
   - jdk1.8.0_211
   - eclipse-jee-2018-12-R-win32-x86_64
   - Spring STS 3.9.9
-  - sql developer
+  - HeidiSQL
+  - Putty
   - R Studio
-  - chrome
+  - Chrome
 
 ## Flow Chart
 
