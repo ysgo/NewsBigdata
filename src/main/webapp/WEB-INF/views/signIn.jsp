@@ -23,7 +23,7 @@
 		<div class="row" style="margin-top: 20px">
 			<div
 				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-				<form role="form">
+				<form role="form" action="signIn.do" method="POST">
 					<fieldset>
 						<h2>Please Sign In</h2>
 						<hr class="colorgraph">
@@ -48,7 +48,7 @@
 									value="Sign In">
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6">
-								<a href="" class="btn btn-lg btn-primary btn-block">Register</a>
+								<a href="signUp.do" class="btn btn-lg btn-primary btn-block">Register</a>
 							</div>
 						</div>
 					</fieldset>

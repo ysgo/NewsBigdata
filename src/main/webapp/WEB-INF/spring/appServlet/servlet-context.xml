@@ -55,5 +55,17 @@
 	<beans:bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession" destroy-method="clearCache">
 		<beans:constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory" />
 	</beans:bean>
+	
+	<!-- 인터셉터 객체 생성 -->
+	<!-- <beans:bean id="AuthLoginInterceptor" class="com.mynews.newsbigdata.AuthLoginInterceptor">
+	</beans:bean> -->
+	<!-- Interceptor 설정 -->
+	<!-- <interceptors>
+	    <interceptor>
+	        <mapping path="/*.do"/>         
+	        <exclude-mapping path="/resources/**"/>
+	        <beans:ref bean="AuthLoginInterceptor"/>
+	    </interceptor>
+	</interceptors> -->
 
 </beans:beans>
