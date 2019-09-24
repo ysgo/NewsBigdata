@@ -53,7 +53,11 @@
 
 ## Install Method
 
-- Comming Soon
+- Project [Clone]
+- Eclipse [Import] - [Project from Folder or Archive]
+- Select [Project Folder]
+- [Wait] for Completion and Installation
+- [Add Library] - Add Junit4
 
 ## Screen Configuration
 
