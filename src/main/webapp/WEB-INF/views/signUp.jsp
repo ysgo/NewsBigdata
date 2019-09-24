@@ -46,35 +46,41 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-    	<form role="form" method="POST" action="signUp.do">
+    	<form name="fr" method="POST" action="signUp.do" onsubmit='return check()'>
 			<h2>Please Sign Up <small>It's free and always will be.</small></h2>
 			<hr class="colorgraph">
 			
 			<div class="form-group">
 				<input type="text" name="userName" id="userName" class="form-control input-lg" placeholder="Username" tabindex="3">
+				<span id="alert_userName"></span>
 			</div>
 			<div class="form-group">
 				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+				<span id="alert_email"></span>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+						<input onkeyup='mykeyup()' type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+						<span id="alert_password"></span>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+						<input onkeyup='mykeyup()' type="password" name="re_password" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+						<span id="alert_re_password"></span>
 					</div>
 				</div>
-				    남성 <input type="radio" name="gender" value="male" />
-			             여성 <input type="radio" name="gender" value="female" /><br>
+				    남성 <input type="radio" name="gender" value="male" class="gender" />
+			             여성 <input type="radio" name="gender" value="female" class="gender" />
+			     <span id="alert_gender"></span><br>
 				GENERATION : 
-				 10대 <input type="checkbox" name="generation" value="10" />
-				 20대 <input type="checkbox" name="generation" value="20" />
-				 30대 <input type="checkbox" name="generation" value="30" />
-				 40대 <input type="checkbox" name="generation" value="40" />
-				 50대 이상 <input type="checkbox" name="generation" value="50" /><br>
+				 10대 <input type="checkbox" name="generation" value="10" class="generation"/>
+				 20대 <input type="checkbox" name="generation" value="20" class="generation"/>
+				 30대 <input type="checkbox" name="generation" value="30" class="generation"/>
+				 40대 <input type="checkbox" name="generation" value="40" class="generation"/>
+				 50대 이상 <input type="checkbox" name="generation" value="50" class="generation" />
+				 <span id="alert_generation"></span><br>
 			</div>
 			<div class="row">
 				<div class="col-xs-4 col-sm-3 col-md-3">
@@ -147,5 +153,33 @@
         </div><!--container ends-->
     </footer>
     <hr class="colorgraph colorgraph-footer">
+<script>
+function mykeyup() {
+	var updatePass = document.getElementById('password').value;
+	var checkPass = document.getElementById('password_confirmation').value;
+	if(updatePass == checkPass) {
+		document.getElementById('update_submit').disabled = false;
+	} else {
+		document.getElementById('update_submit').disabled = true;
+	}
+}
+function checkVal(e) {
+	if(fr.e.value == "") {
+		var name = 'alert_'+e;
+		document.getElementById(name).innerHTML="값을 입력해주세요.";
+	}
+}
+
+function check() {
+	if(fr.password.value != fr.re_password.value) {
+		cosole.log(fr.password.value);
+		cosole.log(fr.re_password.value);
+	    document.getElementById('alert_re_password').innerHTML="비밀번호 다릅니다.";
+	    fr.re_password.focus();
+	    return false;
+	  } else return true;
+}
+</script>
 </body>
+
 </html>
