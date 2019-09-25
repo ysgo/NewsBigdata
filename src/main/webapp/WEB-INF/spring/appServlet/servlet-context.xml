@@ -20,7 +20,7 @@
 	<hadoop:configuration id="hdConf">
 		fs.defaultFS=hdfs://192.168.111.120:9000
 	</hadoop:configuration>
-	
+
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
@@ -48,12 +48,32 @@
 		<beans:property name="fileEncoding" value="UTF-8" />
 	</beans:bean>
 
-	<beans:bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"	id="dataSource">
-		<beans:property value="${db.driver}" name="driverClassName"/>
-		<beans:property value="${db.url_local}" name="url"/>
-		<beans:property value="${db.userName}" name="username"/>
-		<beans:property value="${db.password}" name="password"/>
-	</beans:bean> 
+
+	<beans:bean id="hiveDriver"
+		class="org.apache.hive.jdbc.HiveDriver" />
+	<beans:bean id="hiveDataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<beans:constructor-arg name="driver"
+			ref="hiveDriver" />
+		<beans:constructor-arg name="url"
+			value="jdbc:hive2://192.168.111.120:10000/mydb" />
+		<beans:constructor-arg name="username"
+			value="root" />
+		<beans:constructor-arg name="password"
+			value="password" />
+	</beans:bean>
+
+
+
+	<beans:bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+		<beans:property value="${db.driver}"
+			name="driverClassName" />
+		<beans:property value="${db.url_local}" name="url" />
+		<beans:property value="${db.userName}" name="username" />
+		<beans:property value="${db.password}" name="password" />
+	</beans:bean>
 
 	<beans:bean class="org.mybatis.spring.SqlSessionFactoryBean"
 		id="sqlSessionFactory">

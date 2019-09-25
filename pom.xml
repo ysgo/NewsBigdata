@@ -245,6 +245,13 @@
          <artifactId>mariadb-java-client</artifactId>
          <version>2.3.0</version>
       </dependency>
+      
+      <dependency>
+		<groupId>org.apache.hive</groupId>
+		<artifactId>hive-jdbc</artifactId>
+		<version>2.3.5</version>
+	</dependency>
+      
 	</dependencies>
 	<build>
 		<plugins>
