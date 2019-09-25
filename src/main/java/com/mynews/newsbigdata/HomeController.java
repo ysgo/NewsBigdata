@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class HomeController {
 	@Value("${db.driver}")
 	private String DRIVER;
-	@Value("${db.url}")
+	@Value("${db.url_local}")
 	private String URL;
 	@Value("${db.userName}")
 	private String USER;
@@ -34,6 +34,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		System.out.println("HOME 실행");
 		logger.info("Welcome home! The client locale is {}.", locale);
 //		System.out.println(DRIVER);
 //		System.out.println(URL);
