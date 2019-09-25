@@ -44,7 +44,6 @@ public class MembershipController {
         }
 		String pw = vo.getPassword();
 		vo = service.viewMember(vo);
-		System.out.println(vo.toString());
 		if (vo != null) {
 			boolean result = passwordEncoder.matches(pw, vo.getPassword());
 			if (result) {

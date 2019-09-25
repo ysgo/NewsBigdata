@@ -7,7 +7,7 @@
 
 	<!-- 회원 가입 -->
 	<insert id="signup">
-		insert into memberinfo(email, password, userName, gender, generation, created_at)
+		insert into memberinfo(email, password, username, gender, generation, created_at)
 			values(#{email}, #{password}, #{userName}, #{gender}, #{generation}, now())  
 	</insert>
 
