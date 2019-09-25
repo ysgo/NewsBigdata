@@ -33,6 +33,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		System.out.println("HOME 실행");
 		logger.info("Welcome home! The client locale is {}.", locale);
 //		System.out.println(DRIVER);
 //		System.out.println(URL);
