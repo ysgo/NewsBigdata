@@ -26,13 +26,15 @@
 			</div>
 			<div class="row" style="border:1px solid black;">
 				<div id="issues-wrap" class="col-xs-12 col-sm-6 col-md-5">
-					<ul> 
-						<li>뉴스리스트1</li>
-						<li>뉴스리스트2</li>
-						<li>뉴스리스트3</li>
-						<li>뉴스리스트4</li> 
-						<li>뉴스리스트5</li>
-					</ul>
+				<c:choose>
+					<c:when test="${ list1 != null }">  
+							<c:forEach var="data"  items="${list1}">
+					 		<ul>
+						 		<li>${ data.title }</li>
+					 		</ul>		
+							</c:forEach>
+					</c:when>
+				</c:choose> 
 				</div>
 				<div class="col-xs-12 text-right mt-1">
 				</div>
