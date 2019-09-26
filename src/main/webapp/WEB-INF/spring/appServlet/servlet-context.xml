@@ -56,7 +56,7 @@
 		<beans:constructor-arg name="driver"
 			ref="hiveDriver" />
 		<beans:constructor-arg name="url"
-			value="jdbc:hive2://192.168.111.120:10000/mydb" />
+			value="jdbc:mariadb://70.12.113.176:3306/news" />
 		<beans:constructor-arg name="username"
 			value="root" />
 		<beans:constructor-arg name="password"
@@ -83,7 +83,6 @@
 		<beans:property value="classpath:/*Mapper.xml"
 			name="mapperLocations" />
 	</beans:bean>
-
 
 	<beans:bean class="org.mybatis.spring.SqlSessionTemplate"
 		id="sqlSession" destroy-method="clearCache">
