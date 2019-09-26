@@ -2,28 +2,28 @@ package vo;
 
 public class NewsVO {
 	private String title;
-	private String time;
-	private String content;
-	
+	private String date;
+	private String contents;
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getTime() {
-		return time;
+	public String getDate() {
+		return date;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setDate(String date) {
+		this.date = date;
 	}
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	
-	
-	
+	@Override
+	public String toString() {
+		return "[title:"+title+", date:"+date+", contents:"+contents+"]";
+	}
 }
