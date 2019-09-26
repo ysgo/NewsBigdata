@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class HomeController {
 	@Value("${db.driver}")
 	private String DRIVER;
-	@Value("${db.url}")
+	@Value("${db.url_local}")
 	private String URL;
 	@Value("${db.userName}")
 	private String USER;
