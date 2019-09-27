@@ -19,66 +19,63 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <title>Main Page</title>
 <style>
-button {
- all: unset;
- background-color: steelblue;
- color:white;
- padding: 5px 20px;
- border-radius: 5px;
- cursor: pointer;
+ /* The Modal (background) */
+ .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */                          
+        }
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+#myBtn {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.428571429;
+    font-family: "Noto Sans KR",sans-serif;
+    word-break: keep-all;
+    white-space: nowrap;
+    box-sizing: border-box;
+    background-color: transparent;
+    text-decoration: none;
+    font-size: 16px;
+    color: #424242;
+    letter-spacing: -0.05em;
 }
-.modal {
- box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
-}
-.modal_overlay {
-	background-color: rgba(0, 0, 0, 0.6);
-	width: 100%;
-	height: 100%;
-	position: absolute;
-}
-.modal_content {
-	background-color: white;
-	padding: 50px 100px;
-	text-align: center;
-	position: relative;
-	border-radius: 5px;
-	width: 20%;
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px, 6px rgba(0, 0, 0, 0.23);
-}
-h1 {
-	margin:0;
-}
-.hidden {
-	display:none;
+#myBtn:hover {
+    color: black;
+    font-weight: bold;
 }
 </style>
 </head>
 <body>
 	<h1>Main 페이지</h1>
 	<hr>
-	
-<!-- <button id="open">Open Modal</button> 
-<div class="modal hidden">
-	<div class="modal_overlay"></div>
-	<div class="modal_content">
-		<h1>I'm a modal</h1>
-		<button>X</button>
-	</div>
-</div>
-<div id="ex1" class="modal">
-  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
-  <a href="#" rel="modal:close">닫기</a>
-</div>
- 
-<p><a href="#ex1" rel="modal:open">모달창띄우기</a></p> -->
 
 
 	<div>
@@ -93,9 +90,9 @@ h1 {
 					<c:choose>
 						<c:when test="${ list1 != null }">
 							<c:forEach var="data" items="${list1}">
-								<ul> 
-									<li><p><a href="#" id="open">${ data.title }</a></p></li>
-								</ul>
+								<p>
+									<a href="#" id="myBtn" >${ data.title }</a>
+								</p>
 							</c:forEach>
 						</c:when>
 					</c:choose>
@@ -104,24 +101,105 @@ h1 {
 			</div>
 			<div class="grey-text">
 				<i class="fal fa-clock"></i> 날짜: <span id="issue-analysis-time">2019.09.25(수)
-					14:00</span>
+					14:00</span> 
 			</div>
 		</div>
 	</div>
-<!-- <script>
-	var openButton = document.getElementById("open");
-	var modal = document.querySelector(".modal");
-	var overlay = modal.querySelector(".modal_overlay");
-	var closeBtn = modal.querySelector("button");
-	function openModal() {
-		modal.classList.remove("hidden");
-	}
-	function closeModal() {
-		modal.classList.add("hidden");
-	}
-	overlay.addEventListener("click", closeModal);
-	closeBtn.addEventListener("click", closeModal);
-	openButton.addEventListener("click", openModal);
-</script> -->
+	
+	
+    <!-- Trigger/Open The Modal -->
+<!--     <button id="myBtn">Open Modal</button>
+    <ul> 
+        <li><p><a href="#" id="myBtn1">글1</a></p></li>
+    </ul> -->
+    <!-- The Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <span class="close">&times;</span>                                                               
+                    <p>Some text in the Modal..</p> -->
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+              <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                  <div class="news-detail__content">
+                      <div class="text-center news-detail__image mt-2 mb-2">
+                      <c:if test="${!empty readNews }">
+                      	<h3>Title : ${ readNews.title }</h3>
+                      	<hr>
+                      	<p>Date : ${ readNews.date }</p>
+                      	<p>Contents : ${ readNews.contents }</p>
+                      </c:if>
+                      </div> 
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function readNews(e) {
+	console.log(e);
+	$.ajax({
+		url: "readNews.do",
+		type: "GET",
+		data: {title: e},
+		dataType: "text",
+		success: function(data) {
+			$('body').html(data);
+			console.log(data);
+		    modal.style.display = "block";
+		},
+		error: function(request, status, error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+		}
+	})    
+}
+// Get the modal
+var modal = document.getElementById('myModal');
+ 
+ // Get the button that opens the modal
+ var btn = document.getElementById("myBtn");
+ // Get the <span> element that closes the modal
+ var span = document.getElementsByClassName("close")[0];                                          
+ 
+ // When the user clicks on the button, open the modal 
+ btn.onclick = function() {
+	 var value = btn.text;
+	 console.log(value);
+	 $.ajax({
+			url: "readNews.do?title="+value,
+			type: "GET",
+			success: function(data) {
+				$('body').html(data);
+				console.log(data);
+			    modal.style.display = "block";
+			},
+			error: function(request, status, error) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:");
+			}
+		})    
+	
+ } 
+ // When the user clicks on <span> (x), close the modal
+ span.onclick = function() {
+     modal.style.display = "none";
+ }
+
+ // When the user clicks anywhere outside of the modal, close it
+ window.onclick = function(event) {
+     if (event.target == modal) {
+         modal.style.display = "none";
+     }
+ }
+
+</script>
 </body>
 </html>

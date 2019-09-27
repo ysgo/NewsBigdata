@@ -8,4 +8,8 @@
 	<select id="allTitle" resultType="vo.NewsVO">
 		select title from newstmp;
 	</select>
+	
+	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
+		select * from newstmp where title=#{title}
+	</select>
 </mapper>

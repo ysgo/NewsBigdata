@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,4 +40,19 @@ public class NewsController {
 //	public ModelAndView newsMap() {
 //		return new ModelAndView("main");
 //	}
+	
+	@RequestMapping(value="/readNews.do", method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView readNews(@ModelAttribute NewsVO vo, String title) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("title: " + title);
+		System.out.println(vo.getTitle());
+		vo = service.readNews(vo);
+		if(vo != null) {
+			System.out.println(vo);
+			mav.addObject("readNews", vo);
+		}
+		mav.setViewName("main");
+		return mav;
+	}
 }
