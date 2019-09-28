@@ -16,11 +16,6 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Hadoop Setup -->
-	<hadoop:configuration id="hdConf">
-		fs.defaultFS=hdfs://192.168.111.120:9000
-	</hadoop:configuration>
-
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
@@ -48,23 +43,6 @@
 		<beans:property name="fileEncoding" value="UTF-8" />
 	</beans:bean>
 
-
-	<beans:bean id="hiveDriver"
-		class="org.apache.hive.jdbc.HiveDriver" />
-	<beans:bean id="hiveDataSource"
-		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-		<beans:constructor-arg name="driver"
-			ref="hiveDriver" />
-		<beans:constructor-arg name="url"
-			value="jdbc:mariadb://70.12.113.176:3306/news" />
-		<beans:constructor-arg name="username"
-			value="root" />
-		<beans:constructor-arg name="password"
-			value="password" />
-	</beans:bean>
-
-
-
 	<beans:bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
@@ -89,13 +67,4 @@
 		<beans:constructor-arg ref="sqlSessionFactory"
 			name="sqlSessionFactory" />
 	</beans:bean>
-
-	<!-- 인터셉터 객체 생성 -->
-	<!-- <beans:bean id="AuthLoginInterceptor" class="com.mynews.newsbigdata.AuthLoginInterceptor"> 
-		</beans:bean> -->
-	<!-- Interceptor 설정 -->
-	<!-- <interceptors> <interceptor> <mapping path="/*.do"/> <exclude-mapping 
-		path="/resources/**"/> <beans:ref bean="AuthLoginInterceptor"/> </interceptor> 
-		</interceptors> -->
-
 </beans:beans>

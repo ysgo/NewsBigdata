@@ -24,6 +24,6 @@ public class NewsVO {
 	}
 	@Override
 	public String toString() {
-		return "[title:"+title+", date:"+date+", contents:"+contents+"]";
+		return "[title:"+title+"\ndate:"+date+"\ncontents:"+contents+"]";
 	}
 }

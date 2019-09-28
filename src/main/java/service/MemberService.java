@@ -13,7 +13,7 @@ public class MemberService {
 	private MemberDAO dao;
 
 	// 회원 가입
-	public boolean signup(MemberVO vo) throws Exception {
+	public boolean signup(MemberVO vo) {
 		return dao.signup(vo);
 	}
 

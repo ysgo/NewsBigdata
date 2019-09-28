@@ -15,7 +15,7 @@ public class MemberDAO {
 	String mapperRoute = "resource.MemberMapper.";
 	
 	// 회원 가입
-	public boolean signup(MemberVO vo) throws Exception {
+	public boolean signup(MemberVO vo) {
 		boolean result=true;
 		String statement = mapperRoute+"signup";
 		if(session.insert(statement, vo) != 1)

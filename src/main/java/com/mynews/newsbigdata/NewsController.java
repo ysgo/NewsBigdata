@@ -1,5 +1,6 @@
 package com.mynews.newsbigdata;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,13 @@ public class NewsController {
 	
 	@RequestMapping(value="/readNews.do", method=RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView readNews(@ModelAttribute NewsVO vo, String title) {
-		ModelAndView mav = new ModelAndView();
-		System.out.println("title: " + title);
+	public HashMap<String, Object> readNews(@ModelAttribute NewsVO vo) {
 		System.out.println(vo.getTitle());
+		HashMap<String, Object> map = new HashMap<>();
 		vo = service.readNews(vo);
 		if(vo != null) {
-			System.out.println(vo);
-			mav.addObject("readNews", vo);
+			map.put("readNews", vo);
 		}
-		mav.setViewName("main");
-		return mav;
+		return map;
 	}
 }
