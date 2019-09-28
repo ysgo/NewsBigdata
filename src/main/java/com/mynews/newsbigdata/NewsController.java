@@ -45,9 +45,10 @@ public class NewsController {
 	@RequestMapping(value="/readNews.do", method=RequestMethod.GET)
 	@ResponseBody
 	public HashMap<String, Object> readNews(@ModelAttribute NewsVO vo) {
-		System.out.println(vo.getTitle());
 		HashMap<String, Object> map = new HashMap<>();
+		System.out.println(vo.getTitle());
 		vo = service.readNews(vo);
+		System.out.println(vo.getTitle());
 		if(vo != null) {
 			map.put("readNews", vo);
 		}

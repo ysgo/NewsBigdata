@@ -74,32 +74,29 @@
       <script>
       	function readNews(num) {
       		/* var val = document.getElementById("main_title").value; */
-			var value = document.getElementsByClassName("main_title");
-      		console.log(num); 
-      		console.log(value[num]);
+			var value = document.getElementsByClassName("main_title")[num].innerText;
+			console.log(value);
+      		
       		$.ajax({ 
-      			url: "readNews.do?title="+value[num],
+      			url: "readNews.do?title="+value,
       			type: "GET",
       			success: function(data) {
 		      		document.getElementById('id01').style.display='block';
-      				console.log("Success");
-      				console.log(data);
+      				console.log("Success" + data);
       				document.getElementById("m_title").innerHTML=data.readNews.title;
       				document.getElementById("m_contents").innerHTML=data.readNews.contents;
       			},
       			error: function(request, status, error) {
-      				console.log("Error");
-      				console.log("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      				console.log("Error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
       			}
       		});
       	}
       	function closeBtn() {
       		document.getElementById('id01').style.display='none';
-      		reset();
       	}
       	function reset() {
-      		document.getElementById("m_title").innerHTML=null;
-			document.getElementById("m_contents").innerHTML=null;
+      		document.getElementById("m_title").innerHTML="";
+			document.getElementById("m_contents").innerHTML="";
       	}
       </script>
 </body>
