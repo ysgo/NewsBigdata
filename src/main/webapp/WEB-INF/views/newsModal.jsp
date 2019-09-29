@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ include file="common/header.jsp" %>
+<script src="<c:url value='/resources/js/modal.js' />"></script>
+</head>
 <body>
 	<div class="w3-container">
 		<div id="id01" class="w3-modal">
-			<!-- Modal with Container-->
 			<div class="w3-modal-content">
-				<!-- Modal as Card-->
-				<!-- <div class="w3-modal-content w3-card-4"> -->
 				<header class="w3-container w3-teal">
 					<span onclick="closeBtn()" class="w3-button w3-display-topright">&times;</span>
 					<h2 id="m_title">Title :</h2>

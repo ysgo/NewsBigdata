@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
-<body>
-	<!------ Include the above in your HEAD tag ---------->
-
+<%@ include file="common/header.jsp" %>
+<%-- <link href="<c:url value='/resources/css/myPage.css' />" rel="stylesheet"> --%>
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css" rel="stylesheet">
+<script src="<c:url value='/resources/js/myPage.js' />"></script>
+</head>
+<body> 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-5  toppad  pull-right col-md-offset-3 ">
@@ -124,7 +126,6 @@
 			</div>
 		</div>
 	</div>
-</body>
 <script>
 $('#btn_my_info').click(function() {
 	$('#my_info').css('display','block');
@@ -152,4 +153,4 @@ function mykeyup() {
 	}
 }
 </script>
-</html>
+<%@ include file="common/footer.jsp" %>

@@ -1,6 +1,4 @@
-/**
- * 
- */
+// myPage 페이지 동작 자바스크립트
 $(document).ready(function() {
     var panels = $('.user-infos');
     var panelsButton = $('.dropdown-user');

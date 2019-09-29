@@ -1,25 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<%@ include file="common/header.jsp" %>
 <link href="<c:url value='/resources/css/signUp.css' />" rel="stylesheet">
 <script src="<c:url value='/resources/js/signUp.js' />"></script>
 </head>
 <body>
-<!------ Include the above in your HEAD tag ---------->
-
-
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <hr class="colorgraph colorgraph-header">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -29,7 +17,6 @@
                 </button>
                 <a class="navbar-brand" href="index.php">Elementary</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -37,9 +24,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
     </nav>
 
     <div class="container">
@@ -154,6 +139,7 @@
     </footer>
     <hr class="colorgraph colorgraph-footer">
 <script>
+//회원가입 유효성 검사 등
 function mykeyup() {
 	var updatePass = document.getElementById('password').value;
 	var checkPass = document.getElementById('password_confirmation').value;
@@ -162,13 +148,14 @@ function mykeyup() {
 	} else {
 		document.getElementById('update_submit').disabled = true;
 	}
-}
+};
+
 function checkVal(e) {
 	if(fr.e.value == "") {
 		var name = 'alert_'+e;
 		document.getElementById(name).innerHTML="값을 입력해주세요.";
 	}
-}
+};
 
 function check() {
 	if(fr.password.value != fr.re_password.value) {
@@ -178,8 +165,6 @@ function check() {
 	    fr.re_password.focus();
 	    return false;
 	  } else return true;
-}
+};   
 </script>
-</body>
-
-</html>
+<%@ include file="common/footer.jsp" %>

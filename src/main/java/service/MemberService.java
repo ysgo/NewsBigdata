@@ -33,7 +33,7 @@ public class MemberService {
 	}
 
 	// 로그아웃
-	public void signout(SessionStatus session) throws Exception {
+	public void signout(SessionStatus session) {
 		dao.signout(session);
 	}
 
