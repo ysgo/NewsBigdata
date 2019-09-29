@@ -42,15 +42,16 @@ public class NewsController {
 //		return new ModelAndView("main");
 //	}
 	
+	// 메인페이지 뉴스 기사 리스트 출력 & 모달페이지 뉴스 기사 내용 출력
 	@RequestMapping(value="/readNews.do", method=RequestMethod.GET)
 	@ResponseBody
 	public HashMap<String, Object> readNews(@ModelAttribute NewsVO vo) {
 		HashMap<String, Object> map = new HashMap<>();
-		System.out.println(vo.getTitle());
-		vo = service.readNews(vo);
-		System.out.println(vo.getTitle());
-		if(vo != null) {
+		try {
+			vo = service.readNews(vo);
 			map.put("readNews", vo);
+		} catch(NullPointerException e) {
+			System.out.println("제목과 매치되는 기사가 존재하지 않습니다.");
 		}
 		return map;
 	}
