@@ -26,14 +26,14 @@ public class NewsController {
 	NewsService service;
 	
 	
-	@RequestMapping(value="/main.do", method=RequestMethod.GET)
+	@RequestMapping(value="/mainNews.do", method=RequestMethod.GET)
 	public ModelAndView newsMap(Model model) {
 		// http://localhost:8000/newsbigdata/main.do?fid=01
 //		model.addAttribute("apiKey", naverClientID);
 		ModelAndView mav = new ModelAndView();
 		List<NewsVO> list = service.listAll();
 		mav.addObject("list1", list);
-		mav.setViewName("main");
+		mav.setViewName("main_news");
 		return mav;
 	}
 	
@@ -43,7 +43,7 @@ public class NewsController {
 //	}
 	
 	// 메인페이지 뉴스 기사 리스트 출력 & 모달페이지 뉴스 기사 내용 출력
-	@RequestMapping(value="/readNews.do", method=RequestMethod.GET)
+	@RequestMapping(value="/readNews.do", method = RequestMethod.GET)
 	@ResponseBody
 	public HashMap<String, Object> readNews(@ModelAttribute NewsVO vo) {
 		HashMap<String, Object> map = new HashMap<>();

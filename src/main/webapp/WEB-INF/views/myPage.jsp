@@ -126,31 +126,6 @@
 			</div>
 		</div>
 	</div>
-<script>
-$('#btn_my_info').click(function() {
-	$('#my_info').css('display','block');
-	$('#update_info').css('display','none');
-	$('#confirm').css('display','none');
-})
-$('#btn_update_info').click(function() {
-	$('#my_info').css('display','none');
-	$('#update_info').css('display','block');
-	$('#confirm').css('display','none');
-})
-$('#btn_withdrawal').click(function() {
-	$('#my_info').css('display','none');
-	$('#update_info').css('display','none');
-	$('#confirm').css('display','block');
-})
-
-function mykeyup() {
-	var updatePass = document.getElementById('pw1').value;
-	var checkPass = document.getElementById('pw2').value;
-	if(updatePass == checkPass) {
-		document.getElementById('update_submit').disabled = false;
-	} else {
-		document.getElementById('update_submit').disabled = true;
-	}
-}
-</script>
+	
+<script src="<c:url value='/resources/js/myPage_form.js' />"></script>
 <%@ include file="common/footer.jsp" %>
