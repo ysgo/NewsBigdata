@@ -158,37 +158,37 @@ for(categorynb in 2:5){
       contentLink<-remDr$findElements(using='css',contentaddr)
       content<-unlist(sapply(contentLink,function(x){x$getElementText()}))
       
-      #이미지파트
-      imgtextaddr<-'#article_story > figure'
-      imgtextLink<-remDr$findElements(using='css',imgtextaddr)
-      imgtext<-unlist(sapply(imgtextLink,function(x){x$getElementText()}))
-      
-      #webElem <- remDr$findElement(using='css', '#article_story > div.article-feedback.read')
-      #remDr$executeScript("scrollTo(0,document.body.scrollHeight)", args = list(webElem))
-      
-      #Sys.sleep(1)
-      #피드백파트
-      # feedbackaddr<-'#article_story > div.article-feedback.read'
-      # feedbackLink<-remDr$findElements(using='css',feedbackaddr)
-      # feedback<-unlist(sapply(feedbackLink,function(x){x$getElementText()}))
-      
-      #사진 주석 제외처리 +피드백
-      content <- gsub("\\[","",gsub("]","",content))
-      content<- gsub("[()]","",content)
-      
-      imgtext <- gsub("\\[","",gsub("]","",imgtext))
-      imgtext <- gsub("[()]","",imgtext)
-      
-      #content<-gsub(feedback,"",content)
-      
-      j <- 1
-      repeat{
-        content<-str_replace(content,imgtext[j],"")
-        if(j==length(imgtext)){
-          break
-        }
-        j <- j+1
-      }
+      # #이미지파트
+      # imgtextaddr<-'#article_story > figure'
+      # imgtextLink<-remDr$findElements(using='css',imgtextaddr)
+      # imgtext<-unlist(sapply(imgtextLink,function(x){x$getElementText()}))
+      # 
+      # #webElem <- remDr$findElement(using='css', '#article_story > div.article-feedback.read')
+      # #remDr$executeScript("scrollTo(0,document.body.scrollHeight)", args = list(webElem))
+      # 
+      # #Sys.sleep(1)
+      # #피드백파트
+      # # feedbackaddr<-'#article_story > div.article-feedback.read'
+      # # feedbackLink<-remDr$findElements(using='css',feedbackaddr)
+      # # feedback<-unlist(sapply(feedbackLink,function(x){x$getElementText()}))
+      # 
+      # #사진 주석 제외처리 +피드백
+      # content <- gsub("\\[","",gsub("]","",content))
+      # content<- gsub("[()]","",content)
+      # 
+      # imgtext <- gsub("\\[","",gsub("]","",imgtext))
+      # imgtext <- gsub("[()]","",imgtext)
+      # 
+      # #content<-gsub(feedback,"",content)
+      # 
+      # j <- 1
+      # repeat{
+      #   content<-str_replace(content,imgtext[j],"")
+      #   if(j==length(imgtext)){
+      #     break
+      #   }
+      #   j <- j+1
+      # }
       
       if(categorynb==2){
         politics = NULL
@@ -214,7 +214,7 @@ for(categorynb in 2:5){
       
       print(title)
       remDr$goBack()
-      Sys.sleep(3)
+      Sys.sleep(5)
     }
     if(endFlag)
       break

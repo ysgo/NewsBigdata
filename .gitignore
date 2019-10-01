@@ -4,6 +4,8 @@
 
 # Add Ignore
 target/
+*.properties
+config/
 
 ### Eclipse ###
 .metadata
