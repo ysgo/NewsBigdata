@@ -126,16 +126,16 @@ for(menunb in 1:4){
     write.csv(dfPolitics,"dfPoliticsNotEncoding.csv",row.names=FALSE)
   }else if(menunb==2){
     dfBusiness.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfBusiness.csv,"dfBusiness.csv.csv",row.names=FALSE,fileEncoding = "UTF-8")
+    write.csv(dfBusiness.csv,"dfBusiness.csv",row.names=FALSE,fileEncoding = "UTF-8")
     write.csv(dfBusiness.csv,"dfBusinessNotEncoding.csv",row.names=FALSE)
     
   }else if(menunb==3){
     dfSocialAffairs.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfSocialAffairs.csv,"dfSocialAffairs.csv.csv",row.names=FALSE,fileEncoding = "UTF-8")
+    write.csv(dfSocialAffairs.csv,"dfSocialAffairs.csv",row.names=FALSE,fileEncoding = "UTF-8")
     write.csv(dfSocialAffairs.csv,"dfSocialAffairsNotEncoding.csv",row.names=FALSE)
   }else if(menunb==5){
     dfWorld.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfWorld.csv,"dfWorld.csv.csv",row.names=FALSE,fileEncoding = "UTF-8")
+    write.csv(dfWorld.csv,"dfWorld.csv",row.names=FALSE,fileEncoding = "UTF-8")
     write.csv(dfWorld.csv,"dfWorldNotEncoding.csv",row.names=FALSE)
   }
   
