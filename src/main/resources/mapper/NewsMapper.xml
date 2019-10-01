@@ -15,5 +15,9 @@
 
 	<select id="searchKeyWord" resultType="vo.NewsVO">
 		select title contents from news_test where keyword like '%'||#{keyword}||'%
+	
+	</select>
+	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
+		select * from newstmp where title=#{title}
 	</select>
 </mapper>

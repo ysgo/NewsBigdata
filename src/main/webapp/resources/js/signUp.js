@@ -1,3 +1,4 @@
+// 회원가입 페이지 기본화면 동작
 $(function () {
     $('.button-checkbox').each(function () {
 

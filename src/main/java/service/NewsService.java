@@ -23,4 +23,9 @@ public class NewsService {
 //	public List<NewsVO> nationList(NewsVO vo) {
 //		return dao.nationList(vo);
 //	}
+	
+	// 뉴스 타이틀 검색으로 기사 내용 가져오기
+	public NewsVO readNews(NewsVO vo) {
+		return dao.readNews(vo);
+	}
 }

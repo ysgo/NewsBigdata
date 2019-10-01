@@ -30,4 +30,10 @@ public class NewsDAO {
 //		String statement = mapperRoute+"";
 //		return session.selectList(statement, vo);
 //	}
+	
+	// 뉴스 타이틀 검색으로 기사 내용 가져오기
+	public NewsVO readNews(NewsVO vo) {
+		String statement = mapperRoute+"readNews";
+		return session.selectOne(statement, vo);
+	}
 }

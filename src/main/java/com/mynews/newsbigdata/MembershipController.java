@@ -35,7 +35,7 @@ public class MembershipController {
 
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
 	@RequestMapping(value="/signIn.do", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView("signIn");
 
 		if ( session.getAttribute("status") != null ){
