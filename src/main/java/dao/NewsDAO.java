@@ -20,6 +20,11 @@ public class NewsDAO {
 		return session.selectList(statement);
 	}
 	
+	// 뉴스 키워드 출력
+		public List<NewsVO> selectKeyword() {
+			String statement = mapperRoute+"searchKeyWord";
+			return session.selectList(statement);
+		}
 //	// 뉴스 리스트 지역관련 기사 출력
 //	public List<NewsVO> nationList(NewsVO vo) {
 //		String statement = mapperRoute+"";

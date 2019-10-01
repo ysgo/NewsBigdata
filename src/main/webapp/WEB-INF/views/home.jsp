@@ -32,6 +32,9 @@
 		          	<form action="hadoopView_test.do" method="get" style ='float: left;'>
 		              		<input id="signColor" type="submit" class="nav-link p-2" value="하둡테스트">
 		          	</form>
+		          	<form action="NewsdetailView.do" method="get" style ='float: left;'>
+		              		<input id="signColor" type="submit" class="nav-link p-2" value="뉴스 리스트">
+		          	</form>
 		        </div>
 	        </c:otherwise>
         </c:choose>

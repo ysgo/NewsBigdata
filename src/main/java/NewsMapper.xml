@@ -8,4 +8,12 @@
 	<select id="allTitle" resultType="vo.NewsVO">
 		select title from newstmp;
 	</select>
+	<!-- 뉴스 타이틀  출력 -->
+	<select id="selectTitle" resultType="vo.NewsVO">
+		select title from news_test;
+	</select>
+
+	<select id="searchKeyWord" resultType="vo.NewsVO">
+		select title contents from news_test where keyword like '%'||#{keyword}||'%
+	</select>
 </mapper>

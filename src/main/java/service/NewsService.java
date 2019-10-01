@@ -15,6 +15,7 @@ public class NewsService {
 	
 	// 뉴스 타이틀 전체 출력
 	public List<NewsVO> listAll() {
+		System.out.println("서비스의 listALL 출력");
 		return dao.listAll();
 	}
 	

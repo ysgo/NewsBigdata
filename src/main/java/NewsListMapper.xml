@@ -5,10 +5,16 @@
   
 <mapper namespace="resource.NewsListMapper">
 
-	<!-- 회원 로그인 정보  -->
+	<!-- 전체 출력  -->
 	<select id="selectNews" resultType="vo.NewsVO" >
 		SELECT * from news_test where time like '%'||#{time}||'%'
 	</select>
 	<!-- select * from memberinfo where email=#{email} -->
 	<!-- 	SELECT * from news_test where time like '%'||#{time}||'%' -->
+	
+	
+	<!-- 뉴스 타이틀  출력 -->
+	<select id="selectTitle" resultType="vo.NewsVO">
+		select title from news_test;
+	</select>
 </mapper>

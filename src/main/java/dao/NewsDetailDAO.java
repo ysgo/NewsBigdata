@@ -19,43 +19,26 @@ import vo.NewsVO;
 
 @Repository
 public class NewsDetailDAO {
-	@Autowired
 	@Qualifier("hiveDataSource")	
 	DataSource ds;
 
-	public List<NewsVO> select1(String keyword) {
-		System.out.println("입력된 time값 :"+keyword);
-		List<NewsVO> list = new ArrayList<>();
-		Connection conn = null;
-		Statement stmt = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = ds.getConnection(); //"select *from news_test where content LIKE '%"+keyword+"%'"
-			pstmt = conn.prepareStatement("select *from news_test");
-			rs = pstmt.executeQuery();
-			
-			NewsVO vo = null;
-			while(rs.next()) {
-				vo = new NewsVO();				
-				vo.setTitle(rs.getString(1));
-				vo.setTime(rs.getString(2));
-				vo.setContent(rs.getString(3));
-				list.add(vo);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if( rs != null ) rs.close();
-				if( stmt != null ) stmt.close();
-				if( conn != null ) conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();				
-			} 
-		}
-		return list;		
+	@Autowired
+	SqlSession session = null;
+	String mapperRoute = "resource.NewsMapper.";
+	
+	// 뉴스 타이틀 전체출력
+	public List<NewsVO> selectTitle() {
+		System.out.println("selectTitle에 들어옴");
+		String statement = mapperRoute+"selectTitle";
+		return session.selectList(statement);
 	}
+	
+	// 뉴스 키워드 검색 출력
+		public List<NewsVO> searchKeyWord() {
+			System.out.println("searchKeyWord에 들어옴");
+			String statement = mapperRoute+"searchKeyWord";
+			return session.selectList(statement);
+		}
 }
 
 
