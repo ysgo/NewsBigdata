@@ -38,10 +38,10 @@
 		
 		<!-- name명이 MeetingMapper에 정의된 namespace와 일치해야한다. 수행하는 로그를 출력시켜줌 -->
 		<Logger name="resource.MemberMapper" level="DEBUG" additivity="false">
-			<AppenderRef ref="STDOUT4"  />
+			<AppenderRef ref="STDOUT3"  />
 		</Logger>
 		<Logger name="resource.NewsMapper" level="DEBUG" additivity="false">
-			<AppenderRef ref="STDOUT4"  />
+			<AppenderRef ref="STDOUT3"  />
 		</Logger>
 
 		<Root level="error">

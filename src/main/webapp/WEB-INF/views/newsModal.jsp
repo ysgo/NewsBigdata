@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp" %>
-<script src="<c:url value='/resources/js/modal.js' />"></script>
+<script src="<c:url value='/resources/js/modal_news.js' />"></script>
 </head>
 <body>
 	<div class="w3-container">

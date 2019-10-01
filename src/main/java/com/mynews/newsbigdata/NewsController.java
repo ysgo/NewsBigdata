@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,20 +19,18 @@ import vo.NewsVO;
 @Controller
 @SessionAttributes("status")
 public class NewsController {
-	@Value("${naverID}")
-	private String naverClientID;
 	@Autowired
 	NewsService service;
-	
+	@Autowired
+	private Environment env;
 	
 	@RequestMapping(value="/mainNews.do", method=RequestMethod.GET)
-	public ModelAndView newsMap(Model model) {
+	public ModelAndView newsMap() {
 		// http://localhost:8000/newsbigdata/main.do?fid=01
-//		model.addAttribute("apiKey", naverClientID);
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("main_news");
 		List<NewsVO> list = service.listAll();
 		mav.addObject("list1", list);
-		mav.setViewName("main_news");
+		mav.addObject("naverID", env.getProperty("naver.ID"));
 		return mav;
 	}
 	
