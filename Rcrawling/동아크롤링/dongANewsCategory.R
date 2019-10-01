@@ -38,15 +38,10 @@ Sys.sleep(3)
 
 page<-3
 endFlag <- FALSE
-for(repeatnb in 1:5){#400
-
-  titleaddr<-('#contents > div.page > a:nth-child(5)')
-  titleLink<-remDr$findElements(using='css',titleaddr)
-  sapply(titleLink,function(x){x$clickElement()})
-
+for(repeatnb in 1:1){#400
   for(index in 3:22){ #3:22
     #한페이지 뉴스제목수 /클릭후 제목 날짜 내용 크롤링
-    titleaddr<-paste0('#contents > div:nth-child(',index,') > div.rightList > a > span.tit')
+    titleaddr<-paste0('#contents > div:nth-child(',6,') > div.rightList > a > span.tit')
     titleLink<-remDr$findElements(using='css',titleaddr)
     sapply(titleLink,function(x){x$clickElement()})
     Sys.sleep(5) #5
@@ -71,64 +66,55 @@ for(repeatnb in 1:5){#400
     content3<-unlist(sapply(contentLink,function(x){x$getElementText()}))
     
     # #사진 일때,. 슬라이드일때
-    # imgtextaddr<-'#contents > div.article_view > div.article_txt > div.articlePhotoC'
-    # imgtextLink<-remDr$findElements(using='css',imgtextaddr)
-    # 
-    # imgtextaddrs<-'#contents > div.article_view > div.article_txt > div.articlePhoto_slide'
-    # imgtextLinks<-remDr$findElements(using='css',imgtextaddrs)
-    # 
-    # http://www.donga.com/news/List/Politics/article/all/20190924/97561635/1
-    # 
-    # if(length(imgtextLink)>=0){
-      # imgtext<-unlist(sapply(imgtextLink,function(x){x$getElementText()}))
-      # 
-      # x<-imgtext[2]
-      # gsub("(","\\[(]",x)
-    # }else if(length(imgtextLinks)>=0){
-    #   imgtextslide<-unlist(sapply(imgtextLinks,function(x){x$getElementText()}))
-    # }
-    # imgtext<-gsub("[()]","",imgtext)
-    # 
-    # 
-    # content3<-str_replace(pattern=imgtext,replacement = "",content3)
-    # 
-    # split(a,content3)
-    # 
-    # a<-str_sub(imgtext,start=1,end=-1)
-    # 
-    # content3<-gsub(pattern = "^.*?\\n\\n", replacement = "", content3)
-    # content3<-str_extract(pattern = "^.*?\\n\\n", replacement = "", content3)
-    # 
-    # imgtext<-gsub(pattern = "\\(", replacement = "\\\\(", imgtext)
-    # 
-    # a<-gsub(pattern =" © ", replacement = "", a)
-    # gsub(pattern ="[[:punct:]]", replacement = "", a)
-    # a<-imgtext[2]
-    # a<-substr(a,1,37)
-    # gsub("©","",a)
-    # gsub(pattern = "^.*?\\n\\n\\n", replacement = "", content3)
-    # 
-    # j <- 1
-    # repeat{
-    #   content3<-gsub(pattern = "^.*?\\n\\n", replacement = "", content3)
-    #   
-    #   if(j==length(imgtext)){
-    #     break
-    #   }
-    #   j <- j+1
-    # }
     
-    # #주요기사링크파트
-    # textadaddr<-'#contents > div.article_view > div.article_txt > div.article_relation'
-    # textadLink<-remDr$findElements(using='css',textadaddr)
-    # textad<-unlist(sapply(textadLink,function(x){x$getElementText()}))
-    # 
+    imgtextaddr<-'#contents > div.article_view > div.article_txt > div:nth-child(1) > div'
+    imgtextLink<-remDr$findElements(using='css',imgtextaddr)
+
+    imgtextaddrs<-'#contents > div.article_view > div.article_txt > div.articlePhoto_slide'
+    imgtextLinks<-remDr$findElements(using='css',imgtextaddrs)
+    
+    
+    if(length(imgtextLink)>=1){
+      imgtext<-unlist(sapply(imgtextLink,function(x){x$getElementText()}))
+    }else{
+      imgtext<-unlist(sapply(imgtextLinks,function(x){x$getElementText()}))
+    }
+    imgtext<-gsub(pattern = "\\(", replacement = "\\\\(", imgtext)
+    imgtext<-gsub(pattern = "\\[", replacement = "\\\\[", imgtext)
+    # content3<-gsub(pattern=imgtext,replacement = "",content3)
+    str_replace_all(content3,imgtext,"")
+
+    j <- 1
+    repeat{
+      content3<-gsub(pattern = "^.*?\\n\\n", replacement = "", content3)
+
+      if(j==length(imgtext)){
+        break
+      }
+      j <- j+1
+    }
+    
+    #주요기사링크파트
+    textadaddr<-'#contents > div.article_view > div.article_txt > div.article_relation'
+    textadLink<-remDr$findElements(using='css',textadaddr)
+    textad<-unlist(sapply(textadLink,function(x){x$getElementText()}))
+
+    
+    textad<-gsub(pattern = "\\(", replacement = "\\\\(", textad)
+    textad<-gsub(pattern = "\\[", replacement = "\\\\[", textad)
+    str_replace_all(content3,textad,"")
+    
     # content3<-gsub("[()]","",content3)
     # str_match(content3,textad)
     # content3<-str_replace(pattern=textad,replacement = "",content3)
     # content3<-sub(pattern = textad,replacement = "",content3)
     
+    #contents > div.article_view > div.article_txt > center
     
+    foottextaddr<-'#contents > div.article_view > div.article_txt > div.article_issue > div'
+    foottextLink<-remDr$findElements(using='css',foottextaddr)
+    foottext<-unlist(sapply(foottextLink,function(x){x$getElementText()}))
+   
     
     # politics<-c(politics,title3)
     # politics<-c(politics,date3)
@@ -164,6 +150,7 @@ write.csv(dfpoliticsUTF,"dfpoliticsUTF.csv",row.names=FALSE,fileEncoding = "UTF-
 
 str(dfpolitics)
 dfpolitics$content[2]
+
 
 
 #경제
