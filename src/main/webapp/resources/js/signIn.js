@@ -1,3 +1,7 @@
+// 로그인 아이디 비밀민호 유효성 검사 등
+
+
+// 로그인 기본 페이지 동작
 $(function(){
     $('.button-checkbox').each(function(){
 		var $widget = $(this),

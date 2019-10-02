@@ -26,22 +26,28 @@ public class MembershipController {
 	private MemberService service;
 	@Inject
 	PasswordEncoder passwordEncoder;
-	
-	// 로그인 페이지 이동 
-	@RequestMapping(value="/signIn.do", method=RequestMethod.GET)
+
+	// 메인페이지
+	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	public ModelAndView main() {
+		return new ModelAndView("main");
+	}
+
+	// 로그인 페이지 이동
+	@RequestMapping(value = "/signIn.do", method = RequestMethod.GET)
 	public ModelAndView signIn() {
 		return new ModelAndView("signIn");
 	}
 
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
 	@RequestMapping(value="/signIn.do", method=RequestMethod.POST)
-	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView("signIn");
 
-		if ( session.getAttribute("status") != null ){
-            // 기존에 login이란 세션 값이 존재한다면
-            session.removeAttribute("status"); // 기존값을 제거해 준다.
-        }
+		if (session.getAttribute("status") != null) {
+			// 기존에 login이란 세션 값이 존재한다면
+			session.removeAttribute("status"); // 기존값을 제거해 준다.
+		}
 		String pw = vo.getPassword();
 		vo = service.viewMember(vo);
 		if (vo != null) {
@@ -55,15 +61,15 @@ public class MembershipController {
 		}
 		return mav;
 	}
-	
+
 	// 회원가입 페이지 이동
-	@RequestMapping(value="/signUp.do", method=RequestMethod.GET)
+	@RequestMapping(value = "/signUp.do", method = RequestMethod.GET)
 	public ModelAndView signUp() {
 		return new ModelAndView("signUp");
 	}
 
 	// 회원가입 : 서비스 객체에 저장
-	@RequestMapping(value="/signUp.do", method=RequestMethod.POST)
+	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
 	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView("signUp");
 		String enc_password = passwordEncoder.encode(vo.getPassword());
@@ -83,20 +89,18 @@ public class MembershipController {
 		service.signout(session);
 		return "redirect:/home.do";
 	}
-	
+
 	// 마이페이지 이동
-	@RequestMapping(value="/myPage.do", method=RequestMethod.GET)
+	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
 	public ModelAndView myPage() {
 		return new ModelAndView("myPage");
 	}
 
 	// 마이페이지 비밀번호 수정
-	@RequestMapping(value="/updatePass.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePass.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView updatePass(@ModelAttribute MemberVO vo,
-			@SessionAttribute("status") MemberVO member,
-			@RequestParam("update_password") String update_password)
-			throws Exception {
+	public ModelAndView updatePass(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO member,
+			@RequestParam("update_password") String update_password) throws Exception {
 		ModelAndView mav = new ModelAndView("myPage");
 		boolean passCheck = passwordEncoder.matches(vo.getPassword(), member.getPassword());
 		if (passCheck) {
@@ -111,12 +115,11 @@ public class MembershipController {
 		}
 		return mav;
 	}
-	
+
 	// 마이페이지 닉네임 수정
-	@RequestMapping(value="/myPage.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo,
-			@SessionAttribute("status") MemberVO member)
+	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO member)
 			throws Exception {
 		ModelAndView mav = new ModelAndView("myPage");
 		member.setUserName(vo.getUserName());
@@ -126,12 +129,11 @@ public class MembershipController {
 		}
 		return mav;
 	}
-	
+
 	// 회원탈퇴 기능 수행
 	@RequestMapping(value = "/withdrawal.do", method = RequestMethod.POST)
-	public String withdrawal(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO user, 
-			SessionStatus sessionClear, HttpServletResponse response)
-			throws Exception {
+	public String withdrawal(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO user,
+			SessionStatus sessionClear, HttpServletResponse response) throws Exception {
 		String path = "withdrawal";
 		boolean passCheck = passwordEncoder.matches(vo.getPassword(), user.getPassword());
 		if (passCheck) {
