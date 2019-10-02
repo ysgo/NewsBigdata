@@ -2633,7 +2633,9 @@ input, select, textarea {
 		
 		/* modal*/
 		
-		.modal {
+		
+		 /* The Modal (background) */
+        .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
@@ -2645,9 +2647,11 @@ input, select, textarea {
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
+        
+        #signup.modal{display: none !important;}
     
         /* Modal Content/Box */
-        .modal-content-signup {
+        .modal-contents-signup {
             background-color: #fefefe;
             margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
@@ -2667,9 +2671,9 @@ input, select, textarea {
             text-decoration: none;
             cursor: pointer;
         }
-        
 
-		/* .modal {
+/*
+		.modal {
 		display:none;
 		-moz-flex-grow: 1;
 		-webkit-flex-grow: 1;
@@ -2699,9 +2703,7 @@ input, select, textarea {
 		max-width: 100%;
 		z-index: 3;
 	}
-
-
-		.modal article {
+	 .modal article {
 			-moz-transform: translateY(0.25rem);
 			-webkit-transform: translateY(0.25rem);
 			-ms-transform: translateY(0.25rem);
@@ -2790,6 +2792,6 @@ input, select, textarea {
 			}
 
 		}
-		
-*/
+		 */
+
 	}

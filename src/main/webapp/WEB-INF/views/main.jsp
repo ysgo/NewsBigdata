@@ -8,11 +8,12 @@
 -->
 <html>
 <head>
-<title>Prologue by HTML5 UP</title>
+<title>Bigdata News</title>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="resources/assets/css/main.css" />
+
 </head>
 <body class="is-preload">
 
@@ -48,7 +49,32 @@
 
 	<!-- Main -->
 	<div id="main">
+	
+	
+<!-- modal -->
+	<!-- Sign Up -->
 
+	<div id="signup" class="modal" style="display: none;">
+		<div class="modal-contents-signup">
+			<span class="close">&times;</span>
+			<h2 class="major">Sign Up</h2>
+			<form method="post" action="signUp.do">
+				
+				<input type="text" name="userName" id ="userName">
+				
+				<ul>
+					<li><input type="submit" value="Regisger" /></li>
+					<li><a href ="signIn.do"><input type="button" value="Sign In" /></a></li>
+				</ul>
+			</form>
+		</div>
+	</div>
+	
+
+	<!-- Login -->
+	
+	
+	
 		<!-- Intro -->
 		<section id="top" class="one dark cover">
 			<div class="container">
@@ -158,29 +184,6 @@
 
 	</div>
 
-	<!-- modal -->
-	<!-- Sign Up -->
-
-	<div id="signup" class="modal">
-		<!-- <div class="modal-content-signup"> -->
-			<span class="close">&times;</span>
-			<h2 class="major">Sign Up</h2>
-			<form method="post" action="signUp.do">
-				<ul>
-					<li><input type="submit" value="Regisger" /></li>
-					<li><a href ="signIn.do"><input type="button" value="Sign In" /></a></li>
-				</ul>
-			</form>
-		<!-- </div> -->
-	</div>
-
-
-
-
-	<!-- Login -->
-
-
-
 
 
 
@@ -193,6 +196,7 @@
 	<script src="resources/assets/js/util.js"></script>
 	<script src="resources/assets/js/main.js"></script>
 	<script src="resources/assets/js/modal.js"></script>
+	
 </body>
 </html>
 
