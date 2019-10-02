@@ -37,7 +37,7 @@ for(menunb in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
-  Sys.sleep(7)
+  Sys.sleep(5)
   
   categoryaddr<-paste0('#filter-category > div > div:nth-child(',menunb,') > label')
   categoryLink<-remDr$findElements(using='css',categoryaddr)
@@ -90,8 +90,8 @@ for(menunb in 1:4){
       contentLink<-remDr$findElements(using='css',contentaddr)
       getContent<-unlist(sapply(contentLink,function(x){x$getElementText()}))
       #\n제거
-      getContent<-gsub(pattern = "\\\n", replacement = "", getContent)
-      getContent<-gsub(pattern = "\\\"", replacement = "", getContent)
+      #getContent<-gsub(pattern = "\\\n", replacement = "", getContent)
+      #getContent<-gsub(pattern = "\\\"", replacement = "", getContent)
       
       # getContent<-gsub(pattern = "\\\n", replacement = "\r\n", getContent)
       # getContent<-gsub(pattern = "\\.", replacement = "\\.\r\n", getContent)
@@ -132,7 +132,7 @@ for(menunb in 1:4){
     linkCss<-paste0('#news-results-pagination > ul > li:nth-child(',page,') > a')
     linkCssLink<-remDr$findElements(using='css',linkCss)
     sapply(linkCssLink,function(x){x$clickElement()})
-    Sys.sleep(7)
+    Sys.sleep(5)
     page<-page+1
   }
   # 
@@ -159,7 +159,7 @@ for(menunb in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
-  Sys.sleep(7)
+  Sys.sleep(5)
   
 }
 
