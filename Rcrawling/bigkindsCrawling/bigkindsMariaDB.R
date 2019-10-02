@@ -159,7 +159,7 @@ for(menunb in 1:4){
 }
 
 drv<-JDBC(driverClass="com.mysql.jdbc.Driver",classPath="C:/Rstudy/mysql-connector-java-5.1.40.jar")
-conn<-dbConnect(drv,"jdbc:mysql://70.12.113.176:3306/newsbigdata","news","bigdata")
+conn<-dbConnect(drv,"jdbc:mysql://*/*","*","*")
 # query<-"select * from bigkinds"
 # dbGetQuery(conn,query)
 
@@ -169,6 +169,4 @@ dbWriteTable(conn,'bigkinds',dfBusiness)
 dbWriteTable(conn,'bigkinds',dfSocialAffairs)
 dbWriteTable(conn,'bigkinds',dfWorld)
 
-tmp<-dfPolitics
-tmp$content<-substr(tmp$content, start=1,stop=1000)
-dbWriteTable(conn,'big',tmp)
+
