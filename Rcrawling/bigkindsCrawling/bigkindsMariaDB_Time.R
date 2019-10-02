@@ -1,8 +1,14 @@
-install.packages("RSelenium")
-install.packages("rvest")
+# install.packages("RSelenium")
+# install.packages("rvest")
+# install.packages("rJava")
+# install.packages("Rserve")
 library(rvest)
 library(RSelenium)
 library(stringr)
+library(DBI)
+library(rJava)
+library(RJDBC)
+
 
 #빅카인즈
 remDr<-remoteDriver(remoteServerAddr = "localhost", port=4445, browserName="chrome")
@@ -16,15 +22,14 @@ Sys.sleep(10)
 # menuBtnLink<-remDr$findElements(using='css',menuBtn)
 # sapply(menuBtnLink,function(x){x$clickElement()})
 # Sys.sleep(10)
-
+newsname=NULL
+title=NULL
+category=NULL
+date=NULL
+url=NULL
+content=NULL
 for(menunb in 1:4){
   
-  newsname=NULL
-  title=NULL
-  category=NULL
-  date=NULL
-  url=NULL
-  content=NULL
   
   if (menunb==4)
     menunb<-5
@@ -32,25 +37,24 @@ for(menunb in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
-  Sys.sleep(10)
+  Sys.sleep(5)
   
   categoryaddr<-paste0('#filter-category > div > div:nth-child(',menunb,') > label')
   categoryLink<-remDr$findElements(using='css',categoryaddr)
   getCategory<-unlist(sapply(categoryLink,function(x){x$getElementText()}))
   getCategory<-str_sub(getCategory,start = 1L,end=2L)
-  
-  
+  Sys.sleep(3)
   
   #############################################################################################3
   # endflag<-FALSE
   page<-4
-  for(pageNB in 1:2){ #5페이지까지 원할때
-    for(index in 1:10){
+  for(pageNB in 1:1){ #5페이지까지 원할때
+    for(index in 1:1){
       #신문사이름
-      NewsNameaddr<-paste0('#news-results > div:nth-child(',pageNB,') > div.news-item__body > div.news-item__meta > a')
+      NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)
       getNewsName<-unlist(sapply(NewsNameLink,function(x){x$getElementText()}))
-      
+      Sys.sleep(3)
       #페이지별 기사 반복 클릭 1페이지-10개 리스트
       titleaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > h4')
       titleLink<-remDr$findElements(using='css',titleaddr)
@@ -76,23 +80,36 @@ for(menunb in 1:4){
       #사진
       imgaddr<-'#news-detail-modal > div > div > div.modal-body > div > div > img'
       imgLink<-remDr$findElements(using='css',imgaddr)
-      getUrl<-unlist(sapply(imgLink,function(x){x$getElementAttribute("src")}))
-      
+      if(length(imgLink)==0){
+        getUrl<-0
+      }else{
+        getUrl<-unlist(sapply(imgLink,function(x){x$getElementAttribute("src")}))
+      }
       #내용
       contentaddr<-'#news-detail-modal > div > div > div.modal-body > div'
       contentLink<-remDr$findElements(using='css',contentaddr)
       getContent<-unlist(sapply(contentLink,function(x){x$getElementText()}))
       #\n제거
-      getContent<-gsub(pattern = "\\\n", replacement = "", getContent)
-      getContent<-gsub(pattern = "\\\"", replacement = "", getContent)
+      #getContent<-gsub(pattern = "\\\n", replacement = "", getContent)
+      #getContent<-gsub(pattern = "\\\"", replacement = "", getContent)
       
+      # getContent<-gsub(pattern = "\\\n", replacement = "\r\n", getContent)
+      # getContent<-gsub(pattern = "\\.", replacement = "\\.\r\n", getContent)
+      # getContent<-substr(getContent,1,255)
       
-      newsname<-c(newsname,paste0(getNewsName,"#"))
-      title<-c(title,paste0(getTitle,"#"))
-      category<-c(category,paste0(getCategory,"#"))
-      date<-c(date,paste0(getDate,"#"))
-      url<-c(url,paste0(getUrl,"#"))
-      content<-c(content,paste0(getContent,"^"))
+      newsname<-c(newsname,getNewsName)
+      title<-c(title,getTitle)
+      category<-c(category,getCategory)
+      date<-c(date,getDate)
+      url<-c(url,getUrl)
+      content<-c(content,getContent)
+      
+      # newsname<-c(newsname,paste0(getNewsName,"#"))
+      # title<-c(title,paste0(getTitle,"#"))
+      # category<-c(category,paste0(getCategory,"#"))
+      # date<-c(date,paste0(getDate,"#"))
+      # url<-c(url,paste0(getUrl,"#"))
+      # content<-c(content,paste0(getContent,"^"))
       
       print(getTitle)
       
@@ -115,34 +132,53 @@ for(menunb in 1:4){
     linkCss<-paste0('#news-results-pagination > ul > li:nth-child(',page,') > a')
     linkCssLink<-remDr$findElements(using='css',linkCss)
     sapply(linkCssLink,function(x){x$clickElement()})
-    Sys.sleep(4)
+    Sys.sleep(5)
     page<-page+1
   }
-  
-  
-  if(menunb==1){
-    dfPolitics.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfPolitics,"dfPolitics.csv",row.names=FALSE,fileEncoding = "UTF-8")
-    write.csv(dfPolitics,"dfPoliticsNotEncoding.csv",row.names=FALSE)
-  }else if(menunb==2){
-    dfBusiness.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfBusiness.csv,"dfBusiness.csv",row.names=FALSE,fileEncoding = "UTF-8")
-    write.csv(dfBusiness.csv,"dfBusinessNotEncoding.csv",row.names=FALSE)
-    
-  }else if(menunb==3){
-    dfSocialAffairs.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfSocialAffairs.csv,"dfSocialAffairs.csv",row.names=FALSE,fileEncoding = "UTF-8")
-    write.csv(dfSocialAffairs.csv,"dfSocialAffairsNotEncoding.csv",row.names=FALSE)
-  }else if(menunb==5){
-    dfWorld.csv<-data.frame(newsname,title,category,date,url,content)
-    write.csv(dfWorld.csv,"dfWorld.csv",row.names=FALSE,fileEncoding = "UTF-8")
-    write.csv(dfWorld.csv,"dfWorldNotEncoding.csv",row.names=FALSE)
-  }
+  # 
+  # if(menunb==1){
+  #   dfPolitics<-data.frame(newsname,title,category,date,url,content)
+  #   # write.csv(dfPolitics,"dfPolitics.csv",row.names=FALSE, fileEncoding = "UTF-8")
+  #   # write.csv(dfPolitics,"dfPoliticsNotEncodingtest.csv",row.names=FALSE)
+  #   # break
+  # }else if(menunb==2){
+  #   dfBusiness<-data.frame(newsname,title,category,date,url,content)
+  #   # write.csv(dfBusiness,"dfBusiness.csv",row.names=FALSE,fileEncoding = "UTF-8")
+  #   # write.csv(dfBusiness,"dfBusinessNotEncoding.csv",row.names=FALSE)
+  #   
+  # }else if(menunb==3){
+  #   dfSocialAffairs<-data.frame(newsname,title,category,date,url,content)
+  #   # write.csv(dfSocialAffairs,"dfSocialAffairs.csv",row.names=FALSE,fileEncoding = "UTF-8")
+  #   # write.csv(dfSocialAffairs,"dfSocialAffairsNotEncoding.csv",row.names=FALSE)
+  # }else if(menunb==5){
+  #   dfWorld<-data.frame(newsname,title,category,date,url,content)
+  #   # write.csv(dfWorld,"dfWorld.csv",row.names=FALSE,fileEncoding = "UTF-8")
+  #   # write.csv(dfWorld,"dfWorldNotEncoding.csv",row.names=FALSE)
+  # }
   
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
-  Sys.sleep(10)
-  
+  Sys.sleep(5)
   
 }
+
+dfall<- data.frame(newsname,title,category,date,url,content)
+# drv<-JDBC(driverClass="com.mysql.jdbc.Driver",classPath="C:/Rstudy/mysql-connector-java-5.1.40.jar")
+# conn<-dbConnect(drv,"jdbc:mysql://70.12.113.176:3306/newsbigdata","news","bigdata")
+# query<-"select * from bigkinds"
+# dbGetQuery(conn,query)
+# # 
+# recode<-read.csv("C:/Users/student/Documents/dfPoliticsNotEncodingtest.csv",header = T)
+# dbWriteTable(conn,'bigkinds',recode)
+# 
+# dbWriteTable(conn,'bigkinds',dfPolitics)
+# dbWriteTable(conn,'bigkinds',dfBusiness)
+# dbWriteTable(conn,'bigkinds',dfSocialAffairs)
+# dbWriteTable(conn,'bigkinds',dfWorld)
+
+# View(dfPolitics)
+# 
+# tmp$content<-dfPolitics$content
+# tmp$content<-substr(tmp$content, start=1,stop=255)
+# dbWriteTable(conn,'big',tmp)
