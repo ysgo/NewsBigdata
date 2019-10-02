@@ -22,50 +22,35 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-	<beans:bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="com.mynews.newsbigdata" />
-	<context:component-scan base-package="service"/>
-	<context:component-scan base-package="dao"/>
-	<context:component-scan base-package="vo"/>
+	<context:component-scan	base-package="com.mynews.newsbigdata" />
+	<context:component-scan base-package="service" />
+	<context:component-scan base-package="dao" />
+	<context:component-scan base-package="vo" />
 
-	 <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <beans:property name="location" value="/WEB-INF/config/config.properties"/>
-        <beans:property name="fileEncoding" value="UTF-8" />
-    </beans:bean>
+	<beans:bean	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="/WEB-INF/config/config.properties" />
+		<beans:property name="fileEncoding" value="UTF-8" />
+	</beans:bean>
 
-	<beans:bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"	id="dataSource">
-		<beans:property value="${db.driver}" name="driverClassName"/>
-		<beans:property value="${db.url_local}" name="url"/>
-		<beans:property value="${db.userName}" name="username"/>
-		<beans:property value="${db.password}" name="password"/>
-	</beans:bean> 
+	<beans:bean	class="org.springframework.jdbc.datasource.DriverManagerDataSource"	id="dataSource">
+		<beans:property value="${db.driver}" name="driverClassName" />
+		<beans:property value="${db.url_local}" name="url" />
+		<beans:property value="${db.userName}" name="username" />
+		<beans:property value="${db.password}" name="password" />
+	</beans:bean>
 
 	<beans:bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property value="classpath:/mybatis-config.xml" name="configLocation" />
-		<beans:property value="classpath:/*Mapper.xml" name="mapperLocations" />
+		<beans:property value="classpath:/config/mybatis-config.xml" name="configLocation" />
+		<beans:property value="classpath:/mapper/*Mapper.xml" name="mapperLocations" />
 	</beans:bean>
-
 
 	<beans:bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession" destroy-method="clearCache">
 		<beans:constructor-arg ref="sqlSessionFactory" name="sqlSessionFactory" />
 	</beans:bean>
-	
-	<!-- 인터셉터 객체 생성 -->
-	<!-- <beans:bean id="AuthLoginInterceptor" class="com.mynews.newsbigdata.AuthLoginInterceptor">
-	</beans:bean> -->
-	<!-- Interceptor 설정 -->
-	<!-- <interceptors>
-	    <interceptor>
-	        <mapping path="/*.do"/>         
-	        <exclude-mapping path="/resources/**"/>
-	        <beans:ref bean="AuthLoginInterceptor"/>
-	    </interceptor>
-	</interceptors> -->
-
 </beans:beans>

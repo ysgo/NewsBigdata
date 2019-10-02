@@ -15,8 +15,7 @@
   - HTML5 / CSS3 / JavaScript / Jquery
   - Bootstrap
   - JSP
-  - Leaflet
-
+  
 - Server
 
   - AWS
@@ -24,13 +23,10 @@
   - Tomcat 9
   - Naver Open API(Login, Map)
   - Vision API
-  - Hadoop
-  - Hive
-  - Spark
   - R
-
   
-
+  
+  
 - Database
 
   - MariaDB-10.3.18
@@ -39,21 +35,27 @@
   
 - Development Flatform
 
-  - jdk1.8.0_211
   - eclipse-jee-2018-12-R-win32-x86_64
   - Spring STS 3.9.9
+  - jdk1.8.0_211
   - HeidiSQL
-  - Putty
   - R Studio
   - Chrome
+  - Putty
+  - Git
 
 ## Flow Chart
 
-- Comming Soon
+![FlowChart](./images/FlowChart.png)
 
 ## Install Method
 
-- Comming Soon
+- Project [Clone]
+- Eclipse [Import] - [Project from Folder or Archive]
+- Select [Project Folder]
+- [Wait] for Completion and Installation
+- [Add Library] - Add Junit4
+- [Project Properties] - [Project Facet] - [Java 1.8]
 
 ## Screen Configuration
 

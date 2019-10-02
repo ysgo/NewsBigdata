@@ -1,25 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<%@ include file="common/header.jsp" %>
 <%-- <link href="<c:url value='/resources/css/myPage.css' />" rel="stylesheet"> --%>
-<link href="${pageContext.request.contextPath}/resources/css/myPage.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css" rel="stylesheet">
 <script src="<c:url value='/resources/js/myPage.js' />"></script>
 </head>
-<body>
-	<!------ Include the above in your HEAD tag ---------->
-
+<body> 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-5  toppad  pull-right col-md-offset-3 ">
@@ -140,32 +126,6 @@
 			</div>
 		</div>
 	</div>
-</body>
-<script>
-$('#btn_my_info').click(function() {
-	$('#my_info').css('display','block');
-	$('#update_info').css('display','none');
-	$('#confirm').css('display','none');
-})
-$('#btn_update_info').click(function() {
-	$('#my_info').css('display','none');
-	$('#update_info').css('display','block');
-	$('#confirm').css('display','none');
-})
-$('#btn_withdrawal').click(function() {
-	$('#my_info').css('display','none');
-	$('#update_info').css('display','none');
-	$('#confirm').css('display','block');
-})
-
-function mykeyup() {
-	var updatePass = document.getElementById('pw1').value;
-	var checkPass = document.getElementById('pw2').value;
-	if(updatePass == checkPass) {
-		document.getElementById('update_submit').disabled = false;
-	} else {
-		document.getElementById('update_submit').disabled = true;
-	}
-}
-</script>
-</html>
+	
+<script src="<c:url value='/resources/js/myPage_form.js' />"></script>
+<%@ include file="common/footer.jsp" %>
