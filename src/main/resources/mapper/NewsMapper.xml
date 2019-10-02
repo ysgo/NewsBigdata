@@ -12,4 +12,5 @@
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
 		select title, date, contents from newstmp where title=#{title}
 	</select>
+	
 </mapper>
