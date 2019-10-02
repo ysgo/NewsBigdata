@@ -1,10 +1,9 @@
 package com.mynews.newsbigdata;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,20 +19,18 @@ import vo.NewsVO;
 @Controller
 @SessionAttributes("status")
 public class NewsController {
-	@Value("${naverID}")
-	private String naverClientID;
 	@Autowired
 	NewsService service;
-	
+	@Autowired
+	private Environment env;
 	
 	@RequestMapping(value="/mainNews.do", method=RequestMethod.GET)
-	public ModelAndView newsMap(Model model) {
+	public ModelAndView newsMap() {
 		// http://localhost:8000/newsbigdata/main.do?fid=01
-//		model.addAttribute("apiKey", naverClientID);
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("main_news");
 		List<NewsVO> list = service.listAll();
 		mav.addObject("list1", list);
-		mav.setViewName("main_news");
+		mav.addObject("naverID", env.getProperty("naver.ID"));
 		return mav;
 	}
 	
@@ -43,16 +40,15 @@ public class NewsController {
 //	}
 	
 	// 메인페이지 뉴스 기사 리스트 출력 & 모달페이지 뉴스 기사 내용 출력
-	@RequestMapping(value="/readNews.do", method = RequestMethod.GET)
+	@RequestMapping(value="/readNews.do", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public HashMap<String, Object> readNews(@ModelAttribute NewsVO vo) {
-		HashMap<String, Object> map = new HashMap<>();
+	public NewsVO readNews(@ModelAttribute NewsVO vo, Model model) {
 		try {
 			vo = service.readNews(vo);
-			map.put("readNews", vo);
+			model.addAttribute("readNews", vo);
 		} catch(NullPointerException e) {
 			System.out.println("제목과 매치되는 기사가 존재하지 않습니다.");
 		}
-		return map;
+		return vo;
 	}
 }

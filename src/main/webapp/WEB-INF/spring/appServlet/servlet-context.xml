@@ -31,9 +31,10 @@
 	<context:component-scan base-package="service" />
 	<context:component-scan base-package="dao" />
 	<context:component-scan base-package="vo" />
+	<context:component-scan base-package="configuration" />
 
 	<beans:bean	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<beans:property name="location" value="/WEB-INF/config/config.properties" />
+		<beans:property name="location" value="classpath:/config/config.properties" />
 		<beans:property name="fileEncoding" value="UTF-8" />
 	</beans:bean>
 
