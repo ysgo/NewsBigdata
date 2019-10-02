@@ -10,6 +10,6 @@
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
-		select * from newstmp where title=#{title}
+		select title, date, contents from newstmp where title=#{title}
 	</select>
 </mapper>

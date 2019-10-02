@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp" %>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ naverID }&submodules=geocoder"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${ naverID }&submodules=geocoder"></script>
 </head>
 <body onload="bodyFunction()">
 	<h1>Main 페이지</h1>

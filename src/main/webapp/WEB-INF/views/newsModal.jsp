@@ -8,7 +8,7 @@
 			<div class="w3-modal-content">
 				<header class="w3-container w3-teal">
 					<span onclick="closeBtn()" class="w3-button w3-display-topright">&times;</span>
-					<h2 id="m_title">Title :</h2>
+					<h2 id="m_title">Title : </h2> 
 					<span id="m_date">Date : </span>
 				</header>
 				<div class="w3-container">
