@@ -10,14 +10,12 @@ library(rJava)
 library(RJDBC)
 
 
-#빅카인즈
+
 remDr<-remoteDriver(remoteServerAddr = "localhost", port=4445, browserName="chrome")
 remDr$open()
 remDr$navigate("https://www.bigkinds.or.kr/v2/news/search.do")
-Sys.sleep(10)
+Sys.sleep(8)
 
-
-# #검색클릭
 # menuBtn<-('#news-search-form > div > div > div > div.input-group.main-search__form > span > button')
 # menuBtnLink<-remDr$findElements(using='css',menuBtn)
 # sapply(menuBtnLink,function(x){x$clickElement()})
@@ -37,7 +35,7 @@ for(menunb in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
-  Sys.sleep(5)
+  Sys.sleep(4)
   
   categoryaddr<-paste0('#filter-category > div > div:nth-child(',menunb,') > label')
   categoryLink<-remDr$findElements(using='css',categoryaddr)
@@ -48,36 +46,31 @@ for(menunb in 1:4){
   #############################################################################################3
   # endflag<-FALSE
   page<-4
-  for(pageNB in 1:1){ #5페이지까지 원할때
+  for(pageNB in 1:5){ 
     for(index in 1:1){
-      #신문사이름
+ 
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)
       getNewsName<-unlist(sapply(NewsNameLink,function(x){x$getElementText()}))
       Sys.sleep(3)
-      #페이지별 기사 반복 클릭 1페이지-10개 리스트
       titleaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > h4')
       titleLink<-remDr$findElements(using='css',titleaddr)
       sapply(titleLink,function(x){x$clickElement()})
-      Sys.sleep(5)
-      #마지막페이지일때 멈춤
+      Sys.sleep(4)
       # if (length(titleLink)==0){
       #   endFlag <- TRUE
       #   break
       # }
       
-      #제목
       titleddr<-'#news-detail-modal > div > div > div.modal-header > h4.modal-title'
       titleLink<-remDr$findElements(using='css',titleddr)
       getTitle<-unlist(sapply(titleLink,function(x){x$getElementText()}))
       getTitle<-gsub(pattern = "\\\"", replacement = "", getTitle)
       
-      #날짜
       dateaddr<-'#news-detail-modal > div > div > div.modal-header > div.pull-left > span:nth-child(4)'
       dateLink<-remDr$findElements(using='css',dateaddr)
       getDate<-unlist(sapply(dateLink,function(x){x$getElementText()}))
       
-      #사진
       imgaddr<-'#news-detail-modal > div > div > div.modal-body > div > div > img'
       imgLink<-remDr$findElements(using='css',imgaddr)
       if(length(imgLink)==0){
@@ -85,11 +78,9 @@ for(menunb in 1:4){
       }else{
         getUrl<-unlist(sapply(imgLink,function(x){x$getElementAttribute("src")}))
       }
-      #내용
       contentaddr<-'#news-detail-modal > div > div > div.modal-body > div'
       contentLink<-remDr$findElements(using='css',contentaddr)
       getContent<-unlist(sapply(contentLink,function(x){x$getElementText()}))
-      #\n제거
       #getContent<-gsub(pattern = "\\\n", replacement = "", getContent)
       #getContent<-gsub(pattern = "\\\"", replacement = "", getContent)
       
@@ -111,16 +102,15 @@ for(menunb in 1:4){
       # url<-c(url,paste0(getUrl,"#"))
       # content<-c(content,paste0(getContent,"^"))
       
-      print(getTitle)
+      #print(getTitle)
       
-      #x 닫기버튼
       xbtnaddr<-'#news-detail-modal > div > div > div.modal-header > button > span'
       xbtnLink<-remDr$findElements(using='css',xbtnaddr)
       sapply(xbtnLink,function(x){x$clickElement()})
       
       # remDr$goBack()
       
-      Sys.sleep(5)
+      Sys.sleep(4)
     }
     # if(endFlag)
     #   break
@@ -132,7 +122,7 @@ for(menunb in 1:4){
     linkCss<-paste0('#news-results-pagination > ul > li:nth-child(',page,') > a')
     linkCssLink<-remDr$findElements(using='css',linkCss)
     sapply(linkCssLink,function(x){x$clickElement()})
-    Sys.sleep(5)
+    Sys.sleep(4)
     page<-page+1
   }
   # 
@@ -159,7 +149,7 @@ for(menunb in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
-  Sys.sleep(5)
+  Sys.sleep(4)
   
 }
 

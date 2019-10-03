@@ -6,6 +6,7 @@ import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,27 +14,17 @@ import service.NewsService2;
 import vo.TestVO;
 @Controller
 public class RJavaConnectController {
-@Autowired
-private NewsService2 service;
+	@Autowired
+	private Environment env;
+	@Autowired
+	private NewsService2 service;
+
 	@RequestMapping("/rjavatest.do")
     public String rjavaConnect() {
-//    	String driver = "org.mariadb.jdbc.Driver";
-//    	Connection con;
-//    	PreparedStatement pstmt;
-//    	ResultSet rs;
          try {
-//            Class.forName(driver);
-//            con = DriverManager.getConnection(
-//                    "jdbc:mariadb://70.12.113.176:3306/newsbigdata",
-//                    "news",
-//                    "bigdata");
-//            
-//            if( con != null ) {
-//                System.out.println("DB Á¢¼Ó¼º°ø");
-//            }
-//            System.out.println("test");
+        	String eval = "imsi<-source('"+env.getProperty("r.url").toString()+"');imsi$value";
             RConnection rc = new RConnection();
-    		REXP x = rc.eval("imsi<-source('C:/Rstudy/bigkindsCrawling/bigkindsMariaDB.R');imsi$value");
+    		REXP x = rc.eval(eval);
     		RList list = x.asList();
     		
     		String[] newsname = list.at("newsname").asStrings();
@@ -42,7 +33,8 @@ private NewsService2 service;
     		String[] date = list.at("date").asStrings();
     		String[] url = list.at("url").asStrings();
     		String[] content = list.at("content").asStrings();
-    TestVO vo=new TestVO();
+    		
+    		TestVO vo=new TestVO();
     		for (int i=0;i<newsname.length;i++) {
     			vo.setNewsname(newsname[i]);
     			vo.setTitle(title[i]);
@@ -51,19 +43,14 @@ private NewsService2 service;
     			vo.setUrl(url[i]);
     			vo.setContent(content[i]);
     			if(service.insertNews(vo) !=1) {
-    				System.out.println("µ¥ÀÌÅÍ »ðÀÔ ½ÇÆÐ");
+    				System.out.println("ìž…ë ¥ ì‹¤íŒ¨");
     			}
     		}
     		
-    		
-//        } catch (ClassNotFoundException e) { 
-//            System.out.println("¿¬°á½Ç ÆÐ");
-//        } catch (SQLException e) {
-//            System.out.println("DB ¼öÇà¿À·ù");
         } catch(RserveException e) {
-        	System.out.println("Rserve ¿À·ù");
+        	System.out.println("Rserve ì‹¤íŒ¨");
         } catch(REXPMismatchException e) {
-        	System.out.println("R ¹®¹ý ¿À·ù");
+        	System.out.println("R ë¬¸ë²• ì˜¤ë¥˜");
         }
         return "home";
     }

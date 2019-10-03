@@ -23,18 +23,12 @@
 	<Loggers>
 		<!-- <Logger name="resource.MemberMapper" level="error">
 			<AppenderRef ref="A1" />
-		</Logger>
-		<Logger name="resource.MemberMapper" level="error">
-			<AppenderRef ref="A2" />
-		</Logger>
-		<Logger name="resource.NewsMapper" level="trace">
-			<AppenderRef ref="A1" />
-			<AppenderRef ref="STDOUT3" />
-		</Logger>
-		<Logger name="resource.NewsMapper" level="trace">
-			<AppenderRef ref="A2" />
-			<AppenderRef ref="STDOUT3" />
 		</Logger> -->
+		<Logger name="resource.NewsMapper" level="trace">
+			<AppenderRef ref="A2" />
+			<AppenderRef ref="STDOUT3" />
+		</Logger>
+		
 		
 		<!-- name명이 MeetingMapper에 정의된 namespace와 일치해야한다. 수행하는 로그를 출력시켜줌 -->
 		<Logger name="resource.MemberMapper" level="DEBUG" additivity="false">
