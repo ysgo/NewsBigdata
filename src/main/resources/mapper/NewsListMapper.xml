@@ -7,11 +7,9 @@
 
 	<!-- 전체 출력  -->
 	<select id="selectNews" resultType="vo.NewsVO" >
-		SELECT * from news_test where time like '%'||#{time}||'%'
+		SELECT * from news_test where keyword like '%'||#{keyword}||'%'
 	</select>
 	<!-- select * from memberinfo where email=#{email} -->
-	<!-- 	SELECT * from news_test where time like '%'||#{time}||'%' -->
-	
 	
 	<!-- 뉴스 타이틀  출력 -->
 	<select id="selectTitle" resultType="vo.NewsVO">

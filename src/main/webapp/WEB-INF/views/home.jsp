@@ -28,6 +28,11 @@
 						<input id="signColor" type="submit" class="nav-link p-2"
 							value="회원가입">
 					</form>
+						<!-- 테스트중 -->
+					<form action="NewsdetailView.do" method="POST" style='float: left;'>
+						<input id="signColor" type="submit" class="nav-link p-2"
+							value="상세검색">
+					</form>
 				</div>
 			</c:otherwise>
 		</c:choose>

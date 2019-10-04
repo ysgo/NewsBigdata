@@ -2,22 +2,33 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="resource.NewsMapper">
-	<!-- 뉴스 타이틀  출력 -->
+	<!-- 뉴스 타이틀 출력 -->
 	<select id="allTitle" resultType="vo.NewsVO">
 		select title from newstmp;
 	</select>
-	<!-- 뉴스 타이틀  출력 -->
+	<!-- 뉴스 타이틀 출력 -->
 	<select id="selectTitle" resultType="vo.NewsVO">
 		select title from news_test;
 	</select>
 
-	<select id="searchKeyWord" resultType="vo.NewsVO">
-		select title contents from news_test where keyword like '%'||#{keyword}||'%
-	
+	<select id="search" resultType="vo.NewsVO"
+	parameterType="vo.NewsVO">
+		SELECT title FROM news_test WHERE title LIKE '%${keyword}%'
+		<!-- SELECT * from news_test where time like '%'||#{time}||'%' -->
 	</select>
-	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
+
+	<select id="readNews" parameterType="vo.NewsVO"
+		resultType="vo.NewsVO">
 		select * from newstmp where title=#{title}
 	</select>
+	
+	<!-- 조회된 키워드 누적 테스트중 -->
+	<select id="selectNewsCount" parameterType="vo.NewsVO" resultType="_int">
+ 		select count(*) 
+ 		from news_test ;
+    <!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' and f.fid = d.fid and
+    				to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
+ 	</select>
 </mapper>
