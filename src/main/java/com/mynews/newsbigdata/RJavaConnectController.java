@@ -55,7 +55,6 @@ private NewsService2 service;
     			}
     		}
     		
-    		
 //        } catch (ClassNotFoundException e) { 
 //            System.out.println("연결실 패");
 //        } catch (SQLException e) {
