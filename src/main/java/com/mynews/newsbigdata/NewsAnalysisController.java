@@ -1,6 +1,7 @@
 package com.mynews.newsbigdata;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import service.NewsAnalysisService;
 import vo.NewsAnalysisVO;
@@ -48,30 +50,31 @@ public class NewsAnalysisController {
 		// 본문에 지명과 관련된 기사만 출력
 
 	}
-	
-	@RequestMapping("/load.do")
-	public void loadCSV() {
-//	     CSVReader reader = new CSVReader(new FileReader("yourfile.csv"));
-//	     String [] nextLine;
-//	     while ((nextLine = reader.readNext()) != null) {
-//	        // nextLine[] is an array of values from the line
-//	        System.out.println(nextLine[0] + nextLine[1] + "etc...");
-//	     }
-//	     
-//	     CSVReader reader = new CSVReader(new FileReader("yourfile.csv"));
-//	     List<String[]> myEntries = reader.readAll();
-//	     
-//	     CSVIterator iterator = new CSVIterator(new CSVReader(new FileReader("yourfile.csv")));
-//	     for(String[] nextLine : iterator) {
-//	        // nextLine[] is an array of values from the line
-//	        System.out.println(nextLine[0] + nextLine[1] + "etc...");
-//	     }
-//	     
-//	     CSVReader reader = new CSVReader(new FileReader("yourfile.csv"));
-//	     for(String[] nextLine : reader.iterator()) {
-//	        // nextLine[] is an array of values from the line
-//	        System.out.println(nextLine[0] + nextLine[1] + "etc...");
-//	     }
-//		or Annotation Method
+
+	@RequestMapping(value="/load.do", method=RequestMethod.GET)
+	public void loadCSV(@RequestParam("zoneName") String zoneName) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("zoneName", zoneName);
+		// zoneName = province, sigungu
+		String csvURL=env.getProperty(map.get(zoneName)+".url");
+		List<Object> list = null;
+		if(service.emptyZone(map)) {
+			list = service.loadCSV(csvURL);
+			try {
+				Iterator<Object> it = list.iterator();
+				while(it.hasNext()) {
+					Object tmp = it.next();
+					if(service.insert(tmp, zoneName))
+						System.out.println(tmp.toString());
+					else
+						System.out.println("Insert Failed!");
+				}
+			} catch(NullPointerException e) {
+				System.out.println("List is not Empty!");
+			}
+		}
+		else
+			System.out.println("Zone Database not Empty!");
+		System.out.println("Exit");
 	}
 }

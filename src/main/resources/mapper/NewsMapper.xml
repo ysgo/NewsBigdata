@@ -13,4 +13,21 @@
 		select title, date, contents from newstmp where title=#{title}
 	</select>
 	
+	<select id="emptyZone" parameterType="hashmap" resultType="int">
+		select count(p_code) from ${zoneName}
+	</select>
+	
+	<insert id="insertProvince" parameterType="vo.ProvinceVO">
+		insert into province set p_code=#{p_code}, p_name=#{p_name}, 
+		p_latitude=#{p_latitude}, p_longitude=#{p_longitude}
+		on duplicate key update p_code=#{p_code}, p_name=#{p_name}, 
+		p_latitude=#{p_latitude}, p_longitude=#{p_longitude}
+	</insert>
+	
+	<insert id="insertSigungu" parameterType="vo.SigunguVO">
+		insert into sigungu set p_code=#{p_code}, s_code=#{s_code}, s_name=#{s_name}, 
+		s_latitude=#{s_latitude}, s_longitude=#{s_longitude}
+		on duplicate key update p_code=${p_code}, s_code=#{s_code}, s_name=#{s_name}, 
+		s_latitude=#{s_latitude}, s_longitude=#{s_longitude}
+	</insert>
 </mapper>

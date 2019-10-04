@@ -2,6 +2,8 @@ package service;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,14 +15,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.opencsv.bean.CsvToBeanBuilder;
 
+import dao.NewsAnalysisDAO;
 import vo.NewsAnalysisVO;
 
 @Service
 public class NewsAnalysisService {
+	@Autowired
+	NewsAnalysisDAO dao;
+	
 	@SuppressWarnings("unchecked")
 	public List<NewsAnalysisVO> getAnalysisLocation(Map<String, Object> request, Map<String, String> argument,
 			String openApiURL) {
@@ -106,4 +114,36 @@ public class NewsAnalysisService {
 	}
 	
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Object> loadCSV(String csvURL) {
+		List<Object> list = null;
+		try(FileInputStream fis = new FileInputStream(csvURL);
+				InputStreamReader isr = new InputStreamReader(fis, "EUC-KR");) {
+			list = new CsvToBeanBuilder(isr)
+					.withType(Object.class)
+					.withSkipLines(1)
+					.build()
+					.parse();
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found!");
+		} catch(IOException e) {
+			System.out.println("Input and Output Error!");
+		} catch(NullPointerException e) {
+			System.out.println("Null value Error!");
+		}
+		return list;
+	}
+	
+	public boolean emptyZone(HashMap<String, String> map) {
+		return dao.emptyZone(map);
+	}
+	
+	public boolean insert(Object vo, String zoneName) {
+		boolean result = false;
+		if(zoneName.equals("province"))
+			result = dao.insertProvince(vo);
+		else if(zoneName.equals("sigungu"))
+			result = dao.insertSigungu(vo);
+		return result;
+	}
 }
