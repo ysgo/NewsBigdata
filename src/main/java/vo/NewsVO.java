@@ -9,26 +9,15 @@ public class NewsVO {
 	private String action;
 	
 	private int pageNo;
-	private int startRow;
-	private int endRow;
+	private int startIndex;
+	private int CntPerPage;
+	
 	
 	public String getAction() {
 		return action;
 	}
 	public void setAction(String action) {
 		this.action = action;
-	}
-	public int getStartRow() {
-		return startRow;
-	}
-	public void setStartRow(int startRow) {
-		this.startRow = startRow;
-	}
-	public int getEndRow() {
-		return endRow;
-	}
-	public void setEndRow(int endRow) {
-		this.endRow = endRow;
 	}
 	public int getPageNo() {
 		return pageNo;
@@ -64,4 +53,15 @@ public class NewsVO {
 	public String toString() {
 		return "[title:"+title+"\ndate:"+date+"\ncontents:"+contents+"]";
 	}
+
+	public void setStartIndex(int startIndex) {
+		System.out.println("VO의 setStartIndex " + startIndex);
+		this.startIndex=startIndex;
+		
+	}
+	public void setCntPerPage(int pageSize) {		
+		System.out.println("VO의 CntPerPage ");
+		this.CntPerPage=pageSize;
+	}
+	
 }

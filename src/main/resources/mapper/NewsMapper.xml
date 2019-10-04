@@ -13,22 +13,41 @@
 		select title from news_test;
 	</select>
 
+
+	<!-- 키워드별로 검색한 결과물 출력 -->
 	<select id="search" resultType="vo.NewsVO"
-	parameterType="vo.NewsVO">
-		SELECT title FROM news_test WHERE title LIKE '%${keyword}%'
-		<!-- SELECT * from news_test where time like '%'||#{time}||'%' -->
+		parameterType="vo.NewsVO">
+		SELECT title FROM news_test 
+		WHERE title LIKE '%${keyword}%'  
+		order by date LIMIT #{pageNo},10;
+		
+		
+		<!-- 
+			#{startIndex}
+			startIndex or pageStart : 특정 페이지의 첫번째 게시글의 행이다.
+			perPageNum : 한 페이지당 보여줄 게시글의 개수이다.
+		-->
 	</select>
+
+	<!-- 검색한 게시글 갯수 -->
+	<select id="searchCnt" parameterType="vo.NewsVO"
+		resultType="int">
+		SELECT count(title) FROM news_test WHERE title LIKE
+		'%${keyword}%'
+	</select>
+
+	<!-- 전체 게시글 갯수 -->
+	<select id="NewsListCount" parameterType="vo.NewsVO"
+		resultType="_int">
+		select count(*)
+		from news_test ;
+		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
+			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
+	</select>
+
 
 	<select id="readNews" parameterType="vo.NewsVO"
 		resultType="vo.NewsVO">
 		select * from newstmp where title=#{title}
 	</select>
-	
-	<!-- 조회된 키워드 누적 테스트중 -->
-	<select id="selectNewsCount" parameterType="vo.NewsVO" resultType="_int">
- 		select count(*) 
- 		from news_test ;
-    <!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' and f.fid = d.fid and
-    				to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
- 	</select>
 </mapper>
