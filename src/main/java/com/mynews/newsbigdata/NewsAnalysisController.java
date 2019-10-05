@@ -52,29 +52,28 @@ public class NewsAnalysisController {
 	}
 
 	@RequestMapping(value="/load.do", method=RequestMethod.GET)
-	public void loadCSV(@RequestParam("zoneName") String zoneName) {
+	public String loadCSV(@RequestParam("zoneName") String zoneName) {
+		// zoneName = province, sigungu
 		HashMap<String, String> map = new HashMap<>();
 		map.put("zoneName", zoneName);
-		// zoneName = province, sigungu
-		String csvURL=env.getProperty(map.get(zoneName)+".url");
+		String csvURL=env.getProperty(zoneName+".url");
 		List<Object> list = null;
 		if(service.emptyZone(map)) {
-			list = service.loadCSV(csvURL);
 			try {
+				list = service.loadCSV(csvURL, zoneName);
 				Iterator<Object> it = list.iterator();
 				while(it.hasNext()) {
-					Object tmp = it.next();
-					if(service.insert(tmp, zoneName))
-						System.out.println(tmp.toString());
+					Object vo = it.next();
+					if(service.insert(vo, zoneName))
+						System.out.println("Insert Success!");
 					else
 						System.out.println("Insert Failed!");
 				}
 			} catch(NullPointerException e) {
 				System.out.println("List is not Empty!");
 			}
-		}
-		else
+		} else
 			System.out.println("Zone Database not Empty!");
-		System.out.println("Exit");
+		return "home";
 	}
 }

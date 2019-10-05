@@ -23,6 +23,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 
 import dao.NewsAnalysisDAO;
 import vo.NewsAnalysisVO;
+import vo.ProvinceVO;
+import vo.SigunguVO;
 
 @Service
 public class NewsAnalysisService {
@@ -115,12 +117,18 @@ public class NewsAnalysisService {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<Object> loadCSV(String csvURL) {
+	public List<Object> loadCSV(String csvURL, String zoneName) {
 		List<Object> list = null;
 		try(FileInputStream fis = new FileInputStream(csvURL);
 				InputStreamReader isr = new InputStreamReader(fis, "EUC-KR");) {
+			Class type = getClass();
+			if(zoneName.equals("province"))
+				type=ProvinceVO.class;
+			else if(zoneName.equals("sigungu"))
+				type=SigunguVO.class;
+			
 			list = new CsvToBeanBuilder(isr)
-					.withType(Object.class)
+					.withType(type)
 					.withSkipLines(1)
 					.build()
 					.parse();
