@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp" %>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${ naverID }&submodules=geocoder"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ naverID }&submodules=geocoder"></script>
 </head>
 <body onload="bodyFunction()">
 	<h1>Main 페이지</h1>
 	<hr> 
 	<div style="margin-left:5%; margin-right: 5%;">
-		<div id="map" style="width: 100%; height: 400px; border: 1px solid black;"></div>
+		<div id="mapList" style="width: 100%; height: 400px; border: 1px solid black;"></div>
 		<div id="list" style="width: 100%; height: 400px;">
 			<div class="row">
 				<h4>오늘의 이슈</h4>

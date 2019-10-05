@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import dao.NewsDAO;
 import vo.NewsVO;
+import vo.ProvinceVO;
+import vo.SigunguVO;
 
 @Service
 public class NewsService {
@@ -18,10 +20,15 @@ public class NewsService {
 		return dao.listAll();
 	}
 	
-//	// 뉴스 리스트 지역관련 기사 출력
-//	public List<NewsVO> nationList(NewsVO vo) {
-//		return dao.nationList(vo);
-//	}
+	// 시도명 위도, 경도 전체 데이터 가져오기
+	public List<ProvinceVO> provinceList() {
+		return dao.provinceList();
+	}
+	
+	// 시군구 위도, 경도 전체 데이터 가져오기
+	public List<SigunguVO> sigunguList() {
+		return dao.sigunguList();
+	}
 	
 	// 뉴스 타이틀 검색으로 기사 내용 가져오기
 	public NewsVO readNews(NewsVO vo) {

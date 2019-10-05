@@ -6,23 +6,31 @@ function bodyFunction() {
 	var dateTime = localeDate.substr(0, localeDate.length-1) + ' ('+days[d.getDay()]+') '+localeTime;
 	document.getElementById("issue-analysis-time").innerHTML = dateTime;
 }
-//
-//// 주소 -> 좌표 변환(geocode)
-//naver.maps.Service.geocode({
-//	query: '서울특별시'
-//}, function(status, response) {
-//	if (status !== naver.maps.Service.Status.OK) {
-//		return console.log("변환 성공");
-//	}
-//	
-//	var result = response.v2, // 검색 결과의 컨테이너
-//	items = result.addresses; // 검색 결과의 배열
-//	
-//	// do Something
-//});
-//
-//// 기본 지도 호출
-//var map = new naver.maps.Map('map', {
-//    center: new naver.maps.LatLng(37.3595704, 127.105399),
-//    zoom: 10
-//});
+
+// Map in Province&Sigungu Load
+window.onload = function() {
+	 var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+		  if(this.readyState == 4) {
+			  if(this.status == 200) {
+				  var jsonObj = JSON.parse(this.responseText);
+				  console.log("Response: " + jsonObj);
+			  
+				  // Map marker indicate
+				  $(jsonObj).each(function(){
+					  var x = this;
+					  console.log(x);
+	                }); 
+			  } else {
+				  console.log("Error: " + this.status);
+			  }
+		  }
+	  };
+	  xhttp.open("GET", "mainMap.do", true);
+	  xhttp.send(); 
+}
+
+var mapOptions = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10
+};

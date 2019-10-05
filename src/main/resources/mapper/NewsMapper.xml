@@ -17,17 +17,25 @@
 		select count(p_code) from ${zoneName}
 	</select>
 	
+	<select id="listProvince" resultType="vo.ProvinceVO">
+		select * from province
+	</select>
+	
+	<select id="listSigungu" resultType="vo.SigunguVO">
+		select * from sigungu
+	</select>
+	
 	<insert id="insertProvince" parameterType="vo.ProvinceVO">
-		insert into province set p_code=#{p_code}, p_name=#{p_name}, 
-		p_latitude=#{p_latitude}, p_longitude=#{p_longitude}
-		on duplicate key update p_code=#{p_code}, p_name=#{p_name}, 
-		p_latitude=#{p_latitude}, p_longitude=#{p_longitude}
+		insert into province set p_code=#{p_code}, name=#{name}, 
+		latitude=#{latitude}, longitude=#{longitude}
+		on duplicate key update p_code=#{p_code}, name=#{name}, 
+		latitude=#{latitude}, longitude=#{longitude}
 	</insert>
 	
 	<insert id="insertSigungu" parameterType="vo.SigunguVO">
-		insert into sigungu set p_code=#{p_code}, s_code=#{s_code}, s_name=#{s_name}, 
-		s_latitude=#{s_latitude}, s_longitude=#{s_longitude}
-		on duplicate key update p_code=${p_code}, s_code=#{s_code}, s_name=#{s_name}, 
-		s_latitude=#{s_latitude}, s_longitude=#{s_longitude}
+		insert into sigungu set p_code=#{p_code}, s_code=#{s_code}, name=#{name}, 
+		latitude=#{latitude}, longitude=#{longitude}
+		on duplicate key update p_code=${p_code}, s_code=#{s_code}, name=#{name}, 
+		latitude=#{latitude}, longitude=#{longitude}
 	</insert>
 </mapper>
