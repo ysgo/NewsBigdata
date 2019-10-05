@@ -18,25 +18,25 @@ public class ProvinceVO {
 	public void setP_code(int p_code) {
 		this.p_code = p_code;
 	}
-	public String getP_name() {
+	public String getName() {
 		return name;
 	}
-	public void setP_name(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
-	public Double getP_latitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setP_latitude(Double latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
-	public Double getP_longitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setP_longitude(Double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
