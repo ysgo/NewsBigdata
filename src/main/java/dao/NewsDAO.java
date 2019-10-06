@@ -17,7 +17,7 @@ public class NewsDAO {
 	String mapperRoute = "resource.NewsMapper.";
 	
 	// 뉴스 타이틀 전체출력
-	public List<NewsVO> listAll() {
+	public List<String> listAll() {
 		String statement = mapperRoute+"allTitle";
 		return session.selectList(statement);
 	}

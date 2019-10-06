@@ -16,7 +16,7 @@ public class NewsService {
 	private NewsDAO dao;
 	
 	// 뉴스 타이틀 전체 출력
-	public List<NewsVO> listAll() {
+	public List<String> listAll() {
 		return dao.listAll();
 	}
 	

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp" %>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ naverID }"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${ naverID }"></script>
 </head>
 <body>
 	<h1>Main 페이지</h1>
@@ -14,15 +14,7 @@
 			<div class="row" style="border: 1px solid black;">
 				<jsp:include page="newsModal.jsp" />
 				<div id="issues-wrap" class="col-xs-12 col-sm-6 col-md-5">
-					<c:choose>
-						<c:when test="${ list1 != null }">
-							<c:forEach var="data" items="${list1}" varStatus="status">
-								<p>
-									<span class="main_title" onclick="readNews(${status.count-1})">${ data.title }</span>
-								</p>
-							</c:forEach>
-						</c:when>
-					</c:choose>
+					<ul id="todayNews"></ul>
 				</div>
 				<div class="col-xs-12 text-right mt-1"></div>
 			</div>
