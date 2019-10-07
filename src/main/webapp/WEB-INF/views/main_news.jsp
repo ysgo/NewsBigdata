@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp" %>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
 </head>
 <body>
 	<h1>Main 페이지</h1>
@@ -24,6 +24,6 @@
 		</div>
 	</div>
 	
-<script src="<c:url value='/resources/js/main_news.js' />"></script>
+<script src="<c:url value='/resources/js/main_news2.js' />"></script>
 <script src="<c:url value='/resources/js/modal_news.js' />"></script>
 <%@ include file="common/footer.jsp" %>

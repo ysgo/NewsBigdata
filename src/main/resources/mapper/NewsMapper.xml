@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
-		select title, date, contents from newstmp where title=#{title}
+		select title, date, content from newstmp where title=#{title}
 	</select>
 	<!-- 뉴스 타이틀 출력 -->
 	

@@ -61,6 +61,8 @@
 <!-- Custom styles for this template -->
 <link href="resources/css/main.css" rel="stylesheet">
 
+
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
 </head>
 
 <body id="page-top">
@@ -147,7 +149,14 @@
 				</div>
 				<div class="col-md-4">
 					<div id="issues-wrap"
-						style="width: 100%; height: 550px; border: 1px solid black;">리스트자리</div>
+						style="width: 100%; height: 550px; border: 1px solid black;">
+							<h4>오늘의 이슈</h4>
+							<jsp:include page="newsModal.jsp" />
+							<div>
+								<ul style="width:100%;"id="todayNews"></ul>
+								<i class="fal fa-clock"></i> 날짜: <span id="issue-analysis-time"></span>
+							</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -223,7 +232,9 @@
 	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="resources/js/agency.min.js"></script>
-
+	<!-- javascript&ajax function -->
+	<script src="<c:url value='/resources/js/main_news.js' />"></script>
+<script src="<c:url value='/resources/js/modal_news.js' />"></script>
 </body>
 
 </html>

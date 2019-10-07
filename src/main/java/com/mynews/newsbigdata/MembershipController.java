@@ -87,7 +87,7 @@ public class MembershipController {
 	@RequestMapping("/signOut")
 	public String signOut(SessionStatus session) throws Exception {
 		service.signout(session);
-		return "redirect:/home.do";
+		return "redirect:/home";
 	}
 
 	// 마이페이지 이동
@@ -141,7 +141,7 @@ public class MembershipController {
 			boolean result = service.withdrawal(userId);
 			if (result) {
 				sessionClear.setComplete();
-				path = "redirect:/home.do";
+				path = "redirect:/home";
 			}
 		}
 		return path;

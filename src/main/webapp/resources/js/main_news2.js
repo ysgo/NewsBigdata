@@ -25,7 +25,7 @@ window.onload = function() {
 				});
 
 				// 지도에 행정구역 표시
-				var mapDiv = document.getElementById('map');
+				var mapDiv = document.getElementById('mapList');
 				var mapOptions = {
 					center : new naver.maps.LatLng(35.9, 127.2),
 					zoom : 2,

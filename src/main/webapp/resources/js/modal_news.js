@@ -2,14 +2,15 @@
 function readNews(num) {
 	var value = document.getElementsByClassName("main_title")[num].innerText;
 	$.ajax({
-		url : "readNews.do",
+		url : "readNews",
 		type : "GET",
 		data : { title : value },
 		success : function(data) {
+			console.log(data);
 			document.getElementById('id01').style.display = 'block';
 			document.getElementById("m_title").innerHTML = data.title;
 			document.getElementById("m_date").innerHTML = data.date;
-			document.getElementById("m_contents").innerHTML = data.contents;
+			document.getElementById("m_contents").innerHTML = data.content;
 
 			// Modal Close Button
 			$('html, body').css({
