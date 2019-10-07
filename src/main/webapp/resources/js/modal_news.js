@@ -20,6 +20,9 @@ function readNews(num) {
 				event.preventDefault();
 				event.stopPropagation();
 				return false;
+				});
+			 $(document).click(function() {
+	             $("#id01").hide();
 			});
 		},
 		error : function(request, status, error) {
@@ -39,3 +42,4 @@ function closeBtn() {
 	});
 	$('#element').off('scroll touchmove mousewheel');
 }
+
