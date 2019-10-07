@@ -154,4 +154,8 @@ public class NewsAnalysisService {
 			result = dao.insertSigungu(vo);
 		return result;
 	}
+	
+	public boolean contentZone(HashMap<String, Object> map) {
+		return dao.contentZone(map);
+	}
 }

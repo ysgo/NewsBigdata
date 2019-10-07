@@ -27,4 +27,9 @@ public class NewsAnalysisDAO {
 		int result = session.selectOne(statement, map);
 		return result == 0 ? true : false;
 	}
+	
+	public boolean contentZone(HashMap<String, Object> map) {
+		String statement = mapperRoute + "contentZone";
+		return session.insert(statement, map) == 1 ? true : false;
+	}
 }

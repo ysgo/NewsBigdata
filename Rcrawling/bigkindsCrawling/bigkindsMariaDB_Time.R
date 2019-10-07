@@ -46,7 +46,7 @@ for(menunb in 1:4){
   #############################################################################################3
   # endflag<-FALSE
   page<-4
-  for(pageNB in 1:5){ 
+  for(pageNB in 1:1){ 
     for(index in 1:1){
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')

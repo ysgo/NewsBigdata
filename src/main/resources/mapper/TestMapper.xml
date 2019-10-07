@@ -6,7 +6,7 @@
 <mapper namespace="resource.NewsMapper2">
 	<!-- 뉴스 타이틀  출력 -->
 	<insert id="insertNews" parameterType="vo.TestVO">
-		insert into bigkinds (newsname, title, category, date, url, content) 
+		insert into sample (newsname, title, category, date, url, content) 
 		values(#{newsname},#{title},#{category},#{date},#{url},#{content})
 	</insert>
 

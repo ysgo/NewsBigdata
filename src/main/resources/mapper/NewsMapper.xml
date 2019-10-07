@@ -5,12 +5,17 @@
   
 <mapper namespace="resource.NewsMapper">
 	<!-- 뉴스 시도명 구분  -->
-	<insert id="zoneProvince">
+<!-- 	<update id="zoneProvince" parameterType="hashmap">
+		update content set p_code=#{p_code} where content=#{content}
+	</update>
 	
-	</insert>
+	<update id="zoneSigungu" parameterType="hashmap">
+		update content set s_code=#{s_code} where content=#{content}
+	</update> -->
 	
-	<insert id="zoneSigungu">
-	
+	<!-- 기사내용 관련지명 코드 추가 -->
+	<insert id="contentZone" parameterType="hashmap">
+		insert into content set content=#{content}, p_code=#{p_code}, s_code=#{s_code} 
 	</insert>
 	
 	<!-- 뉴스 전체 불러오기 -->

@@ -55,38 +55,42 @@ public class RJavaConnectController {
     			vo.setDate(date[i]);
     			vo.setUrl(url[i]);
     			vo.setContent(content[i]);
+    			if(service.insertNews(vo) !=1) {
+    				System.out.println("입력 실패");
+    			}
     			
     			Map<String, Object> request = new HashMap<>();
     			Map<String, String> argument = new HashMap<>();
     			argument.put("analysis_code", analysisCode);
-    			argument.put("text", title[i]);
+    			argument.put("text", vo.getContent());
     			request.put("access_key", accessKey);
     			request.put("argument", argument);
     			
     			List<NewsAnalysisVO> list2 = service2.getAnalysisLocation(request, argument, openApiURL);
     			if (list2 != null) {
     				list2.stream().forEach(data -> {
-    					if(data.getType().equals("LCP_PROVINCE") || data.getType().equals("LCP_CAPITALCITY")
-    							|| data.getType().equals("LCG_ISLAND")) {
-    						
+    					HashMap<String, Object> map = new HashMap<>();
+//    					map.put("content", vo.getContent());
+    					
+    					if(data.getType().endsWith("PROVINCE") || data.getType().endsWith("CAPITALCITY")
+    							|| data.getType().endsWith("ISLAND") || data.getType().endsWith("CITY")) {
     						// 시도 및 섬
-    						
-    						
-    					} else if(data.getType().equals("LCP_COUNTRY") || data.getType().equals("LCP_CITY")) {
-    						
+    						System.out.println("시도");
+    						System.out.println("[개체명] " + data.getText() + " (" + data.getCount() + ") " + data.getType());
+//    						map.put("province", "");
+    					} 
+    					if(data.getType().endsWith("COUNTY")) {
     						// 시군구
-    						
-    						
+    						System.out.println("시군구");
+    						System.out.println("[개체명] " + data.getText() + " (" + data.getCount() + ") " + data.getType());
+    						map.put("sigungu", "");
     					}
-    					System.out.println("[개체명] " + data.getText() + " (" + data.getCount() + ") " + data.getType());
+//    					service2.contentZone(map);
     				});
     			} else
     				System.out.println("해당 지명이 출력되지 않았기에 Default로 서울 뉴스 기사를 출력");
 
     			
-    			if(service.insertNews(vo) !=1) {
-    				System.out.println("입력 실패");
-    			}
     		}
     		
         } catch(RserveException e) {
