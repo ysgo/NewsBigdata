@@ -23,8 +23,10 @@ public class NewsDetailService {
 		return dao.search(info);
 	}
 	
+	/*
 	public List<Pagination> searchCnt(NewsVO info) {
 		System.out.println("서비스 - SearachCnt에 들어옴");
 		return dao.searchCnt(info);
 	}
+	*/
 }

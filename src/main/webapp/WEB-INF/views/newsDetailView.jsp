@@ -25,8 +25,10 @@
 </c:if>
 
 <c:if test="${sessionScope.mid == null}">
+	<a href="/newsbigdata/home.do">HOME</a>
 	<a href="/NewsBigdata/loginmain">로그인</a>
 	<a href="/NewsBigdata/memberForm">회원가입</a>
+	
 </c:if>
 <hr>
 <h2>임시 뉴스 정보</h2>
@@ -36,7 +38,7 @@
 		<h2 id="divT">옵션 1 : 검색할 키워드를 입력하세요</h2>
 	<form action="/newsbigdata/NewsdetailView.do" method="GET">
 		<input type="hidden" name="action" value="search">
-		<input type="hidden" name="pageNo" value="1">
+		<input type="hidden" name="curPage" value="1">
 		
 			<!--hidden:사용자에게 안보이지만 관리자에게 value값을 서버로 넘기기위해  
 			   name=key/ value=name에 해당하는 값으로 서버에 넘어간다-->
@@ -45,11 +47,10 @@
 		 	<input type="reset" value="재작성">
 	</form>
 	
-	<b>${count}</b>개의 게시물이 있습니다.
+	<b>${pagination.listCnt}</b>개의 게시물이 있습니다.
 			
 	</div>
 	<br>
-<h2>옵션 1 결과 화면 : ↓↓↓</h2>
 	<table>
 		<c:choose>
 			<c:when test="${ list1 != null }" >
@@ -105,7 +106,7 @@
                 </div>
   	
 <hr>
-<h2>옵션 2 : 필터링 항목들 ↓↓↓</h2>	 
+<h2>옵션 2 : 필터링 항목들 ↑↑↑</h2>	 
 <form method="get" action="/NewsBigdata/list">
 <input type="hidden" name="action" value="search">
 <input type="hidden" name="pageNo" value="1">
@@ -131,22 +132,11 @@
 	<input type="submit" value="검색하기">
 </section>
 </form>
-<h2>옵션 2 결과 화면 : (옵션 1 결과 화면에 반영되야함.)</h2>
-	<table>
-		<c:choose>
-			<c:when test="${ list1 != null }">
-				<c:forEach var="data" items="${list1}">
-					<tr>
-						<td>${ data.title }</td>
-						<td>${ data.date }</td>
-						<td>${ data.contents }</td>
-					</tr>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>  
-			${msg}
-			</c:otherwise>
-		</c:choose>
-	</table>
+	
+<script>
+function fn_paging(pageNum){
+   location.href = '/newsbigdata/NewsdetailView.do?action=search&curPage='+pageNum+'&keyword=';
+}
+</script>	
 </body>
 </html>

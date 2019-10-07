@@ -140,6 +140,7 @@ public class Pagination {
 
 	public void setRangeCnt(int pageCnt) {
 		this.rangeCnt = (int) Math.ceil(pageCnt * 1.0 / rangeSize);
+		
 	}
 
 	//1~10범위설정  curPage=1 

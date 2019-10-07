@@ -6,20 +6,22 @@
 <mapper namespace="resource.NewsMapper">
 	<!-- 뉴스 타이틀 출력 -->
 	<select id="allTitle" resultType="vo.NewsVO">
-		select title from newstmp;
+		select title from bigkinds;
 	</select>
 	<!-- 뉴스 타이틀 출력 -->
-	<select id="selectTitle" resultType="vo.NewsVO">
-		select title from news_test;
+	<select id="selectTitle" resultType="vo.NewsVO"
+		parameterType="vo.NewsVO">
+		select title from bigkinds
+		LIMIT #{pageNo},10;
 	</select>
-
-
+	
 	<!-- 키워드별로 검색한 결과물 출력 -->
 	<select id="search" resultType="vo.NewsVO"
 		parameterType="vo.NewsVO">
-		SELECT title FROM news_test 
+		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM bigkinds, (select @ROWNUM := 0) A 
 		WHERE title LIKE '%${keyword}%'  
-		order by date LIMIT #{pageNo},10;
+		order by title DESC LIMIT #{pageNo},10;
+		<!--  order by title DESC LIMIT 10 OFFSET #{pageNo} -->
 		
 		
 		<!-- 
@@ -30,17 +32,16 @@
 	</select>
 
 	<!-- 검색한 게시글 갯수 -->
-	<select id="searchCnt" parameterType="vo.NewsVO"
-		resultType="int">
-		SELECT count(title) FROM news_test WHERE title LIKE
-		'%${keyword}%'
+	<select id="searchListCnt" parameterType="vo.NewsVO"
+		resultType="_int">
+		SELECT count(title) FROM bigkinds WHERE title LIKE '%${keyword}%'
 	</select>
 
 	<!-- 전체 게시글 갯수 -->
-	<select id="NewsListCount" parameterType="vo.NewsVO"
+	<select id="allListCount" parameterType="vo.NewsVO"
 		resultType="_int">
 		select count(*)
-		from news_test ;
+		from bigkinds ;
 		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
 			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
 	</select>

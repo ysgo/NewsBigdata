@@ -23,31 +23,27 @@ public class NewsDetailDAO {
 	
 	// 뉴스 타이틀 전체출력
 	public List<NewsVO> selectTitle(NewsVO info) {
-		System.out.println("selectTitle에 들어옴");
+		System.out.println("전체출력 pageNo값: " + info.getPageNo());
 		String statement = mapperRoute + "selectTitle";
-		return session.selectList(statement);
+		return session.selectList(statement,info);
 	}
 
+	// 뉴스 키워드로 검색된 것만 출력
 	public List<NewsVO> search(NewsVO info) {
-		System.out.println("DAO - 키워드 검색 들어옴");
 		System.out.println("DAO 키워드 값 : " + info.getKeyword());
-		System.out.println("DAO pageNo값: " + info.getPageNo());
-
 		List<NewsVO> list;
 		String statement = "resource.NewsMapper.search";
 		list = session.selectList(statement, info);
 		return list;
 	}
 	
-	public List<Pagination> searchCnt(NewsVO info) {
-		System.out.println("DAO - searchCnt들어옴 :"+info.getKeyword());
-		List<Pagination> list;
-		String statement = "resource.NewsMapper.search";
-		list = session.selectList(statement, info);
-		return list;
+	public int allListCount(NewsVO info) {
+		String statement = "resource.NewsMapper.allListCount";
+		return session.selectOne(statement, info);
 	}
-	public int selectCount(NewsVO info) {
-		String statement = "resource.NewsMapper.NewsListCount";
+
+	public int searchListCnt (NewsVO info) {
+		String statement = "resource.NewsMapper.searchListCnt";
 		return session.selectOne(statement, info);
 	}
 }
