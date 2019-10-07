@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="common/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <style>
 text:hover {
 	stroke: black;
-}
-
-body {
-	font-family: "Lucida Grande", "Droid Sans", Arial, Helvetica, sans-serif;
 }
 
 .legend {
@@ -20,18 +17,19 @@ body {
 	padding: 8px;
 }
 
-.bld {
-	font-weight: bold;
-}
+svg { width: 320px; height: 240px; border: 1px solid black; }
 </style>
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 </head>
 
 <body>
-<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="d3.layout.cloud.js"></script>
+<!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="d3.layout.cloud.js"></script> -->
+
 
 	<div>
 		<form action="ctgbtn.do" method="GET">
@@ -46,29 +44,31 @@ body {
 <div id="wordcloud" align="center" ></div>
 <div class="legend"  align="center" style="width:60%;">
          오늘날짜의 기사를 키워드로 보여줌 </div>
-
-
 </body>
 
 <script>
-    var frequency_list = $.ajax({
-            url: "/wordclouds.do",
-            dataType: "json",
-            async: false
-        }).responseText;
-   
-
-    var x = JSON.parse(frequency_list);
-    
-    d3.layout.cloud().size([800, 300])
-            .words(x)
-            .rotate(0)
-            .fontSize(function(d) { return d.size; })
-            .on("end", draw)
-            .start();
-
-    function draw(words) {
-        d3.select("#wordcloud").append("svg")
+$(document).ready(function(){
+	$.ajax({
+        url: "wordclouds.do",
+        type : "GET",
+        success:function(keyMap){
+        	console.log(keyMap); 
+        	   d3.layout.cloud().size([800, 300])
+               .words(x)
+               .rotate(0)
+               .fontSize(function(d) { return d.size; })
+               .on("end", draw())
+               .start();
+        },
+		error : function(request, status, error) {
+			console.log("Error");
+			console.log("error code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+    });
+        
+	function draw() {
+		d3.select("#wordcloud").append("svg")
                 .attr("width", 850)
                 .attr("height", 350)
                 .attr("class", "wordcloud")
@@ -84,11 +84,12 @@ body {
                 })
                 .text(function(d) { return d.text; });
     }
+});
     
-	   $('#ctgA').on('click',function(){
+// 	   $('#ctgA').on('click',function(){
+// 		   location.href="";
+		   
 
-		   location.href="./";
-
-	   });
+// 	   });
 </script>
 </html>

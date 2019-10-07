@@ -15,30 +15,27 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class RwordcloudsController {
 
-	@RequestMapping("/wordclouds.do")
+	@RequestMapping(value="/wordclouds.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> Rwordclouds() {// 각 카테고리
-		RConnection r = null;
+	public Map<String, Object> Rwordclouds() {
 		Map<String, Object> keyMap  = new HashMap <String, Object>();
+		RConnection r = null;
 		try {
 			r = new RConnection();
-			REXP x = r.eval("imsi<-source('C:/Rstudy/bigkindsCrawling/wordclouds2.R');imsi$value");
+			String eval= "imsi<-source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8');imsi$value";
+			REXP x = r.eval(eval);
 			RList list = x.asList();
-
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
 			String keyword;
 			int freq;
-			// r.eval("result<-dbGetQuery(conn,paste0('select content from bigkinds where
-			// category='"+ctg+"'))'");
+
 			for (int i = 0; i < keywords.length; i++) {
 				keyword=keywords[i];
 				freq=Integer.parseInt(freqs[i]);
 				keyMap.put(keyword,freq);
-				System.out.println(keyMap);
-			}
-
-
+				
+			}System.out.println(keyMap);
 	        
 		} catch (Exception e) {
 			System.out.println(e);
@@ -48,8 +45,9 @@ public class RwordcloudsController {
 		}
 		return keyMap;
 	}
+	
 
-	@RequestMapping(value = "/wordclouds.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/wordcloudsGET.do", method = RequestMethod.GET)
 	public ModelAndView wordclouds() {
 		return new ModelAndView("wordclouds");
 	}
