@@ -33,6 +33,11 @@ public class NewsDAO {
 		String statement = mapperRoute+"listSigungu";
 		return session.selectList(statement);
 	}
+	// 뉴스 키워드 출력
+		public List<NewsVO> selectKeyword() {
+			String statement = mapperRoute+"searchKeyWord";
+			return session.selectList(statement);
+		}
 	
 	// 뉴스 타이틀 검색으로 기사 내용 가져오기
 	public NewsVO readNews(NewsVO vo) {

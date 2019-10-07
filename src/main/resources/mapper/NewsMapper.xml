@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="resource.NewsMapper">
 	<!-- 뉴스 시도명 구분  -->
-<!-- 	<update id="zoneProvince" parameterType="hashmap">
+	<!-- 	<update id="zoneProvince" parameterType="hashmap">
 		update content set p_code=#{p_code} where content=#{content}
 	</update>
 	
@@ -26,7 +26,40 @@
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
 		select title, date, contents from newstmp where title=#{title}
 	</select>
+	<!-- 뉴스 타이틀 출력 -->
 	
+	<select id="selectTitle" resultType="vo.NewsVO" parameterType="vo.NewsVO">
+		select title from bigkinds LIMIT #{pageNo},10;
+	</select>
+	
+	<!-- 키워드별로 검색한 결과물 출력 -->
+	<select id="search" resultType="vo.NewsVO"
+		parameterType="vo.NewsVO">
+		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM bigkinds, (select @ROWNUM := 0) A 
+		WHERE title LIKE '%${keyword}%'  
+		order by title DESC LIMIT #{pageNo},10;
+		<!-- 
+			#{startIndex}
+			startIndex or pageStart : 특정 페이지의 첫번째 게시글의 행이다.
+			perPageNum : 한 페이지당 보여줄 게시글의 개수이다.
+		-->
+	</select>
+
+	<!-- 검색한 게시글 갯수 -->
+	<select id="searchListCnt" parameterType="vo.NewsVO"
+		resultType="_int">
+		SELECT count(title) FROM bigkinds WHERE title LIKE '%${keyword}%'
+	</select>
+
+	<!-- 전체 게시글 갯수 -->
+	<select id="allListCount" parameterType="vo.NewsVO"
+		resultType="_int">
+		select count(*)
+		from bigkinds ;
+		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
+			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
+	</select>
+		
 	<select id="emptyZone" parameterType="hashmap" resultType="int">
 		select count(p_code) from ${zoneName}
 	</select>
