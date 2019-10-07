@@ -18,6 +18,7 @@ import service.NewsAnalysisService;
 import service.NewsService2;
 import vo.NewsAnalysisVO;
 import vo.TestVO;
+
 @Controller
 public class RJavaConnectController {
 	@Autowired
@@ -100,6 +101,4 @@ public class RJavaConnectController {
         }
         return "home";
     }
-   
-
 }

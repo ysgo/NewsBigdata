@@ -16,10 +16,6 @@ remDr$open()
 remDr$navigate("https://www.bigkinds.or.kr/v2/news/search.do")
 Sys.sleep(8)
 
-# menuBtn<-('#news-search-form > div > div > div > div.input-group.main-search__form > span > button')
-# menuBtnLink<-remDr$findElements(using='css',menuBtn)
-# sapply(menuBtnLink,function(x){x$clickElement()})
-# Sys.sleep(10)
 newsname=NULL
 title=NULL
 category=NULL
@@ -27,7 +23,7 @@ date=NULL
 url=NULL
 content=NULL
 for(menunb in 1:4){
-  
+
   
   if (menunb==4)
     menunb<-5
@@ -44,7 +40,7 @@ for(menunb in 1:4){
   Sys.sleep(3)
   
   #############################################################################################3
-  # endflag<-FALSE
+
   page<-4
   for(pageNB in 1:1){ 
     for(index in 1:1){
@@ -81,12 +77,6 @@ for(menunb in 1:4){
       contentaddr<-'#news-detail-modal > div > div > div.modal-body > div'
       contentLink<-remDr$findElements(using='css',contentaddr)
       getContent<-unlist(sapply(contentLink,function(x){x$getElementText()}))
-      #getContent<-gsub(pattern = "\\\n", replacement = "", getContent)
-      #getContent<-gsub(pattern = "\\\"", replacement = "", getContent)
-      
-      # getContent<-gsub(pattern = "\\\n", replacement = "\r\n", getContent)
-      # getContent<-gsub(pattern = "\\.", replacement = "\\.\r\n", getContent)
-      # getContent<-substr(getContent,1,255)
       
       newsname<-c(newsname,getNewsName)
       title<-c(title,getTitle)
@@ -94,26 +84,13 @@ for(menunb in 1:4){
       date<-c(date,getDate)
       url<-c(url,getUrl)
       content<-c(content,getContent)
-      
-      # newsname<-c(newsname,paste0(getNewsName,"#"))
-      # title<-c(title,paste0(getTitle,"#"))
-      # category<-c(category,paste0(getCategory,"#"))
-      # date<-c(date,paste0(getDate,"#"))
-      # url<-c(url,paste0(getUrl,"#"))
-      # content<-c(content,paste0(getContent,"^"))
-      
-      #print(getTitle)
-      
+
       xbtnaddr<-'#news-detail-modal > div > div > div.modal-header > button > span'
       xbtnLink<-remDr$findElements(using='css',xbtnaddr)
       sapply(xbtnLink,function(x){x$clickElement()})
       
-      # remDr$goBack()
-      
       Sys.sleep(4)
     }
-    # if(endFlag)
-    #   break
     
     
     # if(page==7)
@@ -145,7 +122,7 @@ for(menunb in 1:4){
   #   # write.csv(dfWorld,"dfWorld.csv",row.names=FALSE,fileEncoding = "UTF-8")
   #   # write.csv(dfWorld,"dfWorldNotEncoding.csv",row.names=FALSE)
   # }
-  
+ 
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
@@ -154,21 +131,4 @@ for(menunb in 1:4){
 }
 
 dfall<- data.frame(newsname,title,category,date,url,content)
-# drv<-JDBC(driverClass="com.mysql.jdbc.Driver",classPath="C:/Rstudy/mysql-connector-java-5.1.40.jar")
-# conn<-dbConnect(drv,"jdbc:mysql://70.12.113.176:3306/newsbigdata","news","bigdata")
-# query<-"select * from bigkinds"
-# dbGetQuery(conn,query)
-# # 
-# recode<-read.csv("C:/Users/student/Documents/dfPoliticsNotEncodingtest.csv",header = T)
-# dbWriteTable(conn,'bigkinds',recode)
-# 
-# dbWriteTable(conn,'bigkinds',dfPolitics)
-# dbWriteTable(conn,'bigkinds',dfBusiness)
-# dbWriteTable(conn,'bigkinds',dfSocialAffairs)
-# dbWriteTable(conn,'bigkinds',dfWorld)
 
-# View(dfPolitics)
-# 
-# tmp$content<-dfPolitics$content
-# tmp$content<-substr(tmp$content, start=1,stop=255)
-# dbWriteTable(conn,'big',tmp)
