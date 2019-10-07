@@ -28,19 +28,19 @@ public class MembershipController {
 	PasswordEncoder passwordEncoder;
 
 	// 메인페이지
-	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView main() {
 		return new ModelAndView("main");
 	}
 
 	// 로그인 페이지 이동
-	@RequestMapping(value = "/signIn.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
 	public ModelAndView signIn() {
 		return new ModelAndView("signIn");
 	}
 
 	// 로그인 : 객체 정보를 추출해 세션에 저장, 암호화, 복호화 비교후 이동
-	@RequestMapping(value="/signIn.do", method=RequestMethod.POST)
+	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public ModelAndView signIn(@ModelAttribute MemberVO vo, HttpSession session) {
 		ModelAndView mav = new ModelAndView("signIn");
 
@@ -63,13 +63,13 @@ public class MembershipController {
 	}
 
 	// 회원가입 페이지 이동
-	@RequestMapping(value = "/signUp.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public ModelAndView signUp() {
 		return new ModelAndView("signUp");
 	}
 
 	// 회원가입 : 서비스 객체에 저장
-	@RequestMapping(value = "/signUp.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ModelAndView signUp(@ModelAttribute MemberVO vo) throws Exception {
 		ModelAndView mav = new ModelAndView("signUp");
 		String enc_password = passwordEncoder.encode(vo.getPassword());
@@ -84,20 +84,20 @@ public class MembershipController {
 	}
 
 	// 로그아웃
-	@RequestMapping("/signOut.do")
+	@RequestMapping("/signOut")
 	public String signOut(SessionStatus session) throws Exception {
 		service.signout(session);
 		return "redirect:/home.do";
 	}
 
 	// 마이페이지 이동
-	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public ModelAndView myPage() {
 		return new ModelAndView("myPage");
 	}
 
 	// 마이페이지 비밀번호 수정
-	@RequestMapping(value = "/updatePass.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatePass", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView updatePass(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO member,
 			@RequestParam("update_password") String update_password) throws Exception {
@@ -117,7 +117,7 @@ public class MembershipController {
 	}
 
 	// 마이페이지 닉네임 수정
-	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/myPage", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView infoUpdate(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO member)
 			throws Exception {
@@ -131,7 +131,7 @@ public class MembershipController {
 	}
 
 	// 회원탈퇴 기능 수행
-	@RequestMapping(value = "/withdrawal.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/withdrawal", method = RequestMethod.POST)
 	public String withdrawal(@ModelAttribute MemberVO vo, @SessionAttribute("status") MemberVO user,
 			SessionStatus sessionClear, HttpServletResponse response) throws Exception {
 		String path = "withdrawal";

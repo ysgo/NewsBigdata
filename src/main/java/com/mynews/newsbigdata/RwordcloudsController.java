@@ -15,9 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class RwordcloudsController {
 
-	@RequestMapping("/wordclouds.do")
+	@RequestMapping("/wordclouds")
 	@ResponseBody
-	public Map<String, Object> Rwordclouds() {// °¢ Ä«Å×°í¸®
+	public Map<String, Object> Rwordclouds() {// ï¿½ï¿½ Ä«ï¿½×°ï¿½
 		RConnection r = null;
 		Map<String, Object> keyMap  = new HashMap <String, Object>();
 		try {
@@ -49,7 +49,7 @@ public class RwordcloudsController {
 		return keyMap;
 	}
 
-	@RequestMapping(value = "/wordclouds.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/wordclouds", method = RequestMethod.GET)
 	public ModelAndView wordclouds() {
 		return new ModelAndView("wordclouds");
 	}

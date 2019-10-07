@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,5 +44,28 @@ public class NewsDAO {
 	public NewsVO readNews(NewsVO vo) {
 		String statement = mapperRoute+"readNews";
 		return session.selectOne(statement, vo);
+	}
+	
+	public int insertNews(NewsVO vo) {
+		String statement = mapperRoute+"insertNews";
+		return session.insert(statement,vo);
+	}
+	
+	// s_name에 해당하는 p_name 검색
+	public String searchProvince(HashMap<String, Object> map) {
+		String statement = mapperRoute + "searchProvince";
+		return session.selectOne(statement, map);
+	}
+	
+	public String searchSigungu(HashMap<String, Object> map) {
+		String statement = mapperRoute + "searchSigungu";
+		return session.selectOne(statement, map);
+	}
+	
+	
+	
+	public ProvinceVO checkProvince(String name) {
+		String statement = mapperRoute + "checkProvince";
+		return session.selectOne(statement, name);
 	}
 }
