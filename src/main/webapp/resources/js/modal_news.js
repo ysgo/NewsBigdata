@@ -24,6 +24,9 @@ function readNews(num) {
 				event.stopPropagation();
 				return false;
 				});
+			 $(document).click(function() {
+	             $("#id01").hide();
+	        }); 
 			},
 			error : function(request, status, error) {
 				console.log("Error");
@@ -31,6 +34,8 @@ function readNews(num) {
 						+ "message:" + request.responseText + "\n"
 						+ "error:" + error);
 				}
+			
+			
 			});
 	}
 
@@ -43,3 +48,4 @@ function closeBtn() {
 	});
 	$('#element').off('scroll touchmove mousewheel');
 }
+

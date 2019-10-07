@@ -1,202 +1,230 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-
-<!--
-	Prologue by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
+
+<style>
+.wrap {
+	margin: auto;
+	align: center;
+	width: 1000px;
+	padding: 30px;
+	background: #e1eef7;
+	height: 400px;
+}
+
+.box {
+	float: left;
+	margin-right: 50%;
+	margin-bottom: 10px;
+}
+
+.right {
+	text-align: right;
+	float: right;
+	margin-right: 0;
+	margin-left: 50%;
+}
+</style>
+
 <head>
-<title>Bigdata News</title>
-<meta charset="utf-8" />
+
+
+<meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="resources/assets/css/main.css" />
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Bigdata News</title>
+
+<!-- Bootstrap core CSS -->
+<link href="resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css'>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- Custom styles for this template -->
+<link href="resources/css/main.css" rel="stylesheet">
 
 </head>
-<body class="is-preload">
+
+<body id="page-top">
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top"><img
+				src="resources/img/로고.png">로고</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button"
+				data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				Menu <i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ml-auto">
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#issue-sec">ISSUE</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#news-sec">NEWS</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#keyword-sec">KEYWORD</a></li>
+					<li class="nav-item" id="tmp_signup" style="display: block"><a
+						class="nav-link js-scroll-trigger" href="#회원가입">SignUp</a></li>
+					<li class="nav-item" id="tmp_login" style="display: block"><a
+						class="nav-link js-scroll-trigger" href="#로그인">Login</a></li>
+					<li class="nav-item" id="user"
+						style="display: block; position: relative;"><a id="dropdown"
+						class="nav-link js-scroll-trigger" style="display: block;">${sessionScope.nickname}</a>
+						<div class="dropdown-content"
+							style="display: none; color: #95b3d7 !important; width: 140px; padding: 10px 15px 0 15px; height: 75px; position: absolute; top: 50px; left: 0; background: #fff; opacity: 0.7">
+							<a class="dcontent" href="mypage"
+								style="padding: 0; color: #000 !important; text-decoration: none;">마이페이지</a><br>
+							<a class="dcontent" href="logout"
+								style="padding: 0; color: #000 !important; text-decoration: none;">로그아웃</a>
+						</div> <script>
+							$("#dropdown").mouseover(function() {
+
+								$(".dropdown-content").css("display", "block");
+							});
+
+							$(".dropdown-content").mouseleave(function() {
+								$(this).css("display", "none");
+							});
+
+							$("a.dcontent").mouseover(function() {
+								$(this).css("color", "#95b3d7");
+							});
+							$("a.dcontent").mouseleave(function() {
+								$(this).css("color", "#000");
+							});
+						</script></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 	<!-- Header -->
-	<div id="header">
+	<header class="masthead">
+		<div class="container">
+			<div class="intro-text">
+				<div class="intro-heading" style="color: black;">슬로건 적기 / 수정사항</div>
+				<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+					href="#회원가입" id="sbutton">시작 하기</a>
 
-		<div class="top">
-
-			<!-- Logo -->
-			<div id="logo">
-				<span class="image avatar48"><img
-					src="resources/images/avatar.jpg" alt="" /></span>
-				<h1 id="title">User Name</h1>
-				<p></p>
 			</div>
-
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li><a href="#top" id="top-link"><span
-							class="icon solid fa-home">Intro</span></a></li>
-					<li><a href="#news" id="portfolio-link"><span
-							class="icon solid fa-newspaper">News</span></a></li>
-					<li><a href="#visualization" id="about-link"><span
-							class="icon solid fa-chart-area">Visualization</span></a></li>
-					<li><a href="#analytics" id="contact-link"><span
-							class="icon solid fa-chart-bar">Analytics</span></a></li>
-				</ul>
-			</nav>
-
 		</div>
-	</div>
+	</header>
 
-	<!-- Main -->
-	<div id="main">
-	
-	
-<!-- modal -->
-	<!-- Sign Up -->
-
-	<div id="signup" class="modal" style="display: none;">
-		<div class="modal-contents-signup">
-			<span class="close">&times;</span>
-			<h2 class="major">Sign Up</h2>
-			<form method="post" action="signUp.do">
-				
-				<input type="text" name="userName" id ="userName">
-				
-				<ul>
-					<li><input type="submit" value="Regisger" /></li>
-					<li><a href ="signIn.do"><input type="button" value="Sign In" /></a></li>
-				</ul>
-			</form>
+	<!-- ISSUE -->
+	<section class="page-section" id="issue-sec">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Today's Issue</h2>
+				</div>
+			</div>
+			<div class="blank"></div>
+			<div class="row text-center">
+				<div class="col-md-8">
+					<div id="map"
+						style="width: 100%; height: 550px; border: 1px solid black;">지도자리</div>
+				</div>
+				<div class="col-md-4">
+					<div id="issues-wrap"
+						style="width: 100%; height: 550px; border: 1px solid black;">리스트자리</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	
+	</section>
 
-	<!-- Login -->
-	
-	
-	
-		<!-- Intro -->
-		<section id="top" class="one dark cover">
-			<div class="container">
+	<!-- NEWS -->
 
-				<header>
-					<h2 class="alt">
-						<strong>Bigdata News Platform</strong>
-					</h2>
-					<p>
-						Ligula scelerisque justo sem accumsan diam quis<br /> vitae
-						natoque dictum sollicitudin elementum.
-					</p>
-				</header>
-
-				<footer>
-					<button id="signUpBtn">Sign Up</button>
-				</footer>
-
-			</div>
-		</section>
-
-
-
-		<!-- Portfolio -->
-		<section id="news" class="two">
-			<div class="container">
-
-				<header>
-					<h2>Portfolio</h2>
-				</header>
-
-				<p>Vitae natoque dictum etiam semper magnis enim feugiat
-					convallis convallis egestas rhoncus ridiculus in quis risus amet
-					curabitur tempor orci penatibus. Tellus erat mauris ipsum fermentum
-					etiam vivamus eget. Nunc nibh morbi quis fusce hendrerit lacus
-					ridiculus.</p>
+	<section class="page-section" id="news-sec"
+		style="border-top: 1px solid #e8e8e8">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Today's News</h2>
+					<div class="blank"></div>
+					<form 검색창>
+						<input type="text" id="textMessage"
+							style="border: 0; outline: 0; border-bottom: 1px solid #bfbfbf; width: 60%; height: 30px;"
+							type="text" placeholder="검색어를 입력하세요."> <input
+							style="width: 17%; height: 30px; border: 0; outline: 0; background-color: #799ab8; color: white;"
+							onclick="sendMessage()" value="Search" type="button">
+					</form>
+				</div>
 
 
 			</div>
-		</section>
 
-		<!-- About Me -->
-		<section id="visualization" class="three">
-			<div class="container">
+			<div class="blank"></div>
 
-				<header>
-					<h2>About Me</h2>
-				</header>
-
-				<a href="#" class="image featured"><img
-					src="resources/images/pic08.jpg" alt="" /></a>
-
-				<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna.
-					Ridiculus ultricies curae quis et rhoncus velit. Lobortis elementum
-					aliquet nec vitae laoreet eget cubilia quam non etiam odio
-					tincidunt montes. Elementum sem parturient nulla quam placerat
-					viverra mauris non cum elit tempus ullamcorper dolor. Libero rutrum
-					ut lacinia donec curae mus vel quisque sociis nec ornare iaculis.</p>
-
+			<div class="row text-center">
+				<div class="col-md-3">
+					<div id="map"
+						style="width: 100%; height: 400px; border: 1px solid black;">카테고리</div>
+				</div>
+				<div class="col-md-9">
+					<div id="issues-wrap"
+						style="width: 100%; height: 400px; border: 1px solid black;">리스트자리</div>
+				</div>
 			</div>
-		</section>
+		</div>
 
-		<!-- Contact -->
-		<section id="analytics" class="four">
-			<div class="container">
+	</section>
 
-				<header>
-					<h2>Contact</h2>
-				</header>
-
-				<p>Elementum sem parturient nulla quam placerat viverra mauris
-					non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-					donec curae mus. Eleifend id porttitor ac ultricies lobortis sem
-					nunc orci ridiculus faucibus a consectetur. Porttitor curae mauris
-					urna mi dolor.</p>
-
-				<form method="post" action="#">
-					<div class="row">
-						<div class="col-6 col-12-mobile">
-							<input type="text" name="name" placeholder="Name" />
-						</div>
-						<div class="col-6 col-12-mobile">
-							<input type="text" name="email" placeholder="Email" />
-						</div>
-						<div class="col-12">
-							<textarea name="message" placeholder="Message"></textarea>
-						</div>
-						<div class="col-12">
-							<input type="submit" value="Send Message" />
-						</div>
-					</div>
-				</form>
-
-			</div>
-		</section>
-
-	</div>
+	<!-- KEYWORD -->
+	<section class="page-section" id="keyword-sec"
+		style="border-top: 1px solid #e8e8e8">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">Today's Keyword</h2>
+				</div>
+			</div>		
+			<div class="blank"></div>
+			<div class = "row text-center">
+				<div id="분석창" class ="col-lg-12 text-center" 
+				style="width: 1000px; height: 400px; align: center; margin: auto; border: 1px solid black">
+				분석창 넣기</div>
+				
+			</div>		
+		</div>
+	</section>
 
 	<!-- Footer -->
-	<div id="footer">
-
-		<!-- Copyright -->
-		<ul class="copyright">
-			<li>&copy; bigdataNews. All rights reserved.</li>
-			<li>footer</li>
-		</ul>
-
-	</div>
+	<footer class="footer">
+		<div class="container">
+			<span class="copyright">Copyright &copy; Bigdata News 2019</span>
+		</div>
+	</footer>
 
 
 
+	<!-- Bootstrap core JavaScript -->
+	<script src="resources/vendor/jquery/jquery.min.js"></script>
+	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="resources/js/agency.min.js"></script>
 
-	<!-- Scripts -->
-	<script src="resources/assets/js/jquery.min.js"></script>
-	<script src="resources/assets/js/jquery.scrolly.min.js"></script>
-	<script src="resources/assets/js/jquery.scrollex.min.js"></script>
-	<script src="resources/assets/js/browser.min.js"></script>
-	<script src="resources/assets/js/breakpoints.min.js"></script>
-	<script src="resources/assets/js/util.js"></script>
-	<script src="resources/assets/js/main.js"></script>
-	<script src="resources/assets/js/modal.js"></script>
-	
 </body>
+
 </html>
 
