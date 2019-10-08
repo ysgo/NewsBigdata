@@ -10,18 +10,22 @@
 	</insert>
 
 	<!-- s_name에 해당하는 p_name -->
-	<select id="searchProvince" parameterType="hashmap" resultType="String">
+	<select id="getProvince" parameterType="hashmap" resultType="String">
 		SELECT p.name FROM province p INNER join sigungu s ON p.p_code=s.p_code
  		WHERE s.name LIKE '%${s_name}%'
 	</select>
 	
-	<select id="searchSigungu" parameterType="hashmap" resultType="String">
-		SELECT p.name FROM province p INNER join sigungu s ON p.p_code=s.p_code
+	<select id="getSigungu" parameterType="hashmap" resultType="String">
+		SELECT s.name FROM province p INNER join sigungu s ON p.p_code=s.p_code
  		WHERE p.name LIKE '%${first}%${second}%' limit 1
 	</select>
 	
-	<select id="checkProvince" parameterType="string" resultType="vo.ProvinceVO">
-		select p_code, name, latitude, longitude from province where name=#{name}
+	<select id="checkProvince" parameterType="hashmap" resultType="int">
+		select count(p_code) from province where name like '%${strFirst}%${strSecond}%'
+	</select>
+	
+	<select id="checkSigungu" parameterType="hashmap" resultType="int">
+		select count(s_code) from sigungu where name like '%${str}%'
 	</select>
 	
 	<!-- 기사내용 관련지명 코드 추가 -->
@@ -31,22 +35,22 @@
 	
 	<!-- 뉴스 전체 불러오기 -->
 	<select id="allTitle" resultType="String">
-		select title from newstmp;
+		select title from news order by date desc limit 10;
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
-		select title, date, content from newstmp where title=#{title}
-	</select>
+		select title, date, content from news where title=#{title}
+	</select> 
 	<!-- 뉴스 타이틀 출력 -->
 	
 	<select id="selectTitle" resultType="vo.NewsVO" parameterType="vo.NewsVO">
-		select title from bigkinds LIMIT #{pageNo},10;
+		select title from news LIMIT #{pageNo},10;
 	</select>
 	
 	<!-- 키워드별로 검색한 결과물 출력 -->
 	<select id="search" resultType="vo.NewsVO"
 		parameterType="vo.NewsVO">
-		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM bigkinds, (select @ROWNUM := 0) A 
+		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM news, (select @ROWNUM := 0) A 
 		WHERE title LIKE '%${keyword}%'  
 		order by title DESC LIMIT #{pageNo},10;
 		<!-- 
@@ -57,16 +61,13 @@
 	</select>
 
 	<!-- 검색한 게시글 갯수 -->
-	<select id="searchListCnt" parameterType="vo.NewsVO"
-		resultType="_int">
-		SELECT count(title) FROM bigkinds WHERE title LIKE '%${keyword}%'
+	<select id="searchListCnt" parameterType="vo.NewsVO" resultType="_int">
+		SELECT count(title) FROM news WHERE title LIKE '%${keyword}%'
 	</select>
 
 	<!-- 전체 게시글 갯수 -->
-	<select id="allListCount" parameterType="vo.NewsVO"
-		resultType="_int">
-		select count(*)
-		from bigkinds ;
+	<select id="allListCount" parameterType="vo.NewsVO" resultType="_int">
+		select count(*)	from news;
 		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
 			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
 	</select>

@@ -2,38 +2,42 @@ package vo;
 
 
 public class NewsAnalysisVO {
-	private String text;
-	private String type;
-	int count;
-
-	public NewsAnalysisVO(String text, String type, Integer count) {
-		this.text = text;
-		this.type = type;
-		this.count = count;
+	private String name;
+	private String p_name;
+	private String s_name;
+	
+	public NewsAnalysisVO(String name, String p_name, String s_name) {
+		this.name = name;
+		this.p_name = p_name;
+		this.s_name = s_name;
+	}
+	public NewsAnalysisVO(String name,String s_name) {
+		this.name = name;
+		this.s_name = s_name;
 	}
 
-	public String getText() {
-		return text;
+	public String getName() {
+		return name;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getP_name() {
+		return p_name;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
 	}
 
-	public int getCount() {
-		return count;
+	public String getS_name() {
+		return s_name;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
 	}
 	
 }

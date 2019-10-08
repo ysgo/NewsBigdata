@@ -40,15 +40,12 @@ public class NewsService {
 		return dao.insertNews(vo);
 	}
 	
-	public String searchProvince(HashMap<String, Object> map) {
-		return dao.searchProvince(map);
+	public String getProvince(HashMap<String, Object> map) {
+		return dao.getProvince(map);
 	}
 	
-	public String searchSigungu(HashMap<String, Object> map) {
-		return dao.searchSigungu(map);
+	public String getSigungu(HashMap<String, Object> map) {
+		return dao.getSigungu(map);
 	}
 	
-	public ProvinceVO checkProvince(String name) {
-		return dao.checkProvince(name);
-	}
 }

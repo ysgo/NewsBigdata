@@ -52,20 +52,14 @@ public class NewsDAO {
 	}
 	
 	// s_name에 해당하는 p_name 검색
-	public String searchProvince(HashMap<String, Object> map) {
-		String statement = mapperRoute + "searchProvince";
+	public String getProvince(HashMap<String, Object> map) {
+		String statement = mapperRoute + "getProvince";
 		return session.selectOne(statement, map);
 	}
 	
-	public String searchSigungu(HashMap<String, Object> map) {
-		String statement = mapperRoute + "searchSigungu";
+	public String getSigungu(HashMap<String, Object> map) {
+		String statement = mapperRoute + "getSigungu";
 		return session.selectOne(statement, map);
 	}
 	
-	
-	
-	public ProvinceVO checkProvince(String name) {
-		String statement = mapperRoute + "checkProvince";
-		return session.selectOne(statement, name);
-	}
 }

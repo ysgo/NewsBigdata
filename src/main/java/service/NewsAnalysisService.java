@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import dao.NewsAnalysisDAO;
-import vo.NewsAnalysisVO;
 import vo.ProvinceVO;
 import vo.SigunguVO;
 
@@ -32,87 +31,103 @@ public class NewsAnalysisService {
 	NewsAnalysisDAO dao;
 	
 	@SuppressWarnings("unchecked")
-	public List<NewsAnalysisVO> getAnalysisLocation(Map<String, Object> request, Map<String, String> argument,
-			String openApiURL) {
+	public Map<String, List<String>> getAnalysisLocation(Map<String, Object> request, 
+			Map<String, String> argument, String openApiURL) {
+		Map<String, List<String>> place = new HashMap<>();
 		Gson gson = new Gson();
-		 
-        URL url;
-        Integer responseCode = null;
-        String responBodyJson = null;
-        Map<String, Object> responeBody = null;
-        List<NewsAnalysisVO> nameEntities = null;
-        try {
-            url = new URL(openApiURL);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setDoOutput(true);
- 
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.write(gson.toJson(request).getBytes("UTF-8"));
-            wr.flush();
-            wr.close();
- 
-            responseCode = con.getResponseCode();
-            InputStream is = con.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            StringBuffer sb = new StringBuffer();
- 
-            String inputLine = "";
-            while ((inputLine = br.readLine()) != null) {
-                sb.append(inputLine);
-            }
-            responBodyJson = sb.toString();
- 
-            if ( responseCode != 200 ) {
-                System.out.println("[error] " + responBodyJson);
-            }
-            
-            responeBody = gson.fromJson(responBodyJson, Map.class);
-            int result = ((Double) responeBody.get("result")).intValue();
-            Map<String, Object> returnObject;
-            List<Map<String, Object>> sentences;
- 
-            if ( result != 0 ) {
-                System.out.println("[error] " + responeBody.get("result"));
-            } else {
-            	returnObject = (Map<String, Object>) responeBody.get("return_object");
-            	sentences = (List<Map<String, Object>>) returnObject.get("sentence");
-            	
-            	Map<String, NewsAnalysisVO> nameEntitiesMap = new HashMap<String, NewsAnalysisVO>();
-            	
-            	for( Map<String, Object> sentence : sentences ) {
-            		// 개체명 분석 결과 수집 및 정렬
-            		List<Map<String, Object>> NewsAnalysisVORecognitionResult = (List<Map<String, Object>>) sentence.get("NE");
-            		for( Map<String, Object> NewsAnalysisVOInfo : NewsAnalysisVORecognitionResult ) {
-            			String name = (String) NewsAnalysisVOInfo.get("text");
-            			NewsAnalysisVO NewsAnalysisVO = nameEntitiesMap.get(name);
-            			String type = String.valueOf(NewsAnalysisVOInfo.get("type"));
-            			if ( NewsAnalysisVO == null ) {
-            				if(type.contains("LCP")) {
-            					NewsAnalysisVO = new NewsAnalysisVO(name, type, 1);
-            					nameEntitiesMap.put(name, NewsAnalysisVO);
-            				}
-            			} else {
-            				if(type.contains("LCP")) {
-            					NewsAnalysisVO.setCount(NewsAnalysisVO.getCount() + 1);
-            				}
-            			}
-            		}
-            	}
-            	
-            	if ( 0 < nameEntitiesMap.size() ) {
-            		nameEntities = new ArrayList<NewsAnalysisVO>(nameEntitiesMap.values());
-            		nameEntities.sort( (vo1, vo2) -> {
-            			return vo2.getCount() - vo1.getCount();
-            		});
-            	}
-            }
+		URL url;
+		Integer responseCode = null;
+		String responBodyJson = null;
+		Map<String, Object> responeBody = null;
+		try {
+			url = new URL(openApiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("POST");
+			con.setDoOutput(true);
+
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.write(gson.toJson(request).getBytes("UTF-8"));
+			wr.flush(); wr.close();
+
+			responseCode = con.getResponseCode();
+			InputStream is = con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			StringBuffer sb = new StringBuffer();
+
+			String inputLine = "";
+			while ((inputLine = br.readLine()) != null) {
+				sb.append(inputLine);
+			}
+			responBodyJson = sb.toString();
+
+			if (responseCode != 200) {
+				System.out.println("[error] " + responBodyJson);
+			}
+
+			responeBody = gson.fromJson(responBodyJson, Map.class);
+			int result = ((Double) responeBody.get("result")).intValue();
+			Map<String, Object> returnObject;
+			List<Map<String, Object>> sentences;
+
+			if (result != 0) {
+				System.out.println("[error] " + responeBody.get("result"));
+			} else {
+				returnObject = (Map<String, Object>) responeBody.get("return_object");
+				sentences = (List<Map<String, Object>>) returnObject.get("sentence");
+				
+				List<String> province = new ArrayList<>();
+				List<String> sigungu = new ArrayList<>();
+				for (Map<String, Object> sentence : sentences) {
+					// 개체명 분석 결과 수집 및 정렬
+					List<Map<String, Object>> NewsAnalysisVORecognitionResult = (List<Map<String, Object>>) sentence
+							.get("NE");
+					for (Map<String, Object> NewsAnalysisVOInfo : NewsAnalysisVORecognitionResult) {
+						HashMap<String, Object> strMap = new HashMap<>();
+						String name = (String) NewsAnalysisVOInfo.get("text");
+						String type = String.valueOf(NewsAnalysisVOInfo.get("type"));
+						int len = name.length();
+						StringBuilder strTmp = new StringBuilder();
+						if (type.endsWith("PROVINCE") || type.endsWith("CAPITALCITY") || type.endsWith("ISLAND")
+								|| type.endsWith("CITY")) {
+							// 시도명
+							if (len >= 4) {
+								strTmp.append(name.charAt(0)).append(name.charAt(2));
+							} else if (len == 3) {
+								strTmp.append(name.substring(0, 2));
+							} else {
+								strTmp.append(name);
+							}
+							String[] tmp = strTmp.toString().split("");
+							strMap.put("strFirst", tmp[0]);
+							strMap.put("strSecond", tmp[1]);
+							if (checkProvince(strMap)) {
+								province.add(strTmp.toString());
+							}
+						} else if (type.endsWith("COUNTY")) {
+							// 시군구
+							if (len >= 3) {
+								strTmp.append(name.substring(len - 3, len));
+							} else {
+								strTmp.append(name);
+							}
+							strMap.put("str", strTmp.toString());
+							if (checkSigungu(strMap)) {
+								sigungu.add(strTmp.toString());
+							}
+						}
+						place.put("province", province);
+						place.put("sigungu", sigungu);
+					}
+				}
+			}
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("Analysis API Connect Exception Error!");
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("Input&Output Exception Error!");
 		}
-        return nameEntities;
+		return place;
 	}
 	
 	
@@ -142,10 +157,6 @@ public class NewsAnalysisService {
 		return list;
 	}
 	
-	public boolean emptyZone(HashMap<String, String> map) {
-		return dao.emptyZone(map);
-	}
-	
 	public boolean insert(Object vo, String zoneName) {
 		boolean result = false;
 		if(zoneName.equals("province"))
@@ -155,7 +166,19 @@ public class NewsAnalysisService {
 		return result;
 	}
 	
+	public boolean emptyZone(HashMap<String, String> map) {
+		return dao.emptyZone(map);
+	}
+	
 	public boolean contentZone(HashMap<String, Object> map) {
 		return dao.contentZone(map);
+	}
+	
+	public boolean checkProvince(HashMap<String, Object> map) {
+		return dao.checkProvince(map);
+	}
+	
+	public boolean checkSigungu(HashMap<String, Object> map) {
+		return dao.checkSigungu(map);
 	}
 }

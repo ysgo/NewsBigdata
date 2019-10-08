@@ -22,14 +22,25 @@ public class NewsAnalysisDAO {
 		return session.insert(statement, vo) == 1 ? true : false;
 	}
 	
-	public boolean emptyZone(HashMap<String, String> map) {
-		String statement = mapperRoute + "emptyZone";
+	public boolean checkProvince(HashMap<String, Object> map) {
+		String statement = mapperRoute + "checkProvince";
 		int result = session.selectOne(statement, map);
-		return result == 0 ? true : false;
+		return result >= 1 ? true : false;
+	}
+	public boolean checkSigungu(HashMap<String, Object> map) {
+		String statement = mapperRoute + "checkSigungu";
+		int result = session.selectOne(statement, map);
+		return result >= 1 ? true : false;
 	}
 	
 	public boolean contentZone(HashMap<String, Object> map) {
 		String statement = mapperRoute + "contentZone";
 		return session.insert(statement, map) == 1 ? true : false;
+	}
+	
+	public boolean emptyZone(HashMap<String, String> map) {
+		String statement = mapperRoute + "emptyZone";
+		int result = session.selectOne(statement, map);
+		return result == 0 ? true : false;
 	}
 }
