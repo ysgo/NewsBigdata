@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import dao.NewsAnalysisDAO;
+import vo.NewsAnalysisVO;
 import vo.ProvinceVO;
 import vo.SigunguVO;
 
@@ -31,9 +32,9 @@ public class NewsAnalysisService {
 	NewsAnalysisDAO dao;
 	
 	@SuppressWarnings("unchecked")
-	public Map<String, List<String>> getAnalysisLocation(Map<String, Object> request, 
+	public Map<String, HashSet<String>> getAnalysisLocation(Map<String, Object> request, 
 			Map<String, String> argument, String openApiURL) {
-		Map<String, List<String>> place = new HashMap<>();
+		Map<String, HashSet<String>> place = new HashMap<>();
 		Gson gson = new Gson();
 		URL url;
 		Integer responseCode = null;
@@ -75,12 +76,11 @@ public class NewsAnalysisService {
 				returnObject = (Map<String, Object>) responeBody.get("return_object");
 				sentences = (List<Map<String, Object>>) returnObject.get("sentence");
 				
-				List<String> province = new ArrayList<>();
-				List<String> sigungu = new ArrayList<>();
+				HashSet<String> province = new HashSet<>();
+				HashSet<String> sigungu = new HashSet<>();
 				for (Map<String, Object> sentence : sentences) {
 					// 개체명 분석 결과 수집 및 정렬
-					List<Map<String, Object>> NewsAnalysisVORecognitionResult = (List<Map<String, Object>>) sentence
-							.get("NE");
+					List<Map<String, Object>> NewsAnalysisVORecognitionResult = (List<Map<String, Object>>) sentence.get("NE");
 					for (Map<String, Object> NewsAnalysisVOInfo : NewsAnalysisVORecognitionResult) {
 						HashMap<String, Object> strMap = new HashMap<>();
 						String name = (String) NewsAnalysisVOInfo.get("text");
@@ -88,7 +88,7 @@ public class NewsAnalysisService {
 						int len = name.length();
 						StringBuilder strTmp = new StringBuilder();
 						if (type.endsWith("PROVINCE") || type.endsWith("CAPITALCITY") || type.endsWith("ISLAND")
-								|| type.endsWith("CITY")) {
+								|| type.endsWith("CITY") || type.endsWith("COUNTY")) {
 							// 시도명
 							if (len >= 4) {
 								strTmp.append(name.charAt(0)).append(name.charAt(2));
@@ -97,27 +97,42 @@ public class NewsAnalysisService {
 							} else {
 								strTmp.append(name);
 							}
+//							String[] tmp = strTmp.toString().split("");
+//							strMap.put("strFirst", tmp[0]);
+//							strMap.put("strSecond", tmp[1]);
+//							if (checkProvince(strMap)) {
+//								province.add(strTmp.toString());
+//							}
 							String[] tmp = strTmp.toString().split("");
 							strMap.put("strFirst", tmp[0]);
 							strMap.put("strSecond", tmp[1]);
 							if (checkProvince(strMap)) {
 								province.add(strTmp.toString());
-							}
-						} else if (type.endsWith("COUNTY")) {
-							// 시군구
-							if (len >= 3) {
-								strTmp.append(name.substring(len - 3, len));
-							} else {
-								strTmp.append(name);
-							}
-							strMap.put("str", strTmp.toString());
-							if (checkSigungu(strMap)) {
+							} else if (checkSigungu(strMap)) {
 								sigungu.add(strTmp.toString());
 							}
 						}
-						place.put("province", province);
-						place.put("sigungu", sigungu);
+//						else if(type.endsWith("CITY")) {
+//							if(checkProvince(strMap)) {
+//								
+//							} else if(checkSigungu(strMap)) {
+//								
+//							}
+//						} else if (type.endsWith("COUNTY")) {
+//							// 시군구
+//							if (len >= 3) {
+//								strTmp.append(name.substring(len - 3, len));
+//							} else {
+//								strTmp.append(name);
+//							}
+////							strMap.put("str", strTmp.toString());
+////							if (checkSigungu(strMap)) {
+////								sigungu.add(strTmp.toString());
+////							}
+//						}
 					}
+					if(province.size() != 0) place.put("province", province);
+					if(sigungu.size() != 0) place.put("sigungu", sigungu);
 				}
 			}
 		} catch (MalformedURLException e) {
@@ -170,8 +185,8 @@ public class NewsAnalysisService {
 		return dao.emptyZone(map);
 	}
 	
-	public boolean contentZone(HashMap<String, Object> map) {
-		return dao.contentZone(map);
+	public boolean contentZone(NewsAnalysisVO vo) {
+		return dao.contentZone(vo);
 	}
 	
 	public boolean checkProvince(HashMap<String, Object> map) {

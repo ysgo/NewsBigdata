@@ -12,12 +12,12 @@
 	<!-- s_name에 해당하는 p_name -->
 	<select id="getProvince" parameterType="hashmap" resultType="String">
 		SELECT p.name FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE s.name LIKE '%${s_name}%'
+ 		WHERE s.name LIKE '%${s_name}%' and p.name LIKE '%${strFirst}%${strSecond}%'
 	</select>
 	
 	<select id="getSigungu" parameterType="hashmap" resultType="String">
 		SELECT s.name FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE p.name LIKE '%${first}%${second}%' limit 1
+ 		WHERE p.name LIKE '%${strFirst}%${strSecond}%' limit 1
 	</select>
 	
 	<select id="checkProvince" parameterType="hashmap" resultType="int">
@@ -25,12 +25,12 @@
 	</select>
 	
 	<select id="checkSigungu" parameterType="hashmap" resultType="int">
-		select count(s_code) from sigungu where name like '%${str}%'
+		select count(s_code) from sigungu where name like '%${strFirst}%${strSecond}%'
 	</select>
 	
 	<!-- 기사내용 관련지명 코드 추가 -->
-	<insert id="contentZone" parameterType="hashmap">
-		insert into content set content=#{content}, p_name=#{p_name}, s_name=#{s_name} 
+	<insert id="contentZone" parameterType="vo.NewsAnalysisVO">
+		insert into contents set content=#{content}, p_name=#{p_name}, s_name=#{s_name} 
 	</insert>
 	
 	<!-- 뉴스 전체 불러오기 -->

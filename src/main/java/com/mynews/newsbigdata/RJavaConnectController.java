@@ -1,7 +1,7 @@
 package com.mynews.newsbigdata;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.rosuda.REngine.REXP;
@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import service.NewsAnalysisService;
 import service.NewsService;
+import vo.NewsAnalysisVO;
 import vo.NewsVO;
-import vo.ProvinceVO;
-import vo.SigunguVO;
 
 @Controller
 public class RJavaConnectController {
@@ -66,30 +65,54 @@ public class RJavaConnectController {
     			argument.put("text", vo.getContent());
     			request.put("argument", argument);
     			
-//    			List<NewsAnalysisVO> list2 = service2.getAnalysisLocation(request, argument, openApiURL);
-    			Map<String, List<String>> place = service2.getAnalysisLocation(request, argument, openApiURL);
-    			List<ProvinceVO> province = null;
-    			List<SigunguVO> sigungu = null;
+    			Map<String, HashSet<String>> place = service2.getAnalysisLocation(request, argument, openApiURL);
+    			HashSet<String> provinces = place.get("province");
+    			HashSet<String> sigungus = place.get("sigungu");
+    			NewsAnalysisVO analysisVO = null;
     			if (place.size() != 0) {
-    				place.get("province").stream().forEach(data -> {
-    					
-    				});
-//    				list2.stream().forEach(data -> {
-//    					
-//    				});
+    				HashMap<String, Object> strMap = new HashMap<>();
+    				if(provinces != null) {
+    					for(String province : provinces) {
+    						String[] str = province.split("");
+    						strMap.put("strFirst", str[0]);
+    						strMap.put("strSecond", str[1]);
+    						if(sigungus != null) {
+    							for(String sigungu : sigungus) {
+    								strMap.put("s_name", sigungu);
+    								String checkProvince = service.getProvince(strMap);
+    								if(checkProvince != null && checkProvince.contains(str[0]) && checkProvince.contains(str[1])) {
+    									analysisVO = new NewsAnalysisVO(vo.getContent(), province, sigungu);
+    								} else {
+    									continue;
+    								}
+    							}
+    						} else {
+    							analysisVO = new NewsAnalysisVO(vo.getContent(), province, service.getSigungu(strMap));
+    						}
+    					}
+    				} else {
+    					if(sigungus != null) {
+							for(String sigungu : sigungus) {
+								strMap.put("s_name", sigungu);
+								String checkProvince = service.getProvince(strMap);
+								analysisVO = new NewsAnalysisVO(vo.getContent(), checkProvince, sigungu);
+							}
+						}
+    				}
     			} else {
     				System.out.println("해당 지명이 출력되지 않았기에 Default로 서울 뉴스 기사를 출력");
-    				HashMap<String, Object> map = new HashMap<>();
-    				map.put("content", vo.getContent());
-    				map.put("province", "서울특별시");
-    				map.put("sigungu", "종로구");
-    				System.out.println(map);
+    				analysisVO = new NewsAnalysisVO(vo.getContent(), "서울", "종로");
     			}
+    			service2.contentZone(analysisVO);
     		}
         } catch(RserveException e) {
         	System.out.println("Rserve 실패");
         } catch(REXPMismatchException e) {
         	System.out.println("R 문법 오류");
+        } catch(NullPointerException e) {
+        	System.out.println("Zone Value is Null");
+        } catch(Exception e) {
+        	e.printStackTrace();
         }
         return "home";
     }

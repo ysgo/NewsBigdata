@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import vo.NewsAnalysisVO;
+
 @Repository
 public class NewsAnalysisDAO {
 	@Autowired
@@ -33,9 +35,9 @@ public class NewsAnalysisDAO {
 		return result >= 1 ? true : false;
 	}
 	
-	public boolean contentZone(HashMap<String, Object> map) {
+	public boolean contentZone(NewsAnalysisVO vo) {
 		String statement = mapperRoute + "contentZone";
-		return session.insert(statement, map) == 1 ? true : false;
+		return session.insert(statement, vo) == 1 ? true : false;
 	}
 	
 	public boolean emptyZone(HashMap<String, String> map) {
