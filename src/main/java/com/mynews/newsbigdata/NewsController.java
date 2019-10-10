@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,10 +48,9 @@ public class NewsController {
 	
 	// 메인페이지 뉴스 기사 리스트 출력 & 모달페이지 뉴스 기사 내용 출력
 	@RequestMapping(value="/readNews", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public NewsVO readNews(@ModelAttribute NewsVO vo, Model model) {
+	public NewsVO readNews(@ModelAttribute NewsVO vo) {
 		try {
 			vo = service.readNews(vo);
-			model.addAttribute("readNews", vo);
 		} catch(NullPointerException e) {
 			System.out.println("There is no matching article with the title!");
 		}

@@ -97,6 +97,7 @@ public class NewsAnalysisService {
 							} else {
 								strTmp.append(name);
 							}
+							System.out.println(strTmp.toString());
 							String[] tmp = strTmp.toString().split("");
 							strMap.put("strFirst", tmp[0]);
 							strMap.put("strSecond", tmp[1]);
@@ -109,6 +110,7 @@ public class NewsAnalysisService {
 					}
 					if(province.size() != 0) place.put("province", province);
 					if(sigungu.size() != 0) place.put("sigungu", sigungu);
+					System.out.println(place);
 				}
 			}
 		} catch (MalformedURLException e) {

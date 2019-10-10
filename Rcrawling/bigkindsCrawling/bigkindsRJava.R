@@ -23,9 +23,9 @@ date=NULL
 url=NULL
 content=NULL
 menunb <- 1
-for(menu in 1:5){
+for(menu in 1:4){
   if (menu==4)
-    menunb<-menunb+1
+    menunb<-6
   
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
@@ -41,8 +41,8 @@ for(menu in 1:5){
   #############################################################################################3
 
   page<-4
-  for(pageNB in 1:8){ 
-    for(index in 1:1){
+  for(pageNB in 1:7){ 
+    for(index in 1:10){
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)

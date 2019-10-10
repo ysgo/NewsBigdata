@@ -8,9 +8,12 @@ function readNews(num) {
 		success : function(data) {
 			console.log(data);
 			document.getElementById('id01').style.display = 'block';
+			document.getElementById("m_newsname").innerHTML = data.newsname;
 			document.getElementById("m_title").innerHTML = data.title;
+			document.getElementById("m_category").innerHTML = data.category;
 			document.getElementById("m_date").innerHTML = data.date;
-			document.getElementById("m_contents").innerHTML = data.content;
+			document.getElementById("m_img").src = data.url;
+			document.getElementById("m_content").innerHTML = data.content;
 
 			// Modal Close Button
 			$('html, body').css({

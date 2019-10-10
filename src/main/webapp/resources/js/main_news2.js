@@ -13,16 +13,7 @@ window.onload = function() {
 				var sigungu = jsonObj.sigungu;
 				var todayNews = jsonObj.todayNews;
 				
-				// 오늘의 뉴스 출력
-				$.each(todayNews, function(idx, item) {
-					// idx는 인덱스, item은 데이터 json
-					var str='<li class="main_title" onclick="readNews('+ idx + ')">';
-//					str+='<span class="main_title" onclick="readNews('+ idx + ')">';
-					str+=item;
-//					str+="</span>";
-					str+='</li>';
-					$("#todayNews").append(str);
-				});
+				showNewsList(todayNews);
 
 				// 지도에 행정구역 표시
 				var mapDiv = document.getElementById('mapList');
@@ -102,6 +93,24 @@ function info() {
 	}
 }
 
+function showNewsList(newsList) {
+//	for(var i in zoneNews) {
+//		var str='<li class="main_title" onclick="readNews('+ i + ')">';
+//		str+=zoneNews[i];
+//		str+='</li>';
+//		$("#todayNews").append(str);
+//	}
+	
+	// 뉴스 리스트 출력
+	$.each(newsList, function(idx, item) {
+		// idx는 인덱스, item은 데이터 json
+		var str='<li class="main_title" onclick="readNews('+ idx + ')">';
+		str+=item;
+		str+='</li>';
+		$("#todayNews").append(str);
+	});
+} 
+
 function getClickHandler(seq) {
 	 return function(e) {
 		var marker = markers[seq], infoWindow = infoWindows[seq];
@@ -116,33 +125,12 @@ function getClickHandler(seq) {
 		$.ajax({
 			url : 'selectZone',
 			type : 'GET',
-			data : {
-				zoneName : marker.content
-			},
-//			dataType: "json",
+			data : { zoneName : marker.content },
 			success : function(data) {
 				console.log(data.zoneNews);
 				$('#todayNews *').remove();
-				var zoneNews = data.zoneNews;
-				for(var i in zoneNews) {
-//					className[i] = data[i];
-					var str='<li class="main_title" onclick="readNews('+ i + ')">';
-//					str+='<span class="main_title" onclick="readNews('+ i + ')">';
-					str+=zoneNews[i];
-//					str+="</span>";
-					str+='</li>';
-					$("#todayNews").append(str);
-				}
-				
-//				$.each(todayNews, function(idx, item) {
-//					// idx는 인덱스, item은 데이터 json
-//					var str="<li>";
-//					str+='<span class="main_title" onclick="readNews('+ idx + ')">';
-//					str+=item;
-//					str+="</span>";
-//					str+="</li>";
-//					$("#todayNews").append(str);
-//				});
+//				var zoneNews = data.zoneNews;
+				showNewsList(data.zoneNews);
 			},
 			error : function(request, status, error) {
 				console.log("Error");
