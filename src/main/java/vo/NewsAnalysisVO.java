@@ -2,22 +2,22 @@ package vo;
 
 
 public class NewsAnalysisVO {
-	private String content;
+	private String text;
 	private String p_name;
 	private String s_name;
 	
-	public NewsAnalysisVO(String content, String p_name, String s_name) {
-		this.content = content;
+	public NewsAnalysisVO(String text, String p_name, String s_name) {
+		this.text = text;
 		this.p_name = p_name;
 		this.s_name = s_name;
 	}
 
-	public String getcontent() {
-		return content;
+	public String gettext() {
+		return text;
 	}
 
-	public void setcontent(String content) {
-		this.content = content;
+	public void settext(String text) {
+		this.text = text;
 	}
 
 	public String getp_name() {

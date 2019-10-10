@@ -97,12 +97,6 @@ public class NewsAnalysisService {
 							} else {
 								strTmp.append(name);
 							}
-//							String[] tmp = strTmp.toString().split("");
-//							strMap.put("strFirst", tmp[0]);
-//							strMap.put("strSecond", tmp[1]);
-//							if (checkProvince(strMap)) {
-//								province.add(strTmp.toString());
-//							}
 							String[] tmp = strTmp.toString().split("");
 							strMap.put("strFirst", tmp[0]);
 							strMap.put("strSecond", tmp[1]);
@@ -112,24 +106,6 @@ public class NewsAnalysisService {
 								sigungu.add(strTmp.toString());
 							}
 						}
-//						else if(type.endsWith("CITY")) {
-//							if(checkProvince(strMap)) {
-//								
-//							} else if(checkSigungu(strMap)) {
-//								
-//							}
-//						} else if (type.endsWith("COUNTY")) {
-//							// 시군구
-//							if (len >= 3) {
-//								strTmp.append(name.substring(len - 3, len));
-//							} else {
-//								strTmp.append(name);
-//							}
-////							strMap.put("str", strTmp.toString());
-////							if (checkSigungu(strMap)) {
-////								sigungu.add(strTmp.toString());
-////							}
-//						}
 					}
 					if(province.size() != 0) place.put("province", province);
 					if(sigungu.size() != 0) place.put("sigungu", sigungu);

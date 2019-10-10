@@ -21,6 +21,10 @@ public class NewsService {
 		return dao.listAll();
 	}
 	
+	public List<String> zoneTitle(HashMap<String, Object> map) {
+		return dao.zoneTitle(map);
+	}
+	
 	// 시도명 위도, 경도 전체 데이터 가져오기
 	public List<ProvinceVO> provinceList() {
 		return dao.provinceList();

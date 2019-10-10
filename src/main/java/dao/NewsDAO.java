@@ -23,6 +23,12 @@ public class NewsDAO {
 		return session.selectList(statement);
 	}
 	
+	// 지역명 뉴스 타이틀 불러오기
+	public List<String> zoneTitle(HashMap<String, Object> map) {
+		String statement = mapperRoute+"zoneTitle";
+		return session.selectList(statement, map);
+	}
+	
 	// 시도명 위도, 경도 전체 데이터 가져오기
 	public List<ProvinceVO> provinceList() {
 		String statement = mapperRoute+"listProvince";

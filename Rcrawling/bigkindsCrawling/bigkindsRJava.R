@@ -22,9 +22,10 @@ category=NULL
 date=NULL
 url=NULL
 content=NULL
-for(menunb in 1:4){
-  if (menunb==4)
-    menunb<-5
+menunb <- 1
+for(menu in 1:5){
+  if (menu==4)
+    menunb<-menunb+1
   
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
@@ -40,7 +41,7 @@ for(menunb in 1:4){
   #############################################################################################3
 
   page<-4
-  for(pageNB in 1:1){ 
+  for(pageNB in 1:8){ 
     for(index in 1:1){
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
@@ -89,19 +90,18 @@ for(menunb in 1:4){
       
       Sys.sleep(2)
     }
-    
-    
-    # if(page==7)
-    #   page<-7
 
-    if(page==4)
-      break
+    # if(page==4)
+    #   break
     
     linkCss<-paste0('#news-results-pagination > ul > li:nth-child(',page,') > a')
     linkCssLink<-remDr$findElements(using='css',linkCss)
     sapply(linkCssLink,function(x){x$clickElement()})
     Sys.sleep(3)
-    page<-page+1
+    if(page==10)
+      page<-4
+    else
+      page<-page+1
   }
   # 
   # if(menunb==1){
@@ -123,12 +123,15 @@ for(menunb in 1:4){
   #   # write.csv(dfWorld,"dfWorld.csv",row.names=FALSE,fileEncoding = "UTF-8")
   #   # write.csv(dfWorld,"dfWorldNotEncoding.csv",row.names=FALSE)
   # }
- 
+  
+
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
   Sys.sleep(3)
-  
+  if(menunb==6)
+    break
+  menunb <- menunb + 1
 }
 
 dfall<- data.frame(newsname,title,category,date,url,content)

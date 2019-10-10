@@ -62,7 +62,8 @@ public class RJavaConnectController {
     				System.out.println("입력 실패");
     			}
     			
-    			argument.put("text", vo.getContent());
+    			// title, contents 분석 후 insert
+    			argument.put("text", vo.getTitle()+vo.getContent());
     			request.put("argument", argument);
     			
     			Map<String, HashSet<String>> place = service2.getAnalysisLocation(request, argument, openApiURL);
@@ -83,7 +84,15 @@ public class RJavaConnectController {
     								if(checkProvince != null && checkProvince.contains(str[0]) && checkProvince.contains(str[1])) {
     									analysisVO = new NewsAnalysisVO(vo.getContent(), province, sigungu);
     								} else {
-    									continue;
+    									String getSigungu = service.getSigungu(strMap);
+//    									int len = getSigungu.length();
+//    									StringBuilder strTmp = new StringBuilder();
+//    									if (len >= 3) {
+//    										strTmp.append(getSigungu.substring(len-3, len));
+//    									} else {
+//    										strTmp.append(getSigungu);
+//    									}
+    									analysisVO = new NewsAnalysisVO(vo.getContent(), province, getSigungu);
     								}
     							}
     						} else {

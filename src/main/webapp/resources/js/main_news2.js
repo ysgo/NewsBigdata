@@ -16,11 +16,11 @@ window.onload = function() {
 				// 오늘의 뉴스 출력
 				$.each(todayNews, function(idx, item) {
 					// idx는 인덱스, item은 데이터 json
-					var str="<li>";
-					str+='<span class="main_title" onclick="readNews('+ idx + ')">';
+					var str='<li class="main_title" onclick="readNews('+ idx + ')">';
+//					str+='<span class="main_title" onclick="readNews('+ idx + ')">';
 					str+=item;
-					str+="</span>";
-					str+="</li>";
+//					str+="</span>";
+					str+='</li>';
 					$("#todayNews").append(str);
 				});
 
@@ -117,10 +117,32 @@ function getClickHandler(seq) {
 			url : 'selectZone',
 			type : 'GET',
 			data : {
-				name : marker.content
+				zoneName : marker.content
 			},
+//			dataType: "json",
 			success : function(data) {
-				console.log(data);
+				console.log(data.zoneNews);
+				$('#todayNews *').remove();
+				var zoneNews = data.zoneNews;
+				for(var i in zoneNews) {
+//					className[i] = data[i];
+					var str='<li class="main_title" onclick="readNews('+ i + ')">';
+//					str+='<span class="main_title" onclick="readNews('+ i + ')">';
+					str+=zoneNews[i];
+//					str+="</span>";
+					str+='</li>';
+					$("#todayNews").append(str);
+				}
+				
+//				$.each(todayNews, function(idx, item) {
+//					// idx는 인덱스, item은 데이터 json
+//					var str="<li>";
+//					str+='<span class="main_title" onclick="readNews('+ idx + ')">';
+//					str+=item;
+//					str+="</span>";
+//					str+="</li>";
+//					$("#todayNews").append(str);
+//				});
 			},
 			error : function(request, status, error) {
 				console.log("Error");

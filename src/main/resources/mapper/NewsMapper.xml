@@ -12,7 +12,7 @@
 	<!-- s_name에 해당하는 p_name -->
 	<select id="getProvince" parameterType="hashmap" resultType="String">
 		SELECT p.name FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE s.name LIKE '%${s_name}%' and p.name LIKE '%${strFirst}%${strSecond}%'
+ 		WHERE s.name LIKE '%${s_name}%' and p.name LIKE '%${strFirst}%${strSecond}%' limit 1
 	</select>
 	
 	<select id="getSigungu" parameterType="hashmap" resultType="String">
@@ -30,16 +30,27 @@
 	
 	<!-- 기사내용 관련지명 코드 추가 -->
 	<insert id="contentZone" parameterType="vo.NewsAnalysisVO">
-		insert into contents set content=#{content}, p_name=#{p_name}, s_name=#{s_name} 
+		insert into contents set content=#{text}, p_name=#{p_name}, s_name=#{s_name} 
 	</insert>
 	
-	<!-- 뉴스 전체 불러오기 -->
+	<insert id="titleZone" parameterType="vo.NewsAnalysisVO">
+		insert into titles set title=#{text}, p_name=#{p_name}, s_name=#{s_name} 
+	</insert>
+	
+	<!-- 지역명에 따른 뉴스 타이틀 불러오기 -->
+	<select id="zoneTitle" parameterType="hashmap" resultType="String">
+		SELECT title FROM news n INNER JOIN contents c ON n.content=c.content
+		WHERE c.p_name LIKE '%${strFirst}%${strSecond}%' 
+		OR c.s_name LIKE '%${strFirst}%${strSecond}%' limit 10
+	</select>
+	
+	<!-- 오늘의 뉴스 타이틀 불러오기 -->
 	<select id="allTitle" resultType="String">
-		select title from news order by date desc limit 10;
+		select title from news order by date desc limit 10
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
-		select title, date, content from news where title=#{title}
+		select newsname, title, category, date, url, content from news where title=#{title} limit 1
 	</select> 
 	<!-- 뉴스 타이틀 출력 -->
 	

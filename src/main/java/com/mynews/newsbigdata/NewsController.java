@@ -2,6 +2,7 @@ package com.mynews.newsbigdata;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -53,14 +54,28 @@ public class NewsController {
 			vo = service.readNews(vo);
 			model.addAttribute("readNews", vo);
 		} catch(NullPointerException e) {
-			System.out.println("제목과 매치되는 기사가 존재하지 않습니다.");
+			System.out.println("There is no matching article with the title!");
 		}
 		return vo;
 	}
 	
-	@RequestMapping(value="/selectZone", method=RequestMethod.GET)
-	public void selectZone(@RequestParam("name") String name) {
-		System.out.println(name);
-		
+	@RequestMapping(value="/selectZone", method=RequestMethod.GET, produces="application/json; charset=utf-8")
+	public Map<String, Object> selectZone(@RequestParam("zoneName") String zoneName) {
+		HashMap<String, Object> map = new HashMap<>();
+		System.out.println(zoneName);
+		int len = zoneName.length();
+		if(len == 4) {
+			map.put("strFirst", zoneName.charAt(0));
+			map.put("strSecond", zoneName.charAt(2));
+		} else {
+			map.put("strFirst", zoneName.charAt(0));
+			map.put("strSecond", zoneName.charAt(1));
+		}
+		try {
+			map.put("zoneNews", service.zoneTitle(map));
+		} catch(NullPointerException e) {
+			System.out.println("There are no local news articles!");
+		}
+		return map;
 	}
 }
