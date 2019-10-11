@@ -4,31 +4,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="resources/css/jqcd.css" />
+<script src="resources/js/jqcloud.js" charset="utf-8"></script>
+
 
 
 
 <style>
-text:hover {
+/* text:hover {
 	stroke: black;
-}
+} */
 
-.legend {
+/* .legend {
 	border: 1px solid grey;
 	border-radius: 5px 5px 5px 5px;
 	font-size: 0.8em;
 	margin: 10px;
 	padding: 8px;
-}
-
-svg {
-	width: 700px;
-	height: 500px;
-	border: 1px solid black;
-}
+} */
 </style>
+
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -37,111 +35,86 @@ svg {
 
 <body>
 
-	<script src="https://d3js.org/d3.v3.min.js"></script>
-	<script
-		src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"
-		type="text/JavaScript"></script>
-
 	<div>
 		<form action="ctgbtn.do" method="GET">
-			<input type="button" id="ctgA" name="A" value="전체" /> <input
-				type="button" id="ctgP" name="P" value="정치" /> <input type="button"
-				id="ctgE" name="E" value="경제" /> <input type="button" id="ctgS"
-				name="S" value="사회" /> <input type="button" id="ctgW" name="W"
-				value="국제" />
+			<input type="button" id="ctg1" name="A"  value="전체" /> 
+			<input type="button" id="ctg2" name="P"  value="정치" /> 
+			<input type="button" id="ctg3" name="E"  value="경제" /> 
+			<input type="button" id="ctg4" name="S"  value="사회" /> 
+			<input type="button" id="ctg5" name="L"  value="지역" />
 		</form>
 	</div>
 
-	<div id="wordcloud" align="center"></div>
+	<div id="wordcloud" align="center" style="width: 700px; height: 500px;"></div>
 	<!-- <div class="legend"  align="center" style="width:60%;"> -->
 	<!--          오늘날짜의 기사를 키워드로 보여줌 </div> -->
 
-	<script>
+
+
+	<script type="text/javascript">
 		window.onload = function() {
-			var width = 700, height = 500
-			var fill = d3.scale.category20();
-			var word;
-			
-			d3.json($.ajax({
+			$.ajax({
 				url : "wordclouds.do",
 				type : "GET",
-				success : function(keyMap){
-					for (key in keyMap) {
-						word = [key, keyMap[key]];
-						//console.log(word);
-						//console.log(word[0]);
+				success : function(data) {
+					var word_array = new Array();
+					var obj;
+					for (key in data) {
+						obj = new Object();
+						obj.text=key;
+						obj.weight=data[key];
+						 word_array.push(obj);
+						//console.log(data);
+						//console.log(key,data[key]);	link			
 					}
-				}
-			})
-		,function(error,word){
-				if(error){
-					var error=function(request, status, error) {
+						console.log(word_array);
+		
+					$(document).ready(function(){
+						$('#wordcloud').jQCloud(word_array)
+					});
+				},
+				error : function(request, status, error) {
 					console.log("Error");
 					console.log("error code:" + request.status + "\n"
 							+ "message:" + request.responseText + "\n"
 							+ "error:" + error);
-					}
-				}else{
-					//console.log(word);
-					showCloud(word)	
-				}	
+				}
 			});
-			
-			
+		}
 		
-					wordScale = d3.scale.linear().domain([0, 100]).range([0, 150]).clamp(true);
-					
-					var svg = d3.select("#wordcloud")
-                    .append("g")
-                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 	
-                    
-                     function showCloud(word) {
-            
-						d3.layout.cloud().size([width, height])
-                //클라우드 레이아웃에 데이터 전달
-                .words(word)
-                .rotate(function (d) {
-                    return d.text.length > 2 ? 0 : 90;
-                })
-                //스케일로 각 단어의 크기를 설정
-                .fontSize(function (d) {
-                    return wordScale(d.frequency);
-                })
-                //클라우드 레이아웃을 초기화 > end이벤트 발생 > 연결된 함수 작동  
-                .on("end", draw)
-                .start();
-
-            function draw(words) { 
-                var cloud = svg.selectAll("text").data(words)
-                //Entering words
-                cloud.enter()
-                    .append("text")
-                    .style("font-family", "Arial")
-                    .style("fill", function (d) {
-                        return (keywords.indexOf(d.text) > -1 ? "#fbc280" : "#405275");
-                    })
-                    .style("fill-opacity", .5)
-                    .attr("text-anchor", "middle") 
-                    .attr('font-size', 1)
-                    .text(function (d) {
-                        return d.text;
-                    }); 
-                cloud
-                    .transition()
-                    .duration(600)
-                    .style("font-size", function (d) {
-                        return d.size + "px";
-                    })
-                    .attr("transform", function (d) {
-                        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                    })
-                    .style("fill-opacity", 1); 
-            }
-        }
-	}
-                    
-</script>
+	
+		    $("button").click(function(){
+		       $.ajax({
+					url : "wordclouds.do",
+					type : "GET",
+					success : function(data) {
+						var word_array = new Array();
+						var obj;
+						for (key in data) {
+							obj = new Object();
+							obj.text=key;
+							obj.weight=data[key];
+							 word_array.push(obj);
+							//console.log(data);
+							//console.log(key,data[key]);	link			
+						}
+							console.log(word_array);
+			
+						$(document).ready(function(){
+							$('#wordcloud').jQCloud(word_array)
+						});
+					},
+					error : function(request, status, error) {
+						console.log("Error");
+						console.log("error code:" + request.status + "\n"
+								+ "message:" + request.responseText + "\n"
+								+ "error:" + error);
+					}
+				});
+		    });
+		
+	</script>
 </body>
 </html>
 
