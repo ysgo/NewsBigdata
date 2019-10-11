@@ -68,8 +68,8 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="#page-top"><img
-				src="resources/img/로고.png">로고</a>
+			<a class="navbar-brand js-scroll-trigger" href="#page-top"></a>
+		<!--  <img src="resources/img/로고.png">로고</a> -->	
 			<button class="navbar-toggler navbar-toggler-right" type="button"
 				data-toggle="collapse" data-target="#navbarResponsive"
 				aria-controls="navbarResponsive" aria-expanded="false"
@@ -153,8 +153,7 @@
 		</div>
 	</section>
 
-	<!-- NEWS -->
-
+	<!-- NEWS 검색 -->
 	<section class="page-section" id="news-sec"
 		style="border-top: 1px solid #e8e8e8">
 		<div class="container">
@@ -162,32 +161,103 @@
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading">Today's News</h2>
 					<div class="blank"></div>
-					<form 검색창>
-						<input type="text" id="textMessage"
+					
+					<!-- action="/newsbigdata/main.do/NewsdetailView.do" -->
+					<form id="SearchForm" name="SearchForm" method="GET">
+						<input id="action" type="hidden" name="action" value="search">
+						<input id="curPage" type="hidden" name="curPage" value="1">
+						<input type="text" id="keyword" name="keyword"
 							style="border: 0; outline: 0; border-bottom: 1px solid #bfbfbf; width: 60%; height: 30px;"
-							type="text" placeholder="검색어를 입력하세요."> <input
-							style="width: 17%; height: 30px; border: 0; outline: 0; background-color: #799ab8; color: white;"
-							onclick="sendMessage()" value="Search" type="button">
+							type="text" placeholder="검색어를 입력하세요."> 
+								
+						<button style="width: 17%; height: 30px; border: 0; outline: 0; background-color: #799ab8; color: white;" 
+						onclick="searchType('GET');return false; ">조회 GET</button>
 					</form>
 				</div>
-
-
 			</div>
 
 			<div class="blank"></div>
 
 			<div class="row text-center">
 				<div class="col-md-3">
-					<div id="map"
-						style="width: 100%; height: 400px; border: 1px solid black;">카테고리</div>
-				</div>
+					<div 
+						style="width: 100%; height:	600px; border: 1px solid black;">카테고리</div>
+					
+					</div>
 				<div class="col-md-9">
+				
 					<div id="issues-wrap"
-						style="width: 100%; height: 400px; border: 1px solid black;">리스트자리</div>
+						style="width: 100%; height: 600px; border: 1px solid black;">
+						<br>
+						
+						
+			<div id="id01">
+					<span id="test"></span>
+					<h2 id="news_count"> </h2> 
+					<h2 id="title" ></h2>
+			</div>
+						
+						<!-- <b>${pagination.listCnt}</b>개의 게시물이 있습니다.  -->
+ 						<br><br><br>
+						
+						<table>
+						<c:choose>
+							<c:when test="${ list1 != null }" >
+								<c:forEach var="data" items="${list1}" varStatus="loop">
+									<table>
+									<tr>
+							  			<th>News</th>
+				  					</tr>
+				  					</table>
+									<tr>
+										<td>${ data.title }</td>
+										<td>${ data.contents }</td>
+										<td>${ data.date }</td>
+									</tr>
+									<!-- 
+									<td><a href="<c:url value="/boardRead/${board.num}${pageMaker.makeSearch(pageMaker.cri.page)}" />"> ${board.title}</a></td>
+									 -->
+								</c:forEach>
+							</c:when>
+							<c:otherwise>  
+							${msg}
+							</c:otherwise>
+						</c:choose>
+					</table>
+					<br>
+  	  		 	<div>
+                    <c:if test="${pagination.curRange ne 1 }">
+                        <a href="#" onClick="fn_paging(1)">[처음]</a> 
+                    </c:if>
+                    <c:if test="${pagination.curPage ne 1}">
+                        <a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a> 
+                    </c:if>
+                    <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+                        <c:choose>
+                            <c:when test="${pageNum eq  pagination.curPage}">
+                                <span style="font-weight: bold;"><a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a></span> 
+                            </c:when>
+                            <c:otherwise>
+                                <a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a> 
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+                        <a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a> 
+                    </c:if>
+                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+                        <a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a> 
+                    </c:if>
+               </div>
+                
+	             <div>
+	                    총 게시글 수 : ${pagination.listCnt } /    총 페이지 수 : ${pagination.pageCnt } / 현재 페이지 : ${pagination.curPage } / 현재 블럭 : ${pagination.curRange } / 총 블럭 수 : ${pagination.rangeCnt }
+	             </div>
+  	
+						</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 
 	<!-- KEYWORD -->
@@ -224,7 +294,101 @@
 	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="resources/js/agency.min.js"></script>
 
-</body>
 
+<script>
+function fn_paging(pageNum){
+	//http://localhost:8000/newsbigdata/main.do/NewsdetailView.do?action=search&curPage=1&keyword=
+	
+	window.alert("fn_paging 눌림  : "+pageNum);
+   location.href = '/newsbigdata/main.do/NewsdetailView.do?action=search&curPage='+pageNum+'&keyword=';
+   
+}
+</script>
+<script>
+var firstGrid = null;
+function searchGet(curPage) {
+	window.alert("3-searchGet들어옴 "+curPage);
+    var sendData = 
+    {"action":$('#action').val(), 
+    "curPage":$('#curPage').val(), 
+    "keyword":$('#keyword').val()};
+ 
+    $.ajax({
+        type: "GET",
+        url : 'main.do/NewsdetailView.do' ,
+        data: sendData,
+        dataType : "JSON",
+        success: function(data){
+        	window.alert("성공");
+        	console.log(data);			
+	//		window.alert("길이"+data.listtt.length);
+			if(curPage != null){
+				var count = data.listCnttt;		
+				var text = "총 "+ count + "개의 기사가 검색되었습니다."
+				var news_count = document.getElementById("news_count");
+				news_count.innerHTML = "<b><font color='gray'>"+text+"</font></b>";
+			}
+		
+			for (var i=0; i<data.listtt.length; i++){
+				 var newstitle = data.listtt[i].title;
+				 $('#title').append('<li>'+newstitle+'</li>');
+			 }
+			
+			window.alert("페이징 prevpage= "+data.paginationttt.prevPage);
+			window.alert("페이징 startPage= "+data.paginationttt.startPage);
+			window.alert("페이징 endPage= "+data.paginationttt.endPage);
+			window.alert("페이징 nextPage= "+data.paginationttt.nextPage);
+			window.alert("페이징 pageCnt= "+data.paginationttt.pageCnt);
+			window.alert("페이징 rangeSize= "+data.paginationttt.rangeSize);
+			
+			
+			
+			
+	    },
+        error: function() {
+            window.alert("실패");
+        }
+    });
+}
+
+function searchType(method) {
+	window.alert("1-걸림 "+method);
+	$('#SearchForm').attr("method", method)
+	//console.log($('#keyword').attr("method"));
+	search(1)
+}
+
+function search(curPage) {
+	window.alert("2-여기걸림 "+curPage);
+	if($('#SearchForm').attr("method") == "POST") {
+		searchPost(curPage);
+	} else {
+		searchGet(curPage);
+	}
+}
+</script>
+<script>
+		$(document).ready(function(){
+			$("#userId").blur(function(){
+				var mid = $("#userId").val();
+				$.ajax({
+					url : '/festival/validateForm?mid=' + mid,
+					type : 'get',
+					success : function(data){
+						if (data == 1){ // id 중복됨
+							$('#idError').text("이미 사용중인 아이디입니다. =ㅅ=").css("color", "red");
+							$("#submit").attr("disabled", true);
+						}
+						else {
+							$('#idError').text("사용 가능한 아이디입니다. :) ").css("color", "blue");
+							$("#submit").attr("disabled", false);					
+						}
+					},					
+					error : function(){ console.log("실패"); }
+				});
+			});
+		})
+	</script>
+</body>
 </html>
 

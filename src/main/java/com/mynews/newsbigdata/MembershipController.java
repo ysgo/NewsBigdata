@@ -26,13 +26,15 @@ public class MembershipController {
 	private MemberService service;
 	@Inject
 	PasswordEncoder passwordEncoder;
-
+	
+	/* 뉴스 리스트 GET방식과 중복되서 일단 주석처리함
 	// 메인페이지
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
 	public ModelAndView main() {
 		return new ModelAndView("main");
 	}
-
+	*/
+	
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/signIn.do", method = RequestMethod.GET)
 	public ModelAndView signIn() {
