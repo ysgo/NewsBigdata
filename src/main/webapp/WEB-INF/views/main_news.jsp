@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}"></script>
+</head>
+
 </head>
 <body>
 	<h1>Main 페이지</h1>
@@ -9,7 +12,7 @@
 		<div id="mapList" style="width: 100%; height: 600px; border: 1px solid black;"></div>
 		<div id="list" style="width: 100%; height: 400px;">
 			<div class="row">
-				<h4>오늘의 이슈</h4>
+				<h4>오늘의 이슈 <button class="fas fa-undo" onclick="todayNews(1)"></button></h4>
 			</div>
 			<div class="row" style="border: 1px solid black;">
 				<jsp:include page="newsModal.jsp" />

@@ -41,8 +41,8 @@ for(menu in 1:4){
   #############################################################################################3
 
   page<-4
-  for(pageNB in 1:7){ 
-    for(index in 1:10){
+  for(pageNB in 1:3){ 
+    for(index in 1:1){
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)
@@ -76,6 +76,7 @@ for(menu in 1:4){
       contentaddr<-'#news-detail-modal > div > div > div.modal-body > div'
       contentLink<-remDr$findElements(using='css',contentaddr)
       getContent<-unlist(sapply(contentLink,function(x){x$getElementText()}))
+      getContent<-gsub(pattern = "\n", replacement = "<br>", getContent)
       
       newsname<-c(newsname,getNewsName)
       title<-c(title,getTitle)
