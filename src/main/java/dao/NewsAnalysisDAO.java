@@ -45,4 +45,10 @@ public class NewsAnalysisDAO {
 		int result = session.selectOne(statement, map);
 		return result == 0 ? true : false;
 	}
+	
+	public boolean concernedProvince(HashMap<String, Object> map) {
+		String statement = mapperRoute = "concernedProvince";
+		int result = session.insert(statement, map);
+		return result == 1 ? true : false;
+	}
 }

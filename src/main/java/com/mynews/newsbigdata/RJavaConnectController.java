@@ -85,18 +85,17 @@ public class RJavaConnectController {
     									analysisVO = new NewsAnalysisVO(vo.getContent(), province, sigungu);
     								} else {
     									String getSigungu = service.getSigungu(strMap);
-//    									int len = getSigungu.length();
-//    									StringBuilder strTmp = new StringBuilder();
-//    									if (len >= 3) {
-//    										strTmp.append(getSigungu.substring(len-3, len));
-//    									} else {
-//    										strTmp.append(getSigungu);
-//    									}
     									analysisVO = new NewsAnalysisVO(vo.getContent(), province, getSigungu);
     								}
     							}
     						} else {
     							analysisVO = new NewsAnalysisVO(vo.getContent(), province, service.getSigungu(strMap));
+    							// 시도에 해당하는 지역만
+    							boolean result = service2.concernedProvince(strMap);
+    							if(result)
+    								System.out.println("관련 시도 전부 추가");
+    							else
+    								System.out.println("추가 실패 -> 예외 발생");
     						}
     					}
     				} else {
@@ -109,7 +108,7 @@ public class RJavaConnectController {
 						}
     				}
     			} else {
-    				System.out.println("해당 지명이 출력되지 않았기에 Default로 서울 뉴스 기사를 출력");
+    				System.out.println("해당 지명이 출력되지 않았기에 Default로 서울 전체");
     				analysisVO = new NewsAnalysisVO(vo.getContent(), "서울", "종로");
     			}
     			service2.contentZone(analysisVO);

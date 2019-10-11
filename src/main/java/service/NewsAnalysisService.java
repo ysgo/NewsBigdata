@@ -174,4 +174,8 @@ public class NewsAnalysisService {
 	public boolean checkSigungu(HashMap<String, Object> map) {
 		return dao.checkSigungu(map);
 	}
+	
+	public boolean concernedProvince(HashMap<String, Object> map) {
+		return dao.concernedProvince(map);
+	}
 }

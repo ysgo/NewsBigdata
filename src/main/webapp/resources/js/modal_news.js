@@ -12,8 +12,9 @@ function readNews(num) {
 			document.getElementById("m_title").innerHTML = data.title;
 			document.getElementById("m_category").innerHTML = data.category;
 			document.getElementById("m_date").innerHTML = data.date;
-			document.getElementById("m_img").src = data.url;
 			document.getElementById("m_content").innerHTML = data.content;
+			if(data.url != 0)
+				document.getElementById("m_img").src = data.url;
 
 			// Modal Close Button
 			$('html, body').css({

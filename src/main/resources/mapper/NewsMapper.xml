@@ -5,8 +5,7 @@
 
 <mapper namespace="resource.NewsMapper">
 	<insert id="insertNews" parameterType="vo.NewsVO">
-		insert into news (newsname, title, category, date, url, content) 
-		values(#{newsname},#{title},#{category},#{date},#{url},#{content})
+		insert into news values(#{newsname},#{title},#{category},#{date},#{url},#{content})
 	</insert>
 
 	<!-- s_name에 해당하는 p_name -->
@@ -33,8 +32,10 @@
 		insert into contents set content=#{text}, p_name=#{p_name}, s_name=#{s_name} 
 	</insert>
 	
-	<insert id="titleZone" parameterType="vo.NewsAnalysisVO">
-		insert into titles set title=#{text}, p_name=#{p_name}, s_name=#{s_name} 
+	<!-- 시도만 존재할경우 관련 구에 모두 추가 -->
+	<insert id="concernedProvince" parameterType="hashmap">
+		INSERT INTO contents (content, p_name, s_name) 
+		<!-- SELECT * FROM contents WHERE p_name LIKE'%${strFirst}%${strSecond}%' -->
 	</insert>
 	
 	<!-- 지역명에 따른 뉴스 타이틀 불러오기 -->
