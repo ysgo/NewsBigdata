@@ -34,43 +34,51 @@
 </head>
 
 <body>
-
 	<div>
-		<form action="ctgbtn.do" method="GET">
-			<input type="button" id="ctg1" name="A"  value="전체" /> 
-			<input type="button" id="ctg2" name="P"  value="정치" /> 
-			<input type="button" id="ctg3" name="E"  value="경제" /> 
-			<input type="button" id="ctg4" name="S"  value="사회" /> 
-			<input type="button" id="ctg5" name="L"  value="지역" />
-		</form>
+			<input type="button" class="ctg_btn" id="all" value="전체" /> 
+			<input type="button" class="ctg_btn"  value="정치" /> 
+			<input type="button" class="ctg_btn"  value="경제" /> 
+			<input type="button" class="ctg_btn"  value="사회" /> 
+			<input type="button" class="ctg_btn"  value="지역" />
 	</div>
 
 	<div id="wordcloud" align="center" style="width: 700px; height: 500px;"></div>
 	<!-- <div class="legend"  align="center" style="width:60%;"> -->
 	<!--          오늘날짜의 기사를 키워드로 보여줌 </div> -->
 
-
-
 	<script type="text/javascript">
-		window.onload = function() {
+	$(document).ready(function() {
 			$.ajax({
 				url : "wordclouds.do",
 				type : "GET",
 				success : function(data) {
 					var word_array = new Array();
-					var obj;
+					var obj;	
+					
 					for (key in data) {
 						obj = new Object();
+						
 						obj.text=key;
 						obj.weight=data[key];
-						 word_array.push(obj);
+						obj.handlers=
+							    function() {
+							        alert('You clicked the word !');
+							      }
+							    
+						word_array.push(obj);
 						//console.log(data);
 						//console.log(key,data[key]);	link			
 					}
+					console.log(obj);
 						console.log(word_array);
 		
 					$(document).ready(function(){
 						$('#wordcloud').jQCloud(word_array)
+						
+
+						 /* $(".jqcloud-word").click(function(){
+							 alert('You clicked the word !');
+						 }); */
 					});
 				},
 				error : function(request, status, error) {
@@ -80,29 +88,29 @@
 							+ "error:" + error);
 				}
 			});
-		}
+		});
 		
-	
-	
-		    $("button").click(function(){
+		    $(".ctg_btn").click(function(){
+		    	var ctg=$(this).val();
+		    	console.log(ctg);
+		    	//ctg.style.backgroundColor  = '#A9A9A9';
 		       $.ajax({
-					url : "wordclouds.do",
+					url : "ctgkeyword.do",
 					type : "GET",
+					data:{"ctg":ctg},
 					success : function(data) {
-						var word_array = new Array();
+						var ctg_btn_array = new Array();
 						var obj;
 						for (key in data) {
 							obj = new Object();
 							obj.text=key;
 							obj.weight=data[key];
-							 word_array.push(obj);
-							//console.log(data);
-							//console.log(key,data[key]);	link			
+							ctg_btn_array.push(obj);		
 						}
-							console.log(word_array);
+							console.log(ctg_btn_array);
 			
 						$(document).ready(function(){
-							$('#wordcloud').jQCloud(word_array)
+							$('#wordcloud').jQCloud('update',ctg_btn_array)
 						});
 					},
 					error : function(request, status, error) {
