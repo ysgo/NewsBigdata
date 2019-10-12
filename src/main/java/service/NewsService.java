@@ -47,9 +47,7 @@ public class NewsService {
 	public String getProvince(HashMap<String, Object> map) {
 		return dao.getProvince(map);
 	}
-	
-	public String getSigungu(HashMap<String, Object> map) {
-		return dao.getSigungu(map);
+	public String getProvinceSample(HashMap<String, Object> map) {
+		return dao.getProvinceSample(map);
 	}
-	
 }

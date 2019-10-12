@@ -11,6 +11,16 @@ public class NewsAnalysisVO {
 		this.p_name = p_name;
 		this.s_name = s_name;
 	}
+	public NewsAnalysisVO(String text, String p_name) {
+		this.text = text;
+		this.p_name = p_name;
+		this.s_name = "0";
+	}
+	public NewsAnalysisVO(String text) {
+		this.text = text;
+		this.p_name = "0";
+		this.s_name = "0";
+	}
 
 	public String gettext() {
 		return text;

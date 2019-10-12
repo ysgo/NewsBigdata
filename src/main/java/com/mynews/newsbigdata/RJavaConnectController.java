@@ -78,40 +78,59 @@ public class RJavaConnectController {
     						strMap.put("strFirst", str[0]);
     						strMap.put("strSecond", str[1]);
     						if(sigungus != null) {
+    							// 시도와 시군구 모두 존재
     							for(String sigungu : sigungus) {
     								strMap.put("s_name", sigungu);
+    								// 여기 잘못된 값 -> 경기도 양구는 일치하지 않음!
     								String checkProvince = service.getProvince(strMap);
     								if(checkProvince != null && checkProvince.contains(str[0]) && checkProvince.contains(str[1])) {
     									analysisVO = new NewsAnalysisVO(vo.getContent(), province, sigungu);
+    									service2.contentZone(analysisVO);
     								} else {
-    									String getSigungu = service.getSigungu(strMap);
-    									analysisVO = new NewsAnalysisVO(vo.getContent(), province, getSigungu);
+    									// 시도에 시군구 NULL로 설정
+    									analysisVO = new NewsAnalysisVO(vo.getContent(), province);
+    									service2.contentZone(analysisVO);
+    									
+    									// 시군구에 해당하는 지역의 시도 검색하여 추가
+    									StringBuilder getProvince = new StringBuilder(service.getProvinceSample(strMap));
+    									if(getProvince.toString() != null) {
+    										int len = getProvince.length();
+    										if(len >= 5) {
+    											getProvince.delete(2, len);
+    										} else if (len >= 4) {
+    											getProvince.deleteCharAt(1).deleteCharAt(2);
+    										} else {
+    											getProvince.deleteCharAt(len-1);
+    										}
+    										analysisVO = new NewsAnalysisVO(vo.getContent(), getProvince.toString(), sigungu);
+    										service2.contentZone(analysisVO);
+    									} else {
+    										
+    									}
     								}
     							}
     						} else {
-    							analysisVO = new NewsAnalysisVO(vo.getContent(), province, service.getSigungu(strMap));
     							// 시도에 해당하는 지역만
-    							boolean result = service2.concernedProvince(strMap);
-    							if(result)
-    								System.out.println("관련 시도 전부 추가");
-    							else
-    								System.out.println("추가 실패 -> 예외 발생");
+    							analysisVO = new NewsAnalysisVO(vo.getContent(), province);
+    							service2.contentZone(analysisVO);
     						}
     					}
     				} else {
+    					// 시군구만 존재할 경우 관련 시도의 첫번째 행의 시도값 저장
     					if(sigungus != null) {
 							for(String sigungu : sigungus) {
 								strMap.put("s_name", sigungu);
 								String checkProvince = service.getProvince(strMap);
 								analysisVO = new NewsAnalysisVO(vo.getContent(), checkProvince, sigungu);
+								service2.contentZone(analysisVO);
 							}
 						}
     				}
     			} else {
-    				System.out.println("해당 지명이 출력되지 않았기에 Default로 서울 전체");
-    				analysisVO = new NewsAnalysisVO(vo.getContent(), "서울", "종로");
+    				// 시도, 시군구 모두 없음
+    				analysisVO = new NewsAnalysisVO(vo.getContent());
+    				service2.contentZone(analysisVO);
     			}
-    			service2.contentZone(analysisVO);
     		}
         } catch(RserveException e) {
         	System.out.println("Rserve 실패");

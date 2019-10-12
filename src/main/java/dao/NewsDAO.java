@@ -62,9 +62,8 @@ public class NewsDAO {
 		String statement = mapperRoute + "getProvince";
 		return session.selectOne(statement, map);
 	}
-	
-	public String getSigungu(HashMap<String, Object> map) {
-		String statement = mapperRoute + "getSigungu";
+	public String getProvinceSample(HashMap<String, Object> map) {
+		String statement = mapperRoute + "getProvinceSample";
 		return session.selectOne(statement, map);
 	}
 	

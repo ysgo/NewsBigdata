@@ -90,14 +90,13 @@ public class NewsAnalysisService {
 						if (type.endsWith("PROVINCE") || type.endsWith("CAPITALCITY") || type.endsWith("ISLAND")
 								|| type.endsWith("CITY") || type.endsWith("COUNTY")) {
 							// 시도명
+							System.out.println("단어쪼개기 전:" + name + " " + type);
 							if (len >= 4) {
 								strTmp.append(name.charAt(0)).append(name.charAt(2));
-							} else if (len == 3) {
+							} else if (len >= 2) {
 								strTmp.append(name.substring(0, 2));
-							} else {
-								strTmp.append(name);
 							}
-							System.out.println(strTmp.toString());
+							System.out.println("단어쪼개기 후:" + strTmp.toString() + " " + type);
 							String[] tmp = strTmp.toString().split("");
 							strMap.put("strFirst", tmp[0]);
 							strMap.put("strSecond", tmp[1]);
@@ -173,9 +172,5 @@ public class NewsAnalysisService {
 	
 	public boolean checkSigungu(HashMap<String, Object> map) {
 		return dao.checkSigungu(map);
-	}
-	
-	public boolean concernedProvince(HashMap<String, Object> map) {
-		return dao.concernedProvince(map);
 	}
 }

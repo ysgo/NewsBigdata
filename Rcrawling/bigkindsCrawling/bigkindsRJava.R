@@ -23,8 +23,8 @@ date=NULL
 url=NULL
 content=NULL
 menunb <- 1
-for(menu in 1:4){
-  if (menu==4)
+for(menu in 1:1){
+  if (menu==1)
     menunb<-6
   
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
@@ -41,8 +41,8 @@ for(menu in 1:4){
   #############################################################################################3
 
   page<-4
-  for(pageNB in 1:3){ 
-    for(index in 1:1){
+  for(pageNB in 1:1){ 
+    for(index in 1:2){
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)
@@ -135,5 +135,6 @@ for(menu in 1:4){
   menunb <- menunb + 1
 }
 
+remDr$close()
 dfall<- data.frame(newsname,title,category,date,url,content)
 
