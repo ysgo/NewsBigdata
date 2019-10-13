@@ -60,21 +60,28 @@
 	
 	<!-- 지역명에 따른 뉴스 타이틀 불러오기 -->
 	<select id="zoneTitle" parameterType="hashmap" resultType="String">
-		SELECT title FROM news_list n INNER JOIN contents c ON n.content=c.content
+		<!-- SELECT title FROM news_list n INNER JOIN contents c ON n.content=c.content
 		WHERE c.p_name LIKE '%${strFirst}%${strSecond}%' 
-		OR c.s_name LIKE '%${strFirst}%${strSecond}%' limit 10
+		OR c.s_name LIKE '%${strFirst}%${strSecond}%' limit 10 -->
+		SELECT l.idx, d.p_code, d.s_code, NVL(p.name,0) p_name, NVL(s.name,0) s_name FROM news_list l
+		INNER JOIN news_district d ON l.idx=d.idx
+		LEFT JOIN province p ON d.p_code=p.p_code
+		LEFT JOIN sigungu s ON d.s_code=s.s_code
+		WHERE (p.p_code=s.p_code OR d.p_code=0 OR d.s_code=0)
+		AND s.name='#{zoneName}' or p.name='#{zoneName}' limit 10
 	</select>
 	
 	<!-- 오늘의 뉴스 타이틀 불러오기 -->
 	<select id="allTitle" resultType="String">
-		select title from news order by date desc limit 10
+		select title from news_list order by date desc limit 10
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
-		select newsname, title, category, date, url, content from news_list where title=#{title} limit 1
+		select newsname, title, category, date, url, content from news_list 
+		where title=#{title} limit 1
 	</select> 
-	<!-- 뉴스 타이틀 출력 -->
 	
+	<!-- 뉴스 타이틀 출력 -->
 	<select id="selectTitle" resultType="vo.NewsVO" parameterType="vo.NewsVO">
 		select title from news_list LIMIT #{pageNo},10;
 	</select>
