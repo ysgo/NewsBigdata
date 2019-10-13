@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import vo.AnalysisVO;
+import vo.NewsAnalysisVO;
 import vo.NewsVO;
 import vo.ProvinceVO;
 import vo.SigunguVO;
@@ -57,14 +59,28 @@ public class NewsDAO {
 		return session.insert(statement,vo);
 	}
 	
-	// s_name에 해당하는 p_name 검색
-	public String getProvince(HashMap<String, Object> map) {
-		String statement = mapperRoute + "getProvince";
-		return session.selectOne(statement, map);
+	public int getIdx(NewsVO vo) {
+		String statement = mapperRoute+"getIdx";
+		return session.selectOne(statement, vo);
 	}
-	public String getProvinceSample(HashMap<String, Object> map) {
+	
+	// s_name에 해당하는 p_name 검색
+	public int getProvince(AnalysisVO vo) {
+		String statement = mapperRoute + "getProvince";
+		return session.selectOne(statement, vo);
+	}
+	public NewsAnalysisVO getProvinceSample(NewsAnalysisVO vo) {
 		String statement = mapperRoute + "getProvinceSample";
-		return session.selectOne(statement, map);
+		return session.selectOne(statement, vo);
+	}
+	public int getSigungu(AnalysisVO vo) {
+		String statement = mapperRoute + "getSigungu";
+		return session.selectOne(statement, vo);
+	}
+	
+	public NewsAnalysisVO getCode(NewsAnalysisVO vo) {
+		String statement = mapperRoute + "getCode";
+		return session.selectOne(statement, vo);
 	}
 	
 }

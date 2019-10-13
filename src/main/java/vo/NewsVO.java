@@ -1,6 +1,7 @@
 package vo;
 
 public class NewsVO {
+	private int idx;
 	private String newsname;
 	private String title;
 	private String category;
@@ -15,6 +16,12 @@ public class NewsVO {
 	private int startIndex;
 	private int CntPerPage;
 	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getNewsname() {
 		return newsname;
 	}

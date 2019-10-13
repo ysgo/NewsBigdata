@@ -2,48 +2,47 @@ package vo;
 
 
 public class NewsAnalysisVO {
-	private String text;
-	private String p_name;
-	private String s_name;
+	private int idx;
+	private int p_code;
+	private int s_code;
 	
-	public NewsAnalysisVO(String text, String p_name, String s_name) {
-		this.text = text;
-		this.p_name = p_name;
-		this.s_name = s_name;
+	public NewsAnalysisVO(int idx, int p_code, int s_code) {
+		this.idx = idx;
+		this.p_code = p_code;
+		this.s_code = s_code;
 	}
-	public NewsAnalysisVO(String text, String p_name) {
-		this.text = text;
-		this.p_name = p_name;
-		this.s_name = "0";
+	public NewsAnalysisVO(int idx, int p_code) {
+		this.idx = idx;
+		this.p_code = p_code;
+		this.s_code = 0;
 	}
-	public NewsAnalysisVO(String text) {
-		this.text = text;
-		this.p_name = "0";
-		this.s_name = "0";
+	public NewsAnalysisVO(int idx) {
+		this.idx = idx;
+		this.p_code = 0;
+		this.s_code = 0;
 	}
-
-	public String gettext() {
-		return text;
-	}
-
-	public void settext(String text) {
-		this.text = text;
-	}
-
-	public String getp_name() {
-		return p_name;
-	}
-
-	public void setp_name(String p_name) {
-		this.p_name = p_name;
-	}
-
-	public String gets_name() {
-		return s_name;
-	}
-
-	public void sets_name(String s_name) {
-		this.s_name = s_name;
-	}
+	public NewsAnalysisVO() { }
 	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+	public int getP_code() {
+		return p_code;
+	}
+	public void setP_code(int p_code) {
+		this.p_code = p_code;
+	}
+	public int getS_code() {
+		return s_code;
+	}
+	public void setS_code(int s_code) {
+		this.s_code = s_code;
+	}
+	@Override
+	public String toString() {
+		return "[p_code: "+p_code+", s_code: "+s_code+"]";
+	}
 }

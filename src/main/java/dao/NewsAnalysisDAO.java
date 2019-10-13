@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import vo.AnalysisVO;
 import vo.NewsAnalysisVO;
 
 @Repository
@@ -24,14 +25,14 @@ public class NewsAnalysisDAO {
 		return session.insert(statement, vo) == 1 ? true : false;
 	}
 	
-	public boolean checkProvince(HashMap<String, Object> map) {
+	public boolean checkProvince(AnalysisVO vo) {
 		String statement = mapperRoute + "checkProvince";
-		int result = session.selectOne(statement, map);
+		int result = session.selectOne(statement, vo);
 		return result >= 1 ? true : false;
 	}
-	public boolean checkSigungu(HashMap<String, Object> map) {
+	public boolean checkSigungu(AnalysisVO vo) {
 		String statement = mapperRoute + "checkSigungu";
-		int result = session.selectOne(statement, map);
+		int result = session.selectOne(statement, vo);
 		return result >= 1 ? true : false;
 	}
 	

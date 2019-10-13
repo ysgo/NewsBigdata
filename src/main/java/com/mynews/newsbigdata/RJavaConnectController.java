@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import service.NewsAnalysisService;
 import service.NewsService;
+import vo.AnalysisVO;
 import vo.NewsAnalysisVO;
 import vo.NewsVO;
 
@@ -61,75 +62,84 @@ public class RJavaConnectController {
     			if(service.insertNews(vo) !=1) {
     				System.out.println("입력 실패");
     			}
-    			
+    			int idx = service.getIdx(vo);
     			// title, contents 분석 후 insert
     			argument.put("text", vo.getTitle()+vo.getContent());
     			request.put("argument", argument);
     			
-    			Map<String, HashSet<String>> place = service2.getAnalysisLocation(request, argument, openApiURL);
-    			HashSet<String> provinces = place.get("province");
-    			HashSet<String> sigungus = place.get("sigungu");
+    			AnalysisVO al = service2.getAnalysisLocation(request, argument, openApiURL);
+    			HashSet<Integer> provinces = al.getProvince();
+    			HashSet<Integer> sigungus = al.getSigungu();
+    			System.out.println("p"+provinces);
+    			System.out.println("s"+sigungus);
     			NewsAnalysisVO analysisVO = null;
-    			if (place.size() != 0) {
-    				HashMap<String, Object> strMap = new HashMap<>();
-    				if(provinces != null) {
-    					for(String province : provinces) {
-    						String[] str = province.split("");
-    						strMap.put("strFirst", str[0]);
-    						strMap.put("strSecond", str[1]);
-    						if(sigungus != null) {
+    			if(provinces.size() == 0 && sigungus.size() == 0) {
+    				// 시도, 시군구 모두 없음
+    				System.out.println("6");
+    				analysisVO = new NewsAnalysisVO(idx);
+    				System.out.println("6"+analysisVO.getP_code() + " " + analysisVO.getS_code());
+    				System.out.println("idx: " + analysisVO.getIdx());
+    				service2.contentZone(analysisVO);
+    			} else {
+    				if(provinces.size() != 0) {
+    					System.out.println("시도 존재");
+    					for(int province : provinces) {
+    						System.out.println("시도 반복문");
+    						if(sigungus.size() != 0) {
     							// 시도와 시군구 모두 존재
-    							for(String sigungu : sigungus) {
-    								strMap.put("s_name", sigungu);
-    								// 여기 잘못된 값 -> 경기도 양구는 일치하지 않음!
-    								String checkProvince = service.getProvince(strMap);
-    								if(checkProvince != null && checkProvince.contains(str[0]) && checkProvince.contains(str[1])) {
-    									analysisVO = new NewsAnalysisVO(vo.getContent(), province, sigungu);
+    							for(int sigungu : sigungus) {
+    								System.out.println("시군구 반복문");
+    								System.out.println("0");
+    								analysisVO = service.getProvinceSample(new NewsAnalysisVO(idx, province, sigungu));
+    								if(analysisVO != null) {
+    									System.out.println("1");
+    									System.out.println("1"+analysisVO.getP_code() + " " + analysisVO.getS_code());
+    									analysisVO.setIdx(idx);
+    									System.out.println("idx: " + analysisVO.getIdx());
     									service2.contentZone(analysisVO);
     								} else {
-    									// 시도에 시군구 NULL로 설정
-    									analysisVO = new NewsAnalysisVO(vo.getContent(), province);
+    									// 시도와 시군구가 일치하는 지명이 아님
+    									
+    									// 시도에 시군구 값을 0으로 설정
+    									System.out.println("2");
+    									analysisVO = new NewsAnalysisVO(idx, province);
+    									System.out.println("2"+analysisVO.getP_code() + " " + analysisVO.getS_code());
+    									System.out.println("idx: " + analysisVO.getIdx());
     									service2.contentZone(analysisVO);
     									
-    									// 시군구에 해당하는 지역의 시도 검색하여 추가
-    									StringBuilder getProvince = new StringBuilder(service.getProvinceSample(strMap));
-    									if(getProvince.toString() != null) {
-    										int len = getProvince.length();
-    										if(len >= 5) {
-    											getProvince.delete(2, len);
-    										} else if (len >= 4) {
-    											getProvince.deleteCharAt(1).deleteCharAt(2);
-    										} else {
-    											getProvince.deleteCharAt(len-1);
-    										}
-    										analysisVO = new NewsAnalysisVO(vo.getContent(), getProvince.toString(), sigungu);
-    										service2.contentZone(analysisVO);
-    									} else {
-    										
-    									}
+    									// 시군구에 해당하는 지역의 시도코드 검색하여 추가
+    									System.out.println("3");
+    									analysisVO.setS_code(sigungu);
+    									analysisVO = service.getCode(analysisVO);
+    									analysisVO.setIdx(idx);
+    									System.out.println("3"+analysisVO.getP_code() + " " + analysisVO.getS_code());
+    									System.out.println("idx: " + analysisVO.getIdx());
+    									service2.contentZone(analysisVO);
     								}
     							}
     						} else {
     							// 시도에 해당하는 지역만
-    							analysisVO = new NewsAnalysisVO(vo.getContent(), province);
+    							System.out.println("4");
+    							analysisVO = new NewsAnalysisVO(idx, province);
+    							System.out.println("4"+analysisVO.getP_code() + " " + analysisVO.getS_code());
+    							System.out.println("idx: " + analysisVO.getIdx());
     							service2.contentZone(analysisVO);
     						}
     					}
     				} else {
     					// 시군구만 존재할 경우 관련 시도의 첫번째 행의 시도값 저장
-    					if(sigungus != null) {
-							for(String sigungu : sigungus) {
-								strMap.put("s_name", sigungu);
-								String checkProvince = service.getProvince(strMap);
-								analysisVO = new NewsAnalysisVO(vo.getContent(), checkProvince, sigungu);
+    					if(sigungus.size() != 0) {
+    						System.out.println("시군구만");
+							for(int sigungu : sigungus) {
+								System.out.println("5");
+								analysisVO = service.getCode(new NewsAnalysisVO(idx, 0, sigungu));
+								analysisVO.setIdx(idx);
+								System.out.println("5"+analysisVO.getP_code() + " " + analysisVO.getS_code());
+								System.out.println("idx: " + analysisVO.getIdx());
 								service2.contentZone(analysisVO);
 							}
 						}
     				}
-    			} else {
-    				// 시도, 시군구 모두 없음
-    				analysisVO = new NewsAnalysisVO(vo.getContent());
-    				service2.contentZone(analysisVO);
     			}
     		}
         } catch(RserveException e) {

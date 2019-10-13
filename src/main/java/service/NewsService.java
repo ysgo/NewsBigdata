@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.NewsDAO;
+import vo.AnalysisVO;
+import vo.NewsAnalysisVO;
 import vo.NewsVO;
 import vo.ProvinceVO;
 import vo.SigunguVO;
@@ -43,11 +45,20 @@ public class NewsService {
 	public int insertNews(NewsVO vo) {
 		return dao.insertNews(vo);
 	}
-	
-	public String getProvince(HashMap<String, Object> map) {
-		return dao.getProvince(map);
+	public int getIdx(NewsVO vo) {
+		return dao.getIdx(vo);
 	}
-	public String getProvinceSample(HashMap<String, Object> map) {
-		return dao.getProvinceSample(map);
+	
+	public int getProvince(AnalysisVO vo) {
+		return dao.getProvince(vo);
+	}
+	public NewsAnalysisVO getProvinceSample(NewsAnalysisVO vo) {
+		return dao.getProvinceSample(vo);
+	}
+	public int getSigungu(AnalysisVO vo) {
+		return dao.getSigungu(vo);
+	}
+	public NewsAnalysisVO getCode(NewsAnalysisVO vo) {
+		return dao.getCode(vo);
 	}
 }
