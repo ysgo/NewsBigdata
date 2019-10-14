@@ -85,13 +85,16 @@ public class NewsDetailController {
 			// 1 - 전체조회
 			if (newsinfo.getKeyword() == "") {
 				list = service.selectTitle(newsinfo);
-				map.put("todayNews",list);
+				//map.put("todayNews",list);
 				
 				pagination = new Pagination(listCnt, curPage);
 				//mav.addObject("list1", list);
 				//mav.addObject("listCnt", listCnt);
 				//mav.addObject("pagination", pagination);
 				//mav.setViewName("main");
+				map.put("listtt",list);
+				map.put("listCnttt", listCnt);
+				map.put("paginationttt", pagination);
 				return map;
 
 			}
