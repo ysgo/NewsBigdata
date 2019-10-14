@@ -21,48 +21,12 @@ public class RwordcloudsController {
 		Map<String, Object> keyMap = new HashMap<String, Object>();
 		RConnection r = null;
 		try {
-			r = new RConnection(); 
+			r = new RConnection();
 			r.eval("ctg <- 'ÀüÃ¼'");
 			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
 			REXP x = r.eval("keyword20");
 			RList list = x.asList();
 
-			String[] keywords = list.at("keyword").asStrings();
-			String[] freqs = list.at("Freq").asStrings();
-			String keyword;
-			int freq;
-
-			for (int i = 0; i < keywords.length; i++) {
-				keyword = keywords[i];
-				freq = Integer.parseInt(freqs[i]);
-				keyMap.put(keyword, freq); 
-
-			}
-			System.out.println(keyMap);
-
-		} catch (Exception e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} finally {
-			r.close();
-		}
-		return keyMap;
-	}
-
-	
-	@RequestMapping(value = "/ctgkeyword.do", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> ctgKeyword(String ctg) {
-		Map<String, Object> keyMap = new HashMap<String, Object>();
-		RConnection r = null;
-		try {
-			r = new RConnection();
-			System.out.println(ctg);
-			r.eval("ctg <- '"+ctg+"'");
-			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
-			
-			RList list = r.eval("keyword20").asList();
-			
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
 			String keyword;
@@ -84,7 +48,54 @@ public class RwordcloudsController {
 		}
 		return keyMap;
 	}
-	 
+
+	@RequestMapping(value = "/ctgkeyword.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> ctgKeyword(String ctg) {
+		Map<String, Object> keyMap = new HashMap<String, Object>();
+		RConnection r = null;
+		try {
+			r = new RConnection();
+			System.out.println(ctg);
+			r.eval("ctg <- '" + ctg + "'");
+			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
+
+			RList list = r.eval("keyword20").asList();
+
+			String[] keywords = list.at("keyword").asStrings();
+			String[] freqs = list.at("Freq").asStrings();
+			String keyword;
+			int freq;
+
+			for (int i = 0; i < keywords.length; i++) {
+				keyword = keywords[i];
+				freq = Integer.parseInt(freqs[i]);
+				keyMap.put(keyword, freq);
+
+			}
+			System.out.println(keyMap);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		} finally {
+			r.close();
+		}
+		return keyMap;
+	}
+
+	
+	/*
+	 * @RequestMapping(value = "/searchkeyword.do", method = RequestMethod.GET)
+	 * 
+	 * @ResponseBody public String searchkeyword(String keywordClicked) {
+	 * 
+	 * try {
+	 * 
+	 * 
+	 * } catch (Exception e) { System.out.println(e); e.printStackTrace(); } return
+	 * keyCount; }
+	 */
 
 	@RequestMapping(value = "/wordcloudsGET.do", method = RequestMethod.GET)
 	public ModelAndView wordclouds() {
