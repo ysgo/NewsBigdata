@@ -88,13 +88,18 @@ function setMarkers(zoneName) {
 		var lat = zoneName[key].latitude;
 		var lng = zoneName[key].longitude;
 		var name = zoneName[key].name;
+		var p_code = zoneName[key].p_code;
+		var s_code = zoneName[key].code;
 		
 		markers.push(new naver.maps.Marker({
 			position : new naver.maps.LatLng(lat, lng),
 			map : map,
-			content: name
+			content: {
+				/*name: name,*/ 
+				p_code : p_code, 
+				s_code : s_code
+				}
 		}));
-		
 		infoWindows.push(new naver.maps.InfoWindow({
 			content: '<div style="width:150px;text-align:center;padding:10px;">"'+ name +'"</div>'
 		}));
@@ -115,24 +120,23 @@ function getClickHandler(seq) {
 	 return function(e) {
 		var marker = markers[seq], infoWindow = infoWindows[seq];
 
-		if (infoWindow.getMap()) {
+		infoWindow.getMap() ? infoWindow.close() : infoWindow.open(map, marker);
+		/*if (infoWindow.getMap()) {
 			infoWindow.close();
 		} else {
 			infoWindow.open(map, marker);
-		}
+		}*/
 		console.log(marker.content);
-		
 		$.ajax({
 			url : 'selectZone',
 			type : 'GET',
-			data : { zoneName : marker.content },
+			data : { p_code : marker.content.p_code, s_code : marker.content.s_code },
 			success : function(data) {
-				console.log(data.zoneNews);
+				console.log("Success data: " + data.zoneNews);
 				showNewsList(data.zoneNews);
 			},
 			error : function(request, status, error) {
-				console.log("Error");
-				console.log("error code:" + request.status + "\n" + "message:"
+				console.log("Error code:" + request.status + "\n" + "message:"
 						+ request.responseText + "\n" + "error:" + error);
 			}
 		});

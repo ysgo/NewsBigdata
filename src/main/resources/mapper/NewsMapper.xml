@@ -4,76 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="resource.NewsMapper">
-	<insert id="insertNews" parameterType="vo.NewsVO" useGeneratedKeys="true" keyProperty="idx">
-		insert into news_list (newsname, title, category, date, url, content) 
-		values(#{newsname},#{title},#{category},#{date},#{url},#{content})
-		on duplicate key update newsname=#{newsname}, title=#{title}, 
-		category=#{category}, date=#{date}, url=#{url}, content=#{content}
-	</insert>
+	<select id="allTitle" resultType="String">
+		select title from news_list order by date desc limit 10
+	</select>
 	
 	<select id="getIdx" parameterType="vo.NewsVO" resultType="int">
 		select idx from news_list where title=#{title} limit 1
-	</select>
-
-	<!-- s_name에 해당하는 p_name -->
-	<select id="getProvince" parameterType="vo.AnalysisVO" resultType="int">
-		SELECT NVL(p.p_code, 0) FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE p.name LIKE '%${strFirst}%${strSecond}%' limit 1
-	</select>
-	<select id="getSigungu" parameterType="vo.AnalysisVO" resultType="int">
-		SELECT NVL(s.s_code, 0) FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE s.name LIKE '%${strFirst}%${strSecond}%' limit 1
-	</select>
-	
-	<select id="getProvinceSample" parameterType="vo.NewsAnalysisVO" resultType="vo.NewsAnalysisVO">
-		SELECT NVL(p.p_code,0) p_code, NVL(s.s_code,0) s_code 
-		FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE p.p_code=#{p_code} AND s.s_code=#{s_code} LIMIT 1
- 		<!-- select NVL(s_code, 0) s_code from sigungu where p_code=#{p_code} and s_code=#{s_code} limit 1 -->
-	</select>
-	
-	<select id="getCode" parameterType="vo.NewsAnalysisVO" resultType="vo.NewsAnalysisVO">
-		SELECT NVL(p.p_code, 0) p_code, NVL(s.s_code, 0) s_code 
-		FROM province p INNER join sigungu s ON p.p_code=s.p_code
- 		WHERE s.s_code=#{s_code} limit 1
-	</select>
-	
-	<select id="checkProvince" parameterType="vo.AnalysisVO" resultType="int">
-		select count(p_code) from province where name like '%${strFirst}%${strSecond}%'
-	</select>
-	
-	<select id="checkSigungu" parameterType="vo.AnalysisVO" resultType="int">
-		select count(s_code) from sigungu where name like '%${strFirst}%${strSecond}%'
-	</select>
-	
-	<!-- 기사내용 관련지명 코드 추가 -->
-	<insert id="contentZone" parameterType="vo.NewsAnalysisVO">
-		<!-- INSERT INTO contents values (#{text}, #{p_name}, #{s_name})
-		on duplicate key update content=#{text}, p_name=#{p_name}, s_name=#{s_name} -->
-		insert into news_district (idx, p_code, s_code) 
-		select #{idx}, #{p_code}, #{s_code} from dual 
-		where not exists (
-			select * from news_district 
-			where idx=#{idx} and p_code=#{p_code} and s_code=#{s_code}
-		) limit 1
-	</insert>
-	
-	<!-- 지역명에 따른 뉴스 타이틀 불러오기 -->
-	<select id="zoneTitle" parameterType="hashmap" resultType="String">
-		<!-- SELECT title FROM news_list n INNER JOIN contents c ON n.content=c.content
-		WHERE c.p_name LIKE '%${strFirst}%${strSecond}%' 
-		OR c.s_name LIKE '%${strFirst}%${strSecond}%' limit 10 -->
-		SELECT l.idx, d.p_code, d.s_code, NVL(p.name,0) p_name, NVL(s.name,0) s_name FROM news_list l
-		INNER JOIN news_district d ON l.idx=d.idx
-		LEFT JOIN province p ON d.p_code=p.p_code
-		LEFT JOIN sigungu s ON d.s_code=s.s_code
-		WHERE (p.p_code=s.p_code OR d.p_code=0 OR d.s_code=0)
-		AND s.name='#{zoneName}' or p.name='#{zoneName}' limit 10
-	</select>
-	
-	<!-- 오늘의 뉴스 타이틀 불러오기 -->
-	<select id="allTitle" resultType="String">
-		select title from news_list order by date desc limit 10
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
@@ -110,30 +46,11 @@
 		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
 			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
 	</select>
-		
-	<select id="emptyZone" parameterType="hashmap" resultType="int">
-		select count(p_code) from ${zoneName}
-	</select>
 	
-	<select id="listProvince" resultType="vo.ProvinceVO">
-		select * from province
-	</select>
-	
-	<select id="listSigungu" resultType="vo.SigunguVO">
-		select * from sigungu
-	</select>
-	
-	<insert id="insertProvince" parameterType="vo.ProvinceVO">
-		insert into province set p_code=#{p_code}, name=#{name}, 
-		latitude=#{latitude}, longitude=#{longitude}
-		on duplicate key update p_code=#{p_code}, name=#{name}, 
-		latitude=#{latitude}, longitude=#{longitude}
-	</insert>
-	
-	<insert id="insertSigungu" parameterType="vo.SigunguVO">
-		insert into sigungu set p_code=#{p_code}, s_code=#{s_code}, name=#{name}, 
-		latitude=#{latitude}, longitude=#{longitude}
-		on duplicate key update p_code=${p_code}, s_code=#{s_code}, name=#{name}, 
-		latitude=#{latitude}, longitude=#{longitude}
+	<insert id="insertNews" parameterType="vo.NewsVO" useGeneratedKeys="true" keyProperty="idx">
+		insert into news_list (newsname, title, category, date, url, content) 
+		values(#{newsname},#{title},#{category},#{date},#{url},#{content})
+		on duplicate key update newsname=#{newsname}, title=#{title}, 
+		category=#{category}, date=#{date}, url=#{url}, content=#{content}
 	</insert>
 </mapper>

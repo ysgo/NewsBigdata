@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resource.NewsZoneMapper">
+	<select id="emptyZone" parameterType="hashmap" resultType="int">
+		select count(p_code) from ${zoneName}
+	</select>
+	
+	<select id="checkProvince" parameterType="vo.AnalysisVO" resultType="int">
+		select count(p_code) from province where name like '%${strFirst}%${strSecond}%'
+	</select>
+	
+	<select id="checkSigungu" parameterType="vo.AnalysisVO" resultType="int">
+		select count(s_code) from sigungu where name like '%${strFirst}%${strSecond}%'
+	</select>
+	
+	<select id="listProvince" resultType="vo.ProvinceVO">
+		select * from province
+	</select>
+	
+	<select id="listSigungu" resultType="vo.SigunguVO">
+		select * from sigungu
+	</select>
+	
+	<select id="getProvince" parameterType="vo.AnalysisVO" resultType="int">
+		SELECT NVL(p.p_code, 1) FROM province p INNER join sigungu s ON p.p_code=s.p_code
+ 		WHERE p.name LIKE '%${strFirst}%${strSecond}%' limit 1
+	</select>
+	
+	<select id="getSigungu" parameterType="vo.AnalysisVO" resultType="int">
+		SELECT NVL(s.s_code, 1) FROM province p INNER join sigungu s ON p.p_code=s.p_code
+ 		WHERE s.name LIKE '%${strFirst}%${strSecond}%' limit 1
+	</select>
+	
+	<select id="getZone" parameterType="vo.NewsAnalysisVO" resultType="vo.NewsAnalysisVO">
+		SELECT NVL(p.p_code,1) p_code, NVL(s.s_code,1) s_code 
+		FROM province p INNER join sigungu s ON p.p_code=s.p_code
+ 		WHERE p.p_code=#{p_code} AND s.s_code=#{s_code} LIMIT 1
+	</select>
+	
+	<select id="getCode" parameterType="vo.NewsAnalysisVO" resultType="vo.NewsAnalysisVO">
+		SELECT NVL(p.p_code, 1) p_code, NVL(s.s_code, 1) s_code 
+		FROM province p INNER join sigungu s ON p.p_code=s.p_code
+ 		WHERE s.s_code=#{s_code} limit 1
+	</select>
+	
+	<select id="zoneTitle" parameterType="vo.NewsAnalysisVO" resultType="String">
+		SELECT l.title FROM news_list l
+		INNER JOIN news_district d ON l.idx=d.idx
+		LEFT JOIN province p ON d.p_code=p.p_code
+		LEFT JOIN sigungu s ON d.s_code=s.s_code
+		WHERE (p.p_code=s.p_code OR d.p_code=1 OR d.s_code=1)
+		AND d.p_code=#{p_code} AND d.s_code IN (1, #{s_code}) limit 10
+	</select>
+	
+	
+	<insert id="districtZone" parameterType="vo.NewsAnalysisVO">
+		insert into news_district (idx, p_code, s_code) 
+		select #{idx}, #{p_code}, #{s_code} from dual 
+		where not exists (
+			select * from news_district 
+			where idx=#{idx} and p_code=#{p_code} and s_code=#{s_code}
+		) limit 1
+	</insert>
+	
+	<insert id="insertProvince" parameterType="vo.ProvinceVO">
+		<choose>
+			<when test="latitude != null">
+				INSERT INTO province VALUES (#{p_code}, #{name}, #{latitude}, #{longitude})			
+			</when>
+			<otherwise>
+				INSERT INTO province VALUES (#{p_code}, #{name}, 0, 0)
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<insert id="insertSigungu" parameterType="vo.SigunguVO">
+		<choose>
+			<when test="latitude != null">
+				insert into sigungu set p_code=#{p_code}, s_code=#{s_code}, name=#{name}, 
+				latitude=#{latitude}, longitude=#{longitude}		
+			</when>
+			<otherwise>
+				INSERT INTO sigungu VALUES (#{p_code}, 0, #{name}, 0, 0)
+			</otherwise>
+		</choose>
+	</insert>
+</mapper>

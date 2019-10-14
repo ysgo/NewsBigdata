@@ -14,12 +14,12 @@ public class NewsAnalysisVO {
 	public NewsAnalysisVO(int idx, int p_code) {
 		this.idx = idx;
 		this.p_code = p_code;
-		this.s_code = 0;
+		this.s_code = 1;
 	}
 	public NewsAnalysisVO(int idx) {
 		this.idx = idx;
-		this.p_code = 0;
-		this.s_code = 0;
+		this.p_code = 1;
+		this.s_code = 1;
 	}
 	public NewsAnalysisVO() { }
 	
@@ -43,6 +43,6 @@ public class NewsAnalysisVO {
 	}
 	@Override
 	public String toString() {
-		return "[p_code: "+p_code+", s_code: "+s_code+"]";
+		return "[idx: " + idx + "p_code: "+p_code+", s_code: "+s_code+"]";
 	}
 }
