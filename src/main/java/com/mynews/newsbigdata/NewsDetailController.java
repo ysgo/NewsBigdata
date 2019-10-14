@@ -31,14 +31,13 @@ public class NewsDetailController {
 	}
 	
 	
-	// NewsDetail 첫 화면
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	ModelAndView select00() {
-		System.out.println("상세검색 처음 접속시 발생");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
-		return mav;
-	}
+	/*
+	 * // NewsDetail 첫 화면
+	 * 
+	 * @RequestMapping(value = "/main", method = RequestMethod.GET) ModelAndView
+	 * select00() { System.out.println("상세검색 처음 접속시 발생"); ModelAndView mav = new
+	 * ModelAndView(); mav.setViewName("main"); return mav; }
+	 */
 	
 	
 	// NewsDetail 첫 화면

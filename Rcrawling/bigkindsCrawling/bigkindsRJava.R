@@ -1,15 +1,8 @@
-# install.packages("RSelenium")
-# install.packages("rvest")
-# install.packages("rJava")
-# install.packages("Rserve")
-library(rvest)
-library(RSelenium)
-library(stringr)
-library(DBI)
-library(rJava)
-library(RJDBC)
-
-
+if(!require(rvest)) install.packages("rvest")
+if(!require(RSelenium)) install.packages("RSelenium")
+if(!require(rJava)) install.packages("rJava")
+if(!require(Rserve)) install.packages("Rserve")
+if(!require(stringr)) install.packages("stringr")
 
 remDr<-remoteDriver(remoteServerAddr = "localhost", port=4445, browserName="chrome")
 remDr$open()
@@ -104,27 +97,6 @@ for(menu in 1:4){
     else
       page<-page+1
   }
-  # 
-  # if(menunb==1){
-  #   dfPolitics<-data.frame(newsname,title,category,date,url,content)
-  #   # write.csv(dfPolitics,"dfPolitics.csv",row.names=FALSE, fileEncoding = "UTF-8")
-  #   # write.csv(dfPolitics,"dfPoliticsNotEncodingtest.csv",row.names=FALSE)
-  #   # break
-  # }else if(menunb==2){
-  #   dfBusiness<-data.frame(newsname,title,category,date,url,content)
-  #   # write.csv(dfBusiness,"dfBusiness.csv",row.names=FALSE,fileEncoding = "UTF-8")
-  #   # write.csv(dfBusiness,"dfBusinessNotEncoding.csv",row.names=FALSE)
-  #   
-  # }else if(menunb==3){
-  #   dfSocialAffairs<-data.frame(newsname,title,category,date,url,content)
-  #   # write.csv(dfSocialAffairs,"dfSocialAffairs.csv",row.names=FALSE,fileEncoding = "UTF-8")
-  #   # write.csv(dfSocialAffairs,"dfSocialAffairsNotEncoding.csv",row.names=FALSE)
-  # }else if(menunb==5){
-  #   dfWorld<-data.frame(newsname,title,category,date,url,content)
-  #   # write.csv(dfWorld,"dfWorld.csv",row.names=FALSE,fileEncoding = "UTF-8")
-  #   # write.csv(dfWorld,"dfWorldNotEncoding.csv",row.names=FALSE)
-  # }
-  
 
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)

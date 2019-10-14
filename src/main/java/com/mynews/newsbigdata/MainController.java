@@ -16,7 +16,7 @@ public class MainController {
 	@RequestMapping("/main")
 	public ModelAndView main(HttpSession session) {
 		session.setAttribute("naverID", env.getProperty("naver.ID"));
-		ModelAndView mav = new ModelAndView("main_news");
+		ModelAndView mav = new ModelAndView("main");
 		mav.addObject("naverID", env.getProperty("naver.ID"));
 		return mav;
 	}

@@ -160,7 +160,7 @@
 					<div>
 						<img id="m_img" src="">
 					</div>
-					<p id="m_contents">Contents :</p>
+					<p id="m_content">Contents :</p>
 			</div>
 			<div class="modal_footer">
 				<footer>

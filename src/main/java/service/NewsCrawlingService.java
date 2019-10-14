@@ -11,7 +11,6 @@ import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import vo.AnalysisVO;
@@ -29,9 +28,8 @@ public class NewsCrawlingService {
 	@Autowired
 	private CheckInsertService checkInsertService;
 	
-	@Scheduled(cron = "* 2 * * * *")	// 초,분,시,일,월,요일(1:일요일)
-	public void startCrawling() {
-		System.out.println("1");
+//	@Scheduled(cron = "0 0 0/1 * * *")	// 초,분,시,일,월,요일(1:일요일)
+	public void scheduleRun() {
 		checkInsertService.loadCSV("province");
 		checkInsertService.loadCSV("sigungu");
 		Map<String, Object> request = new HashMap<>();
@@ -43,7 +41,6 @@ public class NewsCrawlingService {
 		request.put("access_key", accessKey);
 		RConnection rc = null;
          try {
-        	System.out.println("2");
         	String eval = "imsi<-source('"+env.getProperty("r.url").toString()+"');imsi$value";
             rc = new RConnection();
     		REXP x = rc.eval(eval);
@@ -55,7 +52,6 @@ public class NewsCrawlingService {
     		String[] date = list.at("date").asStrings();
     		String[] url = list.at("url").asStrings();
     		String[] content = list.at("content").asStrings();
-    		System.out.println("3");
     		NewsVO vo = new NewsVO();
     		for (int i=0;i<newsname.length;i++) {
     			vo.setNewsname(newsname[i]);
@@ -126,7 +122,6 @@ public class NewsCrawlingService {
     				}
     			}
     		}
-    		System.out.println("4");
         } catch(RserveException e) {
         	System.out.println("Rserve 실패");
         } catch(REXPMismatchException e) {
@@ -137,7 +132,6 @@ public class NewsCrawlingService {
         	e.printStackTrace();
         } finally {
         	rc.close();
-        	System.out.println("5");
         }
     }
 }
