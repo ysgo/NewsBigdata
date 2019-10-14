@@ -1,12 +1,23 @@
 package com.mynews.newsbigdata;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-	@RequestMapping("/mainPage.do")
-	public String main() {
-		return "main_news";
+	@Autowired
+	private Environment env;
+	
+	@RequestMapping("/mainPage")
+	public ModelAndView main(HttpSession session) {
+		session.setAttribute("naverID", env.getProperty("naver.ID"));
+		ModelAndView mav = new ModelAndView("main_news");
+		mav.addObject("naverID", env.getProperty("naver.ID"));
+		return mav;
 	}
 }

@@ -16,8 +16,8 @@ window.onload = function() {
 				// 오늘의 뉴스 출력
 				$.each(todayNews, function(idx, item) {
 					// idx는 인덱스, item은 데이터 json
-					var str='<li class="main_title" onClick="readNews('+ idx + ')">';
-					str+='<span>';
+					var str="<li>";
+					str+='<span class="main_title" onclick="readNews('+ idx + ')">';
 					str+=item;
 					str+="</span>";
 					str+="</li>";
@@ -25,7 +25,7 @@ window.onload = function() {
 				});
 
 				// 지도에 행정구역 표시
-				var mapDiv = document.getElementById('map');
+				var mapDiv = document.getElementById('mapList');
 				var mapOptions = {
 					center : new naver.maps.LatLng(35.9, 127.2),
 					zoom : 2,
@@ -60,7 +60,6 @@ window.onload = function() {
 	xhttp.open("GET", "mainNews", true);
 	xhttp.send();
 }
-
 
 function curTime() {
 	// Today Date&Time Display

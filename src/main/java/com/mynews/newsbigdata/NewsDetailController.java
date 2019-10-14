@@ -1,6 +1,7 @@
 package com.mynews.newsbigdata;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
 import dao.NewsDetailDAO;
 import service.NewsDetailService;
 import vo.NewsVO;
@@ -22,7 +24,7 @@ public class NewsDetailController {
 	NewsDetailService service;
 
 	// NewsDetail 첫 화면
-	@RequestMapping(value = "/NewsdetailView.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/NewsdetailView", method = RequestMethod.POST)
 	ModelAndView select0() {
 		System.out.println("상세검색 처음 접속시 발생");
 		ModelAndView mav = new ModelAndView();
@@ -31,7 +33,7 @@ public class NewsDetailController {
 	}
 
 	// NewsDetail 검색 시작
-	@RequestMapping(value = "/NewsdetailView.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/NewsdetailView", method = RequestMethod.GET)
 	ModelAndView select1(@ModelAttribute("NewsVO") NewsVO newsinfo, 
 				int curPage) {
 

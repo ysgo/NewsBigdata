@@ -24,7 +24,7 @@ public class NewsAnalysisController {
 	@Autowired
 	private NewsAnalysisService service;
 
-	@RequestMapping(value = "/location.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/location", method = RequestMethod.GET)
 	public void getAnalysisLocation(@ModelAttribute NewsVO vo) {
 		String openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU";
 		String accessKey = env.getProperty("etri.KEY"); // 발급받은 API Key
@@ -33,7 +33,7 @@ public class NewsAnalysisController {
 		Map<String, String> argument = new HashMap<>();
 
 		argument.put("analysis_code", analysisCode);
-		argument.put("text", vo.getContents());
+		argument.put("text", vo.getContent());
 
 		request.put("access_key", accessKey);
 		request.put("argument", argument);
@@ -51,7 +51,7 @@ public class NewsAnalysisController {
 
 	}
 
-	@RequestMapping(value="/load.do", method=RequestMethod.GET)
+	@RequestMapping(value="/load", method=RequestMethod.GET)
 	public String loadCSV(@RequestParam("zoneName") String zoneName) {
 		// zoneName = province, sigungu
 		HashMap<String, String> map = new HashMap<>();

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +22,9 @@ import vo.SigunguVO;
 public class NewsController {
 	@Autowired
 	NewsService service;
-	@Autowired
-	private Environment env;
 	
-	@RequestMapping(value="/mainNews.do", method=RequestMethod.GET)
-	public HashMap<String, Object> mainNews(Model model) {
+	@RequestMapping(value="/mainNews", method=RequestMethod.GET)
+	public HashMap<String, Object> mainNews() {
 		HashMap<String, Object> map = new HashMap<>();
 		List<String> todayNews = null;
 		List<ProvinceVO> province = null;
@@ -44,15 +41,13 @@ public class NewsController {
 			map.put("sigungu", sigungu);
 		} catch(NullPointerException e) {
 			System.out.println("NewsList or ProvinceList or SigunguList is null!");
-		} finally {
-			model.addAttribute("naverID", env.getProperty("naver.ID"));
 		}
 //		System.out.println(map);
 		return map;
 	}
 	
 	// 메인페이지 뉴스 기사 리스트 출력 & 모달페이지 뉴스 기사 내용 출력
-	@RequestMapping(value="/readNews.do", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@RequestMapping(value="/readNews", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public NewsVO readNews(@ModelAttribute NewsVO vo, Model model) {
 		try {
 			vo = service.readNews(vo);
@@ -63,7 +58,7 @@ public class NewsController {
 		return vo;
 	}
 	
-	@RequestMapping(value="/selectZone.do", method=RequestMethod.GET)
+	@RequestMapping(value="/selectZone", method=RequestMethod.GET)
 	public void selectZone(@RequestParam("name") String name) {
 		System.out.println(name);
 		

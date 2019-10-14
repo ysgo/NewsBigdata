@@ -2,28 +2,26 @@
 function readNews(num) {
 	var value = document.getElementsByClassName("main_title")[num].innerText;
 	$.ajax({
-		url : "readNews.do",
+		url : "readNews",
 		type : "GET",
 		data : { title : value },
 		success : function(data) {
-			document.getElementById('id01').style.display = 'block';
+			console.log(data);
+			document.getElementById("modal_box").style.display = "block";
+			//document.getElementById("modal_box").style.backgroundColor="rgba(0,0,0,0.5)"
 			document.getElementById("m_title").innerHTML = data.title;
 			document.getElementById("m_date").innerHTML = data.date;
-			document.getElementById("m_contents").innerHTML = data.contents;
-
-			// Modal Close Button
+			document.getElementById("m_contents").innerHTML = data.content;
 			$('html, body').css({
-				'overflow' : 'hidden',
-				'height' : '100%'
+				'overflow-x' : 'hidden',
+				'overflow-y' : 'auto'
 			});
-			$('#element').on('scroll touchmove mousewheel', function(event) {
+			/*$('#element').on('scroll touchmove mousewheel', function(event) {
 				event.preventDefault();
 				event.stopPropagation();
 				return false;
-				});
-			 $(document).click(function() {
-	             $("#id01").hide();
-			});
+				});*/
+
 		},
 		error : function(request, status, error) {
 			console.log("Error");
@@ -35,11 +33,10 @@ function readNews(num) {
 
 // Modal Close Button
 function closeBtn() {
-	document.getElementById('id01').style.display = 'none';
-	$('html, body').css({
+	document.getElementById("modal_box").style.display = "none";
+	/*$('html, body').css({
 		'overflow' : 'auto',
 		'height' : '100%'
-	});
-	$('#element').off('scroll touchmove mousewheel');
+	});*/
+	/*$('#element').off('scroll touchmove mousewheel');*/
 }
-

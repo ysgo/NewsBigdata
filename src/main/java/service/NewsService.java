@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,21 @@ public class NewsService {
 	// 뉴스 타이틀 검색으로 기사 내용 가져오기
 	public NewsVO readNews(NewsVO vo) {
 		return dao.readNews(vo);
+	}
+	
+	public int insertNews(NewsVO vo) {
+		return dao.insertNews(vo);
+	}
+	
+	public String searchProvince(HashMap<String, Object> map) {
+		return dao.searchProvince(map);
+	}
+	
+	public String searchSigungu(HashMap<String, Object> map) {
+		return dao.searchSigungu(map);
+	}
+	
+	public ProvinceVO checkProvince(String name) {
+		return dao.checkProvince(name);
 	}
 }
