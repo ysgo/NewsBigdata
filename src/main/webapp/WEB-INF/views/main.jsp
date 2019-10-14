@@ -4,33 +4,7 @@
 <!DOCTYPE html>
 <html>
 
-<style>
-.wrap {
-	margin: auto;
-	align: center;
-	width: 1000px;
-	padding: 30px;
-	background: #e1eef7;
-	height: 400px;
-}
-
-.box {
-	float: left;
-	margin-right: 50%;
-	margin-bottom: 10px;
-}
-
-.right {
-	text-align: right;
-	float: right;
-	margin-right: 0;
-	margin-left: 50%;
-}
-</style>
-
 <head>
-
-
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,6 +25,9 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Mansalva&display=swap"
 	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap"
+	rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
 	rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700'
@@ -58,6 +35,8 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
 	rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- Custom styles for this template -->
@@ -65,6 +44,8 @@
 
 
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
 </head>
 
 <body id="page-top">
@@ -128,9 +109,6 @@
 		<div class="container">
 			<div class="intro-text">
 				<div class="intro-heading" style="color: black;">슬로건 적기 / 수정사항</div>
-				<a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
-					href="#회원가입" id="sbutton">시작 하기</a>
-
 			</div>
 		</div>
 	</header>
@@ -141,30 +119,60 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<h2 class="section-heading">Today's Issue</h2>
+					<h5>
+						<i class="far fa-clock"></i> <span id="issue-analysis-time"></span>
+					</h5>
 				</div>
 			</div>
 			<div class="blank"></div>
 			<div class="row text-center">
 				<div class="col-md-8">
-					<div id="map"
-						style="width: 100%; height: 550px; border: 1px solid black;">지도자리</div>
+					<div id="map" style="width: 100%; height: 550px;">지도자리</div>
 				</div>
 				<div class="col-md-4">
-					<div id="issues-wrap"
-						style="width: 100%; height: 550px; border: 1px solid black;">
-							<h4>오늘의 이슈</h4>
-							<jsp:include page="newsModal.jsp" />
-							<div>
-								<ul style="width:100%;"id="todayNews"></ul>
-								<i class="fal fa-clock"></i> 날짜: <span id="issue-analysis-time"></span>
-							</div>
+					<div id="issue-wrap" style="width: 100%; height: 550px;">
+						<div class="row">
+							<ul style="width: 100%; height: 100%;" id="todayNews"></ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	
+<!-- News Modal -->
 
-	<!-- NEWS 검색 -->
+<div id="modal_box" style="display:none; width:100%; height:100%; background-color:black !important; ">
+	<div style="z-index:1;position: fixed; top: 20%; left: 20%;right:20%; background-color:white;">
+		<div id="modal-content">
+			<div class="modal_header">
+				<button type="button" onClick="closeBtn()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<div>
+					<h3 id="m_newsname">Newsname: </h3>
+					<h2 id="m_title" style="font-family: 'Nanum Gothic', sans-serif;">Title :</h2>
+				</div>
+				<div>
+					<span id="m_category">Category: </span>
+					<span id="m_date">Date : </span>
+				</div>
+			</div>
+			<div class="modal_body">
+					<div>
+						<img id="m_img" src="">
+					</div>
+					<p id="m_contents">Contents :</p>
+			</div>
+			<div class="modal_footer">
+				<footer>
+					<button onclick="closeBtn()">Close</button>
+				</footer>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	<!-- NEWS -->
+
 	<section class="page-section" id="news-sec"
 		style="border-top: 1px solid #e8e8e8">
 		<div class="container">

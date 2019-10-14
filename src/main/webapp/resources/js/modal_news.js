@@ -7,8 +7,9 @@ function readNews(num) {
 		data : { title : value },
 		success : function(data) {
 			console.log(data);
-			document.getElementById('id01').style.display = 'block';
+			document.getElementById("modal_box").style.display = "block";
 			document.getElementById("m_newsname").innerHTML = data.newsname;
+			//document.getElementById("modal_box").style.backgroundColor="rgba(0,0,0,0.5)"
 			document.getElementById("m_title").innerHTML = data.title;
 			document.getElementById("m_category").innerHTML = data.category;
 			document.getElementById("m_date").innerHTML = data.date;
@@ -18,18 +19,8 @@ function readNews(num) {
 
 			// Modal Close Button
 			$('html, body').css({
-				'overflow' : 'hidden',
-				'height' : '100%'
-			});
-			
-			$('#element').on('scroll touchmove mousewheel', function(event) {
-				event.preventDefault();
-				event.stopPropagation();
-				return false;
-				});
-			
-			$(document).click(function() {
-	             $("#id01").hide();
+				'overflow-x' : 'hidden',
+				'overflow-y' : 'auto'
 			});
 		},
 		error : function(request, status, error) {
@@ -42,11 +33,5 @@ function readNews(num) {
 
 // Modal Close Button
 function closeBtn() {
-	document.getElementById('id01').style.display = 'none';
-	$('html, body').css({
-		'overflow' : 'auto',
-		'height' : '100%'
-	});
-//	$('#element').off('scroll touchmove mousewheel');
+	document.getElementById("modal_box").style.display = "none";
 }
-

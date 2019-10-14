@@ -3,8 +3,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}"></script>
 </head>
-
-</head>
 <body>
 	<h1>Main 페이지</h1>
 	<hr> 
@@ -15,7 +13,6 @@
 				<h4>오늘의 이슈 <button class="fas fa-undo" onclick="todayNews(1)"></button></h4>
 			</div>
 			<div class="row" style="border: 1px solid black;">
-				<jsp:include page="newsModal.jsp" />
 				<div id="issues-wrap" class="col-xs-12 col-sm-6 col-md-5">
 					<ul id="todayNews"></ul>
 				</div>

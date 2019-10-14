@@ -13,7 +13,7 @@ public class MainController {
 	@Autowired
 	private Environment env;
 	
-	@RequestMapping("/mainPage")
+	@RequestMapping("/main")
 	public ModelAndView main(HttpSession session) {
 		session.setAttribute("naverID", env.getProperty("naver.ID"));
 		ModelAndView mav = new ModelAndView("main_news");
