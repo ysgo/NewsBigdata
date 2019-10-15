@@ -43,9 +43,7 @@
 <link href="resources/css/main.css" rel="stylesheet">
 
 
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}"></script>
 </head>
 
 <body id="page-top">
@@ -131,6 +129,10 @@
 				</div>
 				<div class="col-md-4">
 					<div id="issue-wrap" style="width: 100%; height: 550px;">
+						<div>
+							<button onclick="todayNews(1)">Reset 아이콘</button>
+							<span id="zoneName"></span>
+						</div>
 						<div class="row">
 							<ul style="width: 100%; height: 100%;" id="todayNews"></ul>
 						</div>

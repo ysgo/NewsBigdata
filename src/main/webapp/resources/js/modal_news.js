@@ -1,6 +1,7 @@
 // 뉴스 기사 클릭시 모달에 뉴스 기사 출력 AJAX 구현
 function readNews(num) {
 	var value = document.getElementsByClassName("main_title")[num].innerText;
+	
 	$.ajax({
 		url : "readNews",
 		type : "GET",
@@ -16,7 +17,8 @@ function readNews(num) {
 			document.getElementById("m_content").innerHTML = data.content;
 			if(data.url != 0)
 				document.getElementById("m_img").src = data.url;
-
+			else
+				document.getElementById("m_img").src = "";
 			// Modal Close Button
 			$('html, body').css({
 				'overflow-x' : 'hidden',

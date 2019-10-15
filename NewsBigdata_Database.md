@@ -2,7 +2,7 @@
 
 - MariaDB 기반
 
-## 회원 정보
+## 회원 정보 테이블
 
 ```mysql
 create table memberinfo( 
@@ -22,19 +22,24 @@ drop table memberinfo;
 
 ```
 
-## 뉴스 테이블
+## 뉴스 정보 테이블
 
 ```mysql
-CREATE TABLE `news` (
-	`newsname` VARCHAR(50) NULL DEFAULT NULL,
-	`title` VARCHAR(255) NULL DEFAULT NULL,
-	`category` VARCHAR(50) NULL DEFAULT NULL,
-	`date` VARCHAR(50) NULL DEFAULT NULL,
+CREATE TABLE `news_list` (
+	`idx` INT(50) NOT NULL AUTO_INCREMENT,
+	`newsname` VARCHAR(50) NOT NULL,
+	`title` VARCHAR(255) NOT NULL,
+	`category` VARCHAR(50) NOT NULL,
+	`date` VARCHAR(50) NOT NULL,
 	`url` VARCHAR(255) NULL DEFAULT NULL,
-	`content` LONGTEXT NULL DEFAULT NULL
+	`content` LONGTEXT NOT NULL,
+	PRIMARY KEY (`idx`),
+	UNIQUE INDEX `title` (`title`)
 )
 COLLATE='utf8_general_ci'
-ENGINE=InnoDB;
+ENGINE=InnoDB
+AUTO_INCREMENT=273;
+
 
 - HIVE로 CSV 파일 DB에 저장
 load data local infile '/root/sampledata/dfpoliticsUTF.csv' 
@@ -42,27 +47,19 @@ into table newstmp
 fields terminated by '#' lines terminated by '^';
 ```
 
-## 타이틀, 본문 관련 지역 테이블
+## 뉴스 관련 지역 정보 테이블
 
 ```mysql
-CREATE TABLE `contents` (
-	`content` LONGTEXT NULL DEFAULT NULL,
-	`p_name` VARCHAR(50) NULL DEFAULT NULL,
-	`s_name` VARCHAR(50) NULL DEFAULT NULL
-)
-COLLATE='utf8_general_ci'
-ENGINE=InnoDB;
-
-CREATE TABLE `titles` (
-	`title` VARCHAR(255) NULL DEFAULT NULL,
-	`p_name` VARCHAR(50) NULL DEFAULT NULL,
-	`s_name` VARCHAR(50) NULL DEFAULT NULL
+CREATE TABLE `news_district` (
+	`idx` INT(50) NOT NULL,
+	`p_code` INT(10) UNSIGNED NOT NULL,
+	`s_code` INT(10) UNSIGNED NOT NULL
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 ```
 
-## 지역명 테이블
+## 지역 정보 테이블
 
 ```mysql
 CREATE TABLE `province` (

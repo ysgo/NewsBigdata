@@ -11,6 +11,7 @@ import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import vo.AnalysisVO;
@@ -28,7 +29,7 @@ public class NewsCrawlingService {
 	@Autowired
 	private CheckInsertService checkInsertService;
 	
-//	@Scheduled(cron = "0 0 0/1 * * *")	// 초,분,시,일,월,요일(1:일요일)
+	@Scheduled(fixedDelay=1800000)	// 종료 시점으로부터 30분 뒤에 시작
 	public void scheduleRun() {
 		checkInsertService.loadCSV("province");
 		checkInsertService.loadCSV("sigungu");
@@ -131,7 +132,8 @@ public class NewsCrawlingService {
         } catch(Exception e) {
         	e.printStackTrace();
         } finally {
-        	rc.close();
+        	if(rc != null)
+        		rc.close();
         }
     }
 }

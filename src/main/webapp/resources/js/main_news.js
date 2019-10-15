@@ -54,7 +54,7 @@ function showNewsList(newsList) {
 var markers = [], infoWindows = [], map;
 function showMap(province, sigungu) {
 	// 지도에 행정구역 표시
-	var mapDiv = document.getElementById('mapList');
+	var mapDiv = document.getElementById('map');
 	var mapOptions = {
 		center : new naver.maps.LatLng(35.9, 127.2),
 		zoom : 2,
@@ -95,7 +95,7 @@ function setMarkers(zoneName) {
 			position : new naver.maps.LatLng(lat, lng),
 			map : map,
 			content: {
-				/*name: name,*/ 
+				name: name, 
 				p_code : p_code, 
 				s_code : s_code
 				}
@@ -120,12 +120,14 @@ function getClickHandler(seq) {
 	 return function(e) {
 		var marker = markers[seq], infoWindow = infoWindows[seq];
 
-		infoWindow.getMap() ? infoWindow.close() : infoWindow.open(map, marker);
-		console.log(marker.content);
+//		infoWindow.getMap() ? infoWindow.close() : infoWindow.open(map, marker);
+		var content = marker.content;
+		console.log(content);
+		document.getElementById('zoneName').innerText=content.name;
 		$.ajax({
 			url : 'selectZone',
 			type : 'GET',
-			data : { p_code : marker.content.p_code, s_code : marker.content.s_code },
+			data : { p_code : content.p_code, s_code : content.s_code },
 			success : function(data) {
 				console.log("Success data: " + data.zoneNews);
 				showNewsList(data.zoneNews);

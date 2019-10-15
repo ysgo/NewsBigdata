@@ -5,7 +5,9 @@
 
 <mapper namespace="resource.NewsMapper">
 	<select id="allTitle" resultType="String">
-		select title from news_list order by date desc limit 10
+		SELECT title FROM 
+		(SELECT * FROM news_list WHERE DATE=CURDATE()) AS news_list 
+		ORDER BY RAND() LIMIT 10
 	</select>
 	
 	<select id="getIdx" parameterType="vo.NewsVO" resultType="int">
