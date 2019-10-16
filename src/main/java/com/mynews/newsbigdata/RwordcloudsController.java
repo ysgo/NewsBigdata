@@ -6,27 +6,34 @@ import java.util.Map;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+/*import org.springframework.web.servlet.ModelAndView;*/
 
 @Controller
 public class RwordcloudsController {
-
+	@Autowired
+	private Environment env;
+	
 	@ResponseBody
 	@RequestMapping(value = "/wordclouds", method = RequestMethod.GET)
-	public Map<String, Object> Rwordclouds() {
+	public Map<String, Object> Rwordclouds(String ctg) {
 		Map<String, Object> keyMap = new HashMap<String, Object>();
 		RConnection r = null;
 		try {
 			r = new RConnection();
-			r.eval("ctg <- '전체'");
-			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
-			REXP x = r.eval("keyword20");
+			if(ctg == null || ctg.equals(""))
+				r.eval("ctg <- '전체'");
+			else 
+				r.eval("ctg <- '" + ctg + "'");
+			r.eval("source('" + env.getProperty("wordclouds.url") + "',encoding='UTF-8')");
+			REXP x = r.eval("keyword30");
 			RList list = x.asList();
-
+ 
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
 			String keyword;
@@ -36,10 +43,8 @@ public class RwordcloudsController {
 				keyword = keywords[i];
 				freq = Integer.parseInt(freqs[i]);
 				keyMap.put(keyword, freq);
-
 			}
 			System.out.println(keyMap);
-
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();
@@ -58,9 +63,9 @@ public class RwordcloudsController {
 			r = new RConnection();
 			System.out.println(ctg);
 			r.eval("ctg <- '" + ctg + "'");
-			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
+			r.eval("source('" + env.getProperty("wordclouds.url") + "',encoding='UTF-8')");
 
-			RList list = r.eval("keyword20").asList();
+			RList list = r.eval("keyword30").asList();
 
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
@@ -71,7 +76,6 @@ public class RwordcloudsController {
 				keyword = keywords[i];
 				freq = Integer.parseInt(freqs[i]);
 				keyMap.put(keyword, freq);
-
 			}
 			System.out.println(keyMap);
 
@@ -84,8 +88,5 @@ public class RwordcloudsController {
 		return keyMap;
 	}
 
-	@RequestMapping(value = "/wordcloudsGET", method = RequestMethod.GET)
-	public ModelAndView wordclouds() {
-		return new ModelAndView("wordclouds");
-	}
+
 }

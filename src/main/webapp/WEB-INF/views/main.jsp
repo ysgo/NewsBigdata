@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,11 @@
 <meta name="author" content="">
 
 <title>Bigdata News</title>
+<!-- jqcloud -->
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+<script src="resources/js/jqcloud.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/jqcd.css" />
 
 <!-- Bootstrap core CSS -->
 <link href="resources/vendor/bootstrap/css/bootstrap.min.css"
@@ -35,13 +41,12 @@
 	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
 	rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
+<!-- 
 <script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	src="http://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+
 <!-- Custom styles for this template -->
 <link href="resources/css/main.css" rel="stylesheet">
-
-
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}"></script>
 </head>
 
@@ -178,7 +183,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading">Today's News</h2>
+					<h2 class="section-heading" id="up_btnLine">Today's News</h2>
 					<div class="blank"></div>
 
 					<!-- action="/newsbigdata/main.do/NewsdetailView.do" -->
@@ -271,12 +276,22 @@
 					<h2 class="section-heading">Today's Keyword</h2>
 				</div>
 			</div>
-			<div class="blank"></div>
-			<div class="row text-center">
-				<div id="분석창" class="col-lg-12 text-center"
-					style="width: 1000px; height: 400px; align: center; margin: auto; border: 1px solid black">
-					분석창 넣기</div>
-
+		<!-- 	<div class="blank">
+				
+			</div> -->
+			<div class="row text-center col-lg-12">
+			<div id="btn_div" class="col-lg-1 text-center"
+					style="width: max; height: 400px; align: left; margin: auto; border: 1px solid black">
+				<input type="button" class="ctg_btn" id="all" value="전체" /> 
+				<input type="button" class="ctg_btn" value="정치" /> 
+				<input type="button" class="ctg_btn" value="경제" /> 
+				<input type="button" class="ctg_btn" value="사회" /> 
+				<input type="button" class="ctg_btn" value="지역" />
+				<input type="button" class="up_btn" value="키워드 검색결과로 이동" />
+			</div>
+				<div id="wordcloud" class="col-lg-11 text-center"
+					style="width: max; height: 400px; align: right; margin: auto; border: 1px solid black">
+				</div>
 			</div>
 		</div>
 	</section>
@@ -289,17 +304,20 @@
 	</footer>
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="resources/vendor/jquery/jquery.min.js"></script>
+	<!-- <script src="resources/vendor/jquery/jquery.min.js"></script> -->
+	
+	<!-- Bootstrap core JavaScript -->
 	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="resources/js/agency.min.js"></script>
+
 	<!-- javascript&ajax function -->
-	<script src="<c:url value='/resources/js/main_news.js'/>"> </script>
-	<script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
-	<script src="<c:url value='/resources/js/newsDetail_Filter.js'/>"> </script>
-	<script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
-	<script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
-	
+<script src="<c:url value='/resources/js/main_news.js'/>"> </script>
+<script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
+<script src="<c:url value='/resources/js/newsDetail_Filter.js'/>"> </script>
+<script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
+<script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
+<script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
 </body>
 </html>
 

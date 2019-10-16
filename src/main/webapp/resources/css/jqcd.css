@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 .jqcloud {
 	font: 10px Helvetica, Arial, sans-serif;
 	line-height: normal;
@@ -14,60 +12,61 @@
 
 .jqcloud-word.w1 {
 	color: #aab5f0;
-	font-size: 100%
-}
-
-.jqcloud-word.w2 {
-	color: #9ce;
-	font-size: 150%
-}
-
-.jqcloud-word.w3 {
-	color: #a0ddff;
-	font-size: 200%
-}
-
-.jqcloud-word.w4 {
-	color: #90c5f0;
-	font-size: 250%
-}
-
-.jqcloud-word.w5 {
-	color: #90a0dd;
 	font-size: 300%
 }
 
-.jqcloud-word.w6 {
-	color: #90c5f0;
+.jqcloud-word.w2 {
+	color: darkslategray;
 	font-size: 350%
 }
 
-.jqcloud-word.w7 {
-	color: #39d;
+.jqcloud-word.w3 {
+	color: darkturquoise;
 	font-size: 400%
 }
 
-.jqcloud-word.w8 {
-	color: #0cf;
+.jqcloud-word.w4 {
+	color: tomato;
 	font-size: 450%
 }
 
-.jqcloud-word.w9 {
-	color: #0cf;
+.jqcloud-word.w5 {
+	color: cornflowerblue;
 	font-size: 500%
 }
 
-.jqcloud-word.w10 {
-	color: #0cf;
+.jqcloud-word.w6 {
+	color: yellowgreen;
 	font-size: 550%
+}
+
+.jqcloud-word.w7 {
+	color: skyblue;
+	font-size: 600%
+}
+
+.jqcloud-word.w8 {
+	color: sienna;
+	font-size: 650%
+}
+
+.jqcloud-word.w9 {
+	color: teal;
+	font-size: 700%
+}
+
+.jqcloud-word.w10 {
+	color: crimson;
+	font-size: 750%
 }
 
 .jqcloud-word a {
 	color: inherit;
 	font-size: inherit;
-	text-decoration: none
+	text-decoration:none;
 }
 
 .jqcloud-word a:hover {
-	color: #0cf
+	color: red;
+	
 }

@@ -53,7 +53,7 @@ function searchGet(curPage) {
 						var news_count = document.getElementById("news_count");
 						news_count.innerHTML = "<b><font size='5' color='gray'>"+text+"</font></b>";
 					}
-		        	
+		        	console.log("11");
 		       	    $('#tb').empty();
 		        	$('#url').empty();
 					$('#title').empty();

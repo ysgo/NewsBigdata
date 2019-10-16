@@ -43,7 +43,6 @@ public class NewsDetailController {
 	@ResponseBody
 	@RequestMapping(value = "/main/NewsdetailView", method = RequestMethod.GET
 							,produces = "application/json; charset=utf-8")
-	//public ModelAndView select1(Model model,NewsVO newsinfo, 
 	public HashMap<String, Object> select1(Model model,NewsVO newsinfo, 
 				int curPage) {
 		
@@ -55,15 +54,12 @@ public class NewsDetailController {
 
 		int listCnt = dao.allListCount(newsinfo);
 		newsinfo.setPageNo((curPage - 1) * 10);
-		//System.out.println("listCnt 값 :" + listCnt + "curPage 값 :" + curPage);
 
 		Pagination pagination = new Pagination(listCnt, curPage);
 		newsinfo.setStartIndex(pagination.getStartIndex());
 		newsinfo.setCntPerPage(pagination.getPageSize());
-		//System.out.println(pagination);
 
 		List<NewsVO> list ;
-		//HashMap<String, String> map = new HashMap<String, String>();
 		
 		// 전체리스트 출력
 		if (newsinfo.getAction().equals("search")) {
@@ -72,12 +68,7 @@ public class NewsDetailController {
 			if (newsinfo.getKeyword() == "") {
 				list = service.selectTitle(newsinfo);
 				System.out.println("리스트 값 : "+list);
-				//map.put("todayNews",list);
 				pagination = new Pagination(listCnt, curPage);
-				//mav.addObject("list1", list);
-				//mav.addObject("listCnt", listCnt);
-				//mav.addObject("pagination", pagination);
-				//mav.setViewName("main");
 				map.put("listtt",list);
 				map.put("listCnttt", listCnt);
 				map.put("paginationttt", pagination);
@@ -92,9 +83,6 @@ public class NewsDetailController {
 				System.out.println("키워드검색 들어오면서 newsname 출력 :"+newsinfo.getNewsname());
 				list = service.search(newsinfo);
 				listCnt = dao.searchListCnt(newsinfo);
-				//System.out.println("키워드 listCnt :"+listCnt);
-				//System.out.println("리스트 출력 :"+ list);	
-				//mav.addObject 를 해쉬 맵으로 수정
 				pagination = new Pagination(listCnt, curPage);
 				System.out.println("키워드 리스트 값 : "+list);
 				map.put("listtt",list);
@@ -108,16 +96,10 @@ public class NewsDetailController {
 				System.out.println("맵 pagination 테스트"+map.get("paginationttt"));
 				System.out.println(" ");
 				
-				//mav.addObject("list1", list);
-				//mav.addObject("listCnt", listCnt);
-				//mav.addObject("pagination", pagination);
 				return map;
 			}
 		}
 		return map;
-		
-		//mav.setViewName("main");
-		//return mav;
 	}
 
 }

@@ -15,7 +15,7 @@
 <c:if test="${sessionScope.mid != null}">
 		<c:if test="${sessionScope.mid =='admin'}">
 			<h2>${sessionScope.mid}님 안녕하세요!</h2>
-			<a href="/NewsBigdata/home.do">Main</a>
+			<a href="/NewsBigdata/home">Main</a>
 			<a href="/NewsBigdata/logout">로그아웃</a> 	
 		</c:if>
 		<c:if test="${sessionScope.mid !='admin'}">
@@ -27,7 +27,7 @@
 </c:if>
 
 <c:if test="${sessionScope.mid == null}">
-	<a href="/newsbigdata/home.do">HOME</a>
+	<a href="/newsbigdata/home">HOME</a>
 	<a href="/NewsBigdata/loginmain">로그인</a>
 	<a href="/NewsBigdata/memberForm">회원가입</a>
 	
@@ -38,7 +38,7 @@
 	<hr>
 	<div id="write" style="display: block;">
 		<h2 id="divT">옵션 1 : 검색할 키워드를 입력하세요</h2>
-	<form action="/newsbigdata/NewsdetailView.do" method="GET">
+	<form action="/newsbigdata/NewsdetailView" method="GET">
 		<input type="hidden" name="action" value="search">
 		<input type="hidden" name="curPage" value="1">
 		
@@ -137,7 +137,7 @@
 	
 <script>
 function fn_paging(pageNum){
-   location.href = '/newsbigdata/NewsdetailView.do?action=search&curPage='+pageNum+'&keyword=';
+   location.href = '/newsbigdata/NewsdetailView?action=search&curPage='+pageNum+'&keyword=';
 }
 </script>	
 </body>

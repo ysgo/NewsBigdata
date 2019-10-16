@@ -27,13 +27,6 @@ public class MembershipController {
 	@Inject
 	PasswordEncoder passwordEncoder;
 
-	/*
-	 * // 메인페이지
-	 * 
-	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public
-	 * ModelAndView main() { return new ModelAndView("main"); }
-	 */
-
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
 	public ModelAndView signIn() {
@@ -105,8 +98,6 @@ public class MembershipController {
 		ModelAndView mav = new ModelAndView("myPage");
 		boolean passCheck = passwordEncoder.matches(vo.getPassword(), member.getPassword());
 		if (passCheck) {
-			System.out.println(passCheck);
-			System.out.println(update_password);
 			String enc_password = passwordEncoder.encode(update_password);
 			member.setPassword(enc_password);
 			boolean result = service.updateMember(member);
