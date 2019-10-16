@@ -4,11 +4,6 @@ function readNews(num) {
 	requestAjax(value);
 }
 
-// Modal Close Button
-function closeBtn() {
-	document.getElementById("modal_box").style.display = "none";
-}
-
 function requestAjax(value) {
 	$.ajax({
 		url : "readNews",
@@ -26,10 +21,9 @@ function requestAjax(value) {
 			else
 				document.getElementById("m_img").src = "";
 
-			// Modal Close Button
-			$('html, body').css({
+			$('html, page-section').css({
 				'overflow-x' : 'hidden',
-				'overflow-y' : 'auto'
+				'overflow-y' : 'hidden'
 			});
 		},
 		error : function(request, status, error) {
@@ -39,3 +33,22 @@ function requestAjax(value) {
 		}
 	});
 }
+
+// Modal Close Button
+function closeBtn() {
+	document.getElementById("modal_box").style.display = "none";
+	$('html, body').css({
+		'overflow-x' : 'hidden',
+		'overflow-y' : 'auto'
+	});
+}
+
+$("#closeModal").click(function(e){
+	$("#modal-content").scrollTop(0);
+	$("#modal_box").hide();
+	
+	$("html, body").css({
+		"overflow-x": "hidden",
+		"overflow-y": "auto",
+	});
+});

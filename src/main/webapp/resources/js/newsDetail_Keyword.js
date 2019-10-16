@@ -1,6 +1,6 @@
 function fn_paging(pageNum){
 	//http://localhost:8000/newsbigdata/main.do/NewsdetailView.do?action=search&curPage=1&keyword=	
-	window.alert("fn_paging 눌림  : "+pageNum);
+//	window.alert("fn_paging 눌림  : "+pageNum);
 	location.href = '/newsbigdata/main/NewsdetailView?action=search&curPage='+pageNum+'&keyword='; 
 } 
 
@@ -49,11 +49,11 @@ function searchGet(curPage) {
 						var count = data.listCnttt;		
 						var text = "총 "+ count + "개의 기사가 검색되었습니다."
 						var keyword = data.listtt.keyword;
-						window.alert("키워드 "+sendData.keyword);
+//						window.alert("키워드 "+sendData.keyword);
 						var news_count = document.getElementById("news_count");
 						news_count.innerHTML = "<b><font size='5' color='gray'>"+text+"</font></b>";
 					}
-		        	
+		        	console.log("11");
 		       	    $('#tb').empty();
 		        	$('#url').empty();
 					$('#title').empty();
@@ -122,28 +122,28 @@ function searchGet(curPage) {
 	    {"action":$('#action').val(), 
 	    "curPage":$('#curPage').val(), 
 	    "keyword":$('#keyword').val()};
-	 	window.alert("curPage==1 && str ==null 영역 "+sendData.curPage);
+//	 	window.alert("curPage==1 && str ==null 영역 "+sendData.curPage);
 	}
 	if(curPage ==1 && str !=null){
 		var sendData = 
 	    {"action":$('#action').val(), 
 	    "curPage":curPage, 
 	    "keyword":str};
-		window.alert("curPage==1 && str !=null 영역"+sendData.curPage+" str값 : " +str);
+//		window.alert("curPage==1 && str !=null 영역"+sendData.curPage+" str값 : " +str);
 	}
 	if(curPage>=2 && str ==null){
 		var sendData = 
 	    {"action":$('#action').val(), 
 	    "curPage":curPage, 
 	    "keyword":$('#keyword').val()};
-	 	window.alert("curPage>=2 && str ==null 영역"+sendData.curPage);	
+//	 	window.alert("curPage>=2 && str ==null 영역"+sendData.curPage);	
 	}
 	if(curPage >=2 && str !=null){
 		var sendData = 
 	    {"action":$('#action').val(), 
 	    "curPage":curPage, 
 	    "keyword":str};
-		window.alert("curPage>=2 && str !=null 영역"+sendData.curPage+ " str 값 :" +str);
+//		window.alert("curPage>=2 && str !=null 영역"+sendData.curPage+ " str 값 :" +str);
 	}
 	
 	$.ajax({

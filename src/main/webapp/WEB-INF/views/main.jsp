@@ -11,12 +11,12 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Bigdata News</title>
 <!-- jqcloud -->
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
 <script src="resources/js/jqcloud.js" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/jqcd.css" />
+<title>NEWS ON MAP</title>
 
 <!-- Bootstrap core CSS -->
 <link href="resources/vendor/bootstrap/css/bootstrap.min.css"
@@ -27,9 +27,7 @@
 	rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
 	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Mansalva&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap" rel="stylesheet">
 <link
 	href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap"
 	rel="stylesheet">
@@ -49,7 +47,6 @@
 <link href="resources/css/main.css" rel="stylesheet">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}"></script>
 </head>
-
 <body id="page-top">
 
 	<!-- Navigation -->
@@ -71,10 +68,10 @@
 						href="#news-sec">NEWS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#keyword-sec">KEYWORD</a></li>
-					<li class="nav-item" id="tmp_signup" style="display: block"><a
-						class="nav-link js-scroll-trigger" href="#회원가입">SignUp</a></li>
-					<li class="nav-item" id="tmp_login" style="display: block"><a
-						class="nav-link js-scroll-trigger" href="#로그인">Login</a></li>
+					<li class="nav-item" id="nav_signup" style="display: block"><a
+						class="nav-link js-scroll-trigger" onclick="signup()">SignUp</a></li>
+					<li class="nav-item" id="nav_login" style="display: block"><a
+						class="nav-link js-scroll-trigger" onclick="openLogin()">Login</a></li>
 					<li class="nav-item" id="user"
 						style="display: block; position: relative;"><a id="dropdown"
 						class="nav-link js-scroll-trigger" style="display: block;">${sessionScope.nickname}</a>
@@ -106,11 +103,13 @@
 		</div>
 	</nav>
 
+
+
 	<!-- Header -->
 	<header class="masthead">
 		<div class="container">
 			<div class="intro-text">
-				<div class="intro-heading" style="color: black;">슬로건 적기 / 수정사항</div>
+				<div class="intro-heading" style="color: black; font-weight:550;">NEWS ON MAP</div>
 			</div>
 		</div>
 	</header>
@@ -144,38 +143,141 @@
 			</div>
 		</div>
 	</section>
-	
-<!-- News Modal -->
 
-<div id="modal_box" style="display:none; width:100%; height:100%; background-color:black !important; ">
-	<div style="z-index:1;position: fixed; top: 20%; left: 20%;right:20%; background-color:white;">
+
+<!-- Modal -->
+<!-- Signup Modal -->
+	<div id="signup" class="modal printable"
+		style="display: none;">
+		<div
+			style="z-index: 1; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white;">
+			<div id="modal-signup">
+				<button type="button" onclick="closeSignup()" class="close"
+					data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<div class = "signup-form">
+					<form class="form" method="POST" action=""
+						onsubmit='return check()'>
+						<h2>SIGN UP</h2>
+						<hr>
+						<div>
+							<div class="form-group">
+								이름
+								<input type="text" name="userName" id="userName"
+									class="form-control input-lg" placeholder="이름을 입력하세요."
+									tabindex="3"> <span id="alert_userName"></span>
+							</div>
+
+							<div class="form-group">
+								이메일
+								<input type="email" name="email" id="email"
+									class="form-control input-lg" placeholder="이메일을 입력하세요."
+									tabindex="4"> <span id="alert_email"></span>
+							</div>
+
+							<div class="form-group">
+								비밀번호
+								<input onkeyup='mykeyup()' type="password" name="password"
+									id="password" class="form-control input-lg"
+									placeholder="비밀번호를 입력하세요." tabindex="5"> <span
+									id="alert_password"></span>
+							</div>
+
+							<div class="form-group">
+								비밀번호 확인
+								<input onkeyup='mykeyup()' type="password" name="re_password"
+									id="password_confirmation" class="form-control input-lg"
+									placeholder="비밀번호를 한 번 더 입력하세요." tabindex="6"> <span
+									id="alert_re_password"></span>
+							</div>
+						</div>
+						남성 <input type="radio" name="gender" value="male" class="gender" />
+						여성 <input type="radio" name="gender" value="female" class="gender" />
+						<br>
+						<span id="alert_gender"></span><br> GENERATION : 10대 <input
+							type="radio" name="generation" value="10" class="generation" />
+						20대 <input type="radio" name="generation" value="20"
+							class="generation" /> 30대 <input type="radio"
+							name="generation" value="30" class="generation" /> 40대 <input
+							type="radio" name="generation" value="40" class="generation" />
+						50대 이상 <input type="radio" name="generation" value="50"
+							class="generation" /> <span id="alert_generation"></span><br>
+						<div style="height:30px;"></div>
+						<div>
+							<div style= "width: 100%; text-align: center;">
+								<input type="submit" value="회원가입" id="register-btn"><br>
+								이미 회원이신가요? <a href="signIn.do" id="su-login-btn">로그인</a>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- Login modal -->
+<div id="login" class="modal printable" style="display: none;">
+		<div style="z-index: 1; position: fixed; top: 15%; left: 30%; right: 30%; background-color: white;">
+			<div id="modal-login">
+				<button type="button" onclick="closeLogin()" class="close"
+					data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				<div class="login-form">
+					<form class="form" action="signIn.do" method="POST">
+						<h2>Login</h2>
+						<hr>
+						<div class="form-group">
+							<input type="email" name="email" id="email"
+								class="form-control input-lg" placeholder="이메일">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password" id="password"
+								class="form-control input-lg" placeholder="비밀번호">
+						</div>
+						<div style="width: 100%; text-align: center;">
+							<input type="submit" value="로그인" id="login-btn"><br>
+							아직 회원이 아니신가요? <a href="">회원가입</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- News Modal -->
+<div id="modal_box" class="modal printable" style="display: none;">
+	<div style="z-index:1;position: fixed; top: 10%; left: 15%;right:15%; bottom:10%; background-color:white;">
 		<div id="modal-content">
 			<div class="modal_header">
 				<button type="button" onClick="closeBtn()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 				<div>
-					<h3 id="m_newsname">Newsname: </h3>
-					<h2 id="m_title" style="font-family: 'Nanum Gothic', sans-serif;">Title :</h2>
+					<h3 id="m_newsname" style="font-family: 'Sunflower', sans-serif;"></h3>
+					<h3 id="m_title" style="font-family: 'Nanum Gothic', sans-serif;"></h3>
 				</div>
 				<div>
-					<span id="m_category">Category: </span>
-					<span id="m_date">Date : </span>
+					<span id="m_category"></span>
+					<span id="m_date"></span>
 				</div>
 			</div>
 			<div class="modal_body">
 					<div>
 						<img id="m_img" src="">
 					</div>
-					<p id="m_content">Contents :</p>
+					<p id="m_content"></p>
 			</div>
 			<div class="modal_footer">
 				<footer>
-					<button onclick="closeBtn()">Close</button>
+					<button id="closeModal">Close</button>
 				</footer>
 			</div>
 		</div>
 	</div>
 </div>
-	
+
 	<!-- NEWS -->
 
 	<section class="page-section" id="news-sec"
@@ -183,7 +285,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading" id="up_btnLine">Today's News</h2>
+					<h2 class="section-heading"><i class="far fa-newspaper"></i> &nbsp;Today's News &nbsp;<i class="far fa-newspaper"></i></h2>
 					<div class="blank"></div>
 
 					<!-- action="/newsbigdata/main.do/NewsdetailView.do" -->
@@ -244,9 +346,9 @@
 						
 					<ul style="align-items: center;" class="pagination">
 
-							<li class="disabled"><a><<</a></li>
+							<li class="disabled"><a>&lt;&lt;</a></li>
 
-							<li class="disabled"><a><</a></li>
+							<li class="disabled"><a>&lt;</a></li>
 
 							<li class="disabled active"><a>1</a></li>
 
@@ -273,24 +375,23 @@
 		<div  class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading">Today's Keyword</h2>
+					<h2 class="section-heading"><i class="fas fa-chart-bar"></i>&nbsp; Today's Keyword &nbsp;<i class="fas fa-chart-bar"></i></h2>
 				</div>
 			</div>
-		<!-- 	<div class="blank">
-				
-			</div> -->
+			<div class="blank"></div>
 			<div class="row text-center col-lg-12">
-			<div id="btn_div" class="col-lg-1 text-center"
-					style="width: max; height: 400px; align: left; margin: auto; border: 1px solid black">
-				<input type="button" class="ctg_btn" id="all" value="전체" /> 
-				<input type="button" class="ctg_btn" value="정치" /> 
-				<input type="button" class="ctg_btn" value="경제" /> 
-				<input type="button" class="ctg_btn" value="사회" /> 
-				<input type="button" class="ctg_btn" value="지역" />
-				<input type="button" class="up_btn" value="키워드 검색결과로 이동" />
-			</div>
-				<div id="wordcloud" class="col-lg-11 text-center"
-					style="width: max; height: 400px; align: right; margin: auto; border: 1px solid black">
+				<div class="col-md-3">
+					<div style="width: 100%; height: 600px; border: 1px solid black;">
+						<input type="button" class="ctg_btn" id="all" value="전체" /> 
+						<input type="button" class="ctg_btn" value="정치" /> 
+						<input type="button" class="ctg_btn" value="경제" /> 
+						<input type="button" class="ctg_btn" value="사회" /> 
+						<input type="button" class="ctg_btn" value="지역" />
+						<input type="button" class="up_btn" value="키워드 검색결과로 이동" />
+					</div>
+				</div>
+				<div id="wordcloud" class="col-md-9">
+					<div style=" height:100%; align: center; margin: auto; border: 1px solid black"></div>
 				</div>
 			</div>
 		</div>
@@ -299,7 +400,7 @@
 	<!-- Footer -->
 	<footer class="footer">
 		<div class="container">
-			<span class="copyright">Copyright &copy; Bigdata News 2019</span>
+			<span class="copyright">Copyright &copy; newsONmap 2019</span>
 		</div>
 	</footer>
 
@@ -317,6 +418,7 @@
 <script src="<c:url value='/resources/js/newsDetail_Filter.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
+<script src="<c:url value='/resources/js/signUp.js' />"></script>
 <script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
 </body>
 </html>

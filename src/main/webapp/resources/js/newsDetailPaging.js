@@ -1,6 +1,6 @@
 function fn_paging(pageNum){
 	//http://localhost:8000/newsbigdata/main.do/NewsdetailView.do?action=search&curPage=1&keyword=	
-	window.alert("fn_paging 눌림  : "+pageNum);
+//	window.alert("fn_paging 눌림  : "+pageNum);
    location.href = '/newsbigdata/main/NewsdetailView?action=search&curPage='+pageNum+'&keyword='; 
 }
 
@@ -32,10 +32,10 @@ if(Flag ==1){
 	"curPage":$('#curPage').val(), 
 	"keyword":$('#keyword').val()};
 }
-window.alert("drawPagination 테스트");
+//window.alert("drawPagination 테스트");
 //window.alert("drawPagination의 sendData2:"+sendData2.action + sendData2.curPage + sendData2.keyword);
-window.alert("drawPagination의 Flag:"+Flag);
-window.alert("drawPagination의 str:"+str);
+//window.alert("drawPagination의 Flag:"+Flag);
+//window.alert("drawPagination의 str:"+str);
 
 $.ajax({
     type: "GET",
@@ -87,7 +87,7 @@ $.ajax({
   	
   	
 		var lstCnt = data.paginationttt.listCnt;
-		window.alert("끝끝끝");
+//		window.alert("끝끝끝");
 		
 //		searchBoardListPaging(board.boardList.pageSize);
 //		searchBoardListPaging(board.boardList.startPage);
@@ -102,30 +102,30 @@ function goPage() {
 	$('.goPage').click(function(){
 		page = $(this).attr("data-page");
 		pageNum = page;
-		window.alert("pageNum"+pageNum );
+//		window.alert("pageNum"+pageNum );
 		searchGet(pageNum);  
 	});
 }
 function goFirstPage() {
 	$('.goFirstPage').click(function(){
-		window.alert("첫번째 버튼 클릭");
+//		window.alert("첫번째 버튼 클릭");
 		pageNum = 1;
 		searchGet(pageNum);  
 	});
 }
 function goNextPage() {
 	$('.goBackPage').click(function(){
-		window.alert("다음 버튼 클릭");
+//		window.alert("다음 버튼 클릭");
 		pageNum = 1;
 		searchGet(pageNum);  
 	});
 }
 function goLastPage() {
 	$('.goLastPage').click(function(){
-		window.alert("끝 버튼 클릭");
+//		window.alert("끝 버튼 클릭");
 		page = $(this).attr("data-page");
 		pageNum = page;
-		window.alert("끝 버튼 클릭"+pageNum);
+//		window.alert("끝 버튼 클릭"+pageNum);
 		searchGet(pageNum);  
 	});
 }

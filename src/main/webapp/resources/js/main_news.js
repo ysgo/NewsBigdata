@@ -44,8 +44,8 @@ function showNewsList(newsList) {
 	// 뉴스 리스트 출력 - idx는 인덱스, item은 데이터 json
 	$('#todayNews *').remove();
 	$.each(newsList, function(idx, item) {
-		var str='<li>';
-		str+='<span class="main_title" onclick="readNews('+ idx + ')">';
+		var str='<li class="main_title" onclick="readNews('+ idx + ')">';
+		str+='<span>';
 		str+=item;
 		str+='</span>';
 		str+='</li>';
