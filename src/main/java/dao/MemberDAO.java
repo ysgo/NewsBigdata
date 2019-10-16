@@ -14,16 +14,18 @@ public class MemberDAO {
 	SqlSession session = null;	 
 	String mapperRoute = "resource.MemberMapper.";
 	
-	// 회원 가입
-	public boolean signup(MemberVO vo) {
-		boolean result=true;
-		String statement = mapperRoute+"signup";
-		if(session.insert(statement, vo) != 1)
-			result = false;
-		return result;
+	public boolean signUp(MemberVO vo) {
+		String statement = mapperRoute+"signUp";
+		int result = session.insert(statement, vo);
+		return result==1 ? true : false;
 	}
 	
-	// 회원 로그인 정보
+	public boolean checkMember(MemberVO vo) {
+		String statement = mapperRoute+"checkMember";
+		int result = session.selectOne(statement, vo);
+		return result==1 ? true : false;
+	}
+	
 	public MemberVO viewMember(MemberVO vo) {
 		String statement = mapperRoute+"viewMember";
 		return session.selectOne(statement, vo);

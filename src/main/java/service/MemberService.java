@@ -12,12 +12,11 @@ public class MemberService {
 	@Autowired
 	private MemberDAO dao;
 
-	// 회원 가입
-	public boolean signup(MemberVO vo) {
-		return dao.signup(vo);
+	public boolean signUp(MemberVO vo) {
+		boolean result = dao.checkMember(vo);
+		return result ? false : dao.signUp(vo);
 	}
-
-	// 회원 로그인 정보
+	
 	public MemberVO viewMember(MemberVO vo) {
 		return dao.viewMember(vo);
 	}

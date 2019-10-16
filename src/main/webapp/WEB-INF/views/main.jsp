@@ -68,13 +68,24 @@
 						href="#news-sec">NEWS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#keyword-sec">KEYWORD</a></li>
-					<li class="nav-item" id="nav_signup" style="display: block"><a
-						class="nav-link js-scroll-trigger" onclick="signup()">SignUp</a></li>
-					<li class="nav-item" id="nav_login" style="display: block"><a
-						class="nav-link js-scroll-trigger" onclick="openLogin()">Login</a></li>
-					<li class="nav-item" id="user"
-						style="display: block; position: relative;"><a id="dropdown"
-						class="nav-link js-scroll-trigger" style="display: block;">${sessionScope.nickname}</a>
+					<c:choose>
+						<c:when test="${ !empty memberInfo }">
+							<li class="nav-item" id="nav_signup" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="openMypage()">MyPage</a></li>
+							<li class="nav-item" id="nav_login" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="logout()">Logout</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item" id="nav_signup" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="signup()">SignUp</a></li>
+							<li class="nav-item" id="nav_login" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="openLogin()">Login</a></li>
+							<li class="nav-item" id="user" style="display: block; position: relative;">
+					<a id="dropdown" class="nav-link js-scroll-trigger" style="display: block;">${ memberInfo.userName}</a>
+						</c:otherwise>
+					</c:choose>
+					<li class="nav-item" id="user" style="display: block; position: relative;">
+					<a id="dropdown" class="nav-link js-scroll-trigger" style="display: block;">${sessionScope.nickname}</a>
 						<div class="dropdown-content"
 							style="display: none; color: #95b3d7 !important; width: 140px; padding: 10px 15px 0 15px; height: 75px; position: absolute; top: 50px; left: 0; background: #fff; opacity: 0.7">
 							<a class="dcontent" href="mypage"
@@ -83,7 +94,6 @@
 								style="padding: 0; color: #000 !important; text-decoration: none;">로그아웃</a>
 						</div> <script>
 							$("#dropdown").mouseover(function() {
-
 								$(".dropdown-content").css("display", "block");
 							});
 
@@ -157,15 +167,14 @@
 					<span aria-hidden="true">×</span>
 				</button>
 				<div class = "signup-form">
-					<form class="form" method="POST" action=""
-						onsubmit='return check()'>
+					<form class="form" method="POST" id="signUp_Form">
 						<h2>SIGN UP</h2>
 						<hr>
 						<div>
 							<div class="form-group">
-								이름
+								닉네임
 								<input type="text" name="userName" id="userName"
-									class="form-control input-lg" placeholder="이름을 입력하세요."
+									class="form-control input-lg" placeholder="닉네임을 입력하세요."
 									tabindex="3"> <span id="alert_userName"></span>
 							</div>
 
@@ -206,11 +215,10 @@
 						<div style="height:30px;"></div>
 						<div>
 							<div style= "width: 100%; text-align: center;">
-								<input type="submit" value="회원가입" id="register-btn"><br>
-								이미 회원이신가요? <a href="signIn.do" id="su-login-btn">로그인</a>
+								<input type="submit" value="회원가입" id="register-btn" onclick="submitSignUp();return false;"><br>
+								이미 회원이신가요? <a href="#" id="su-login-btn">로그인</a>
 							</div>
 						</div>
-						
 					</form>
 				</div>
 			</div>
@@ -227,7 +235,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 				<div class="login-form">
-					<form class="form" action="signIn.do" method="POST">
+					<form class="form" method="POST" id="signIn_Form">
 						<h2>Login</h2>
 						<hr>
 						<div class="form-group">
@@ -239,8 +247,8 @@
 								class="form-control input-lg" placeholder="비밀번호">
 						</div>
 						<div style="width: 100%; text-align: center;">
-							<input type="submit" value="로그인" id="login-btn"><br>
-							아직 회원이 아니신가요? <a href="">회원가입</a>
+							<input type="submit" value="로그인" id="login-btn" onclick="submitSignIn();return false;"><br>
+							아직 회원이 아니신가요? <a href="#">회원가입</a>
 						</div>
 					</form>
 				</div>
@@ -264,7 +272,7 @@
 				</div>
 			</div>
 			<div class="modal_body">
-					<div>
+					<div id="">
 						<img id="m_img" src="">
 					</div>
 					<p id="m_content"></p>

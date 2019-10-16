@@ -9,6 +9,7 @@ public class MemberVO {
 	private String gender;
 	private int generation;
 	private Date created_at;
+	
 	public String getUserName() {
 		return userName;
 	}
