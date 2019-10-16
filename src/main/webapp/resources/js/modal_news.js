@@ -1,16 +1,22 @@
 // 뉴스 기사 클릭시 모달에 뉴스 기사 출력 AJAX 구현
 function readNews(num) {
 	var value = document.getElementsByClassName("main_title")[num].innerText;
-	
+	requestAjax(value);
+}
+
+// Modal Close Button
+function closeBtn() {
+	document.getElementById("modal_box").style.display = "none";
+}
+
+function requestAjax(value) {
 	$.ajax({
 		url : "readNews",
 		type : "GET",
 		data : { title : value },
 		success : function(data) {
-			console.log(data);
 			document.getElementById("modal_box").style.display = "block";
 			document.getElementById("m_newsname").innerHTML = data.newsname;
-			//document.getElementById("modal_box").style.backgroundColor="rgba(0,0,0,0.5)"
 			document.getElementById("m_title").innerHTML = data.title;
 			document.getElementById("m_category").innerHTML = data.category;
 			document.getElementById("m_date").innerHTML = data.date;
@@ -19,6 +25,7 @@ function readNews(num) {
 				document.getElementById("m_img").src = data.url;
 			else
 				document.getElementById("m_img").src = "";
+
 			// Modal Close Button
 			$('html, body').css({
 				'overflow-x' : 'hidden',
@@ -31,9 +38,4 @@ function readNews(num) {
 					+ request.responseText + "\n" + "error:" + error);
 		}
 	});
-}
-
-// Modal Close Button
-function closeBtn() {
-	document.getElementById("modal_box").style.display = "none";
 }

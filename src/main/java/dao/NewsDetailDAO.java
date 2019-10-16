@@ -30,7 +30,8 @@ public class NewsDetailDAO {
 
 	// 뉴스 키워드로 검색된 것만 출력
 	public List<NewsVO> search(NewsVO info) {
-		System.out.println("DAO 키워드 값 : " + info.getKeyword());
+		System.out.println("DAO 키워드 값 : " + info.getKeyword()
+							+"DAO 언론사이름 값"+ info.getNewsname());
 		List<NewsVO> list;
 		String statement = "resource.NewsMapper.search";
 		list = session.selectList(statement, info);

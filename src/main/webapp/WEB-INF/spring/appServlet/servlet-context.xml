@@ -42,7 +42,7 @@
 
 	<beans:bean	class="org.springframework.jdbc.datasource.DriverManagerDataSource"	id="dataSource">
 		<beans:property value="${db.driver}" name="driverClassName" />
-		<beans:property value="${db.url}" name="url" />
+		<beans:property value="${db.url_local}" name="url" />
 		<beans:property value="${db.userName}" name="username" />
 		<beans:property value="${db.password}" name="password" />
 	</beans:bean>

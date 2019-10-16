@@ -15,31 +15,57 @@
 	</select>
 	
 	<select id="readNews" parameterType="vo.NewsVO" resultType="vo.NewsVO">
-		select newsname, title, category, date, url, content from news_list 
+		select newsname, title, category, content, date, url, content from news_list 
 		where title=#{title} limit 1
 	</select> 
 	
 	<!-- 뉴스 타이틀 출력 -->
 	<select id="selectTitle" resultType="vo.NewsVO" parameterType="vo.NewsVO">
-		select title from news_list LIMIT #{pageNo},10;
+		select title, url, newsname, category, content, date from news_list order by idx LIMIT #{pageNo},10;
 	</select>
 	
 	<!-- 키워드별로 검색한 결과물 출력 -->
 	<select id="search" resultType="vo.NewsVO"
 		parameterType="vo.NewsVO">
-		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM news_list, (select @ROWNUM := 0) A 
+		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title, url, newsname, category, content, date FROM news_list, (select @ROWNUM := 0) A 
+		<where>
+			<if test="newsname == null and keyword ==null">
+				title LIKE '%${keyword}%'  
+				order by idx DESC LIMIT #{pageNo},10;			
+			</if>
+			<if test="newsname == null and keyword !=null">
+				title LIKE '%${keyword}%'  
+				order by idx DESC LIMIT #{pageNo},10;			
+			</if>
+			<if test="newsname != null and keyword !=null" >
+				newsname LIKE '%${keyword}%'  
+				order by idx DESC LIMIT #{pageNo},10;	
+			</if>
+		</where>	 
+	 <!--
+		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title, url, newsname, category, content, date FROM news_list, (select @ROWNUM := 0) A 
 		WHERE title LIKE '%${keyword}%'  
-		order by title DESC LIMIT #{pageNo},10;
-		<!-- 
-			#{startIndex}
-			startIndex or pageStart : 특정 페이지의 첫번째 게시글의 행이다.
-			perPageNum : 한 페이지당 보여줄 게시글의 개수이다.
-		-->
+		order by idx DESC LIMIT #{pageNo},10;
+	-->
 	</select>
-
+	
 	<!-- 검색한 게시글 갯수 -->
 	<select id="searchListCnt" parameterType="vo.NewsVO" resultType="_int">
+		<!--  
 		SELECT count(title) FROM news_list WHERE title LIKE '%${keyword}%'
+		-->
+			<if test="newsname == null and keyword ==null">
+				SELECT count(title) FROM news_list 
+				WHERE title LIKE '%${keyword}%'
+			</if>
+			<if test="newsname == null and keyword !=null">
+				SELECT count(title) FROM news_list 
+				WHERE title LIKE '%${keyword}%'
+			</if>
+			<if test="newsname != null and keyword !=null" >
+				SELECT count(newsname) FROM news_list 
+				WHERE newsname LIKE '%${keyword}%'
+			</if>
 	</select>
 
 	<!-- 전체 게시글 갯수 -->

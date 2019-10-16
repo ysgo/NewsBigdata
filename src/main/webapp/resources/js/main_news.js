@@ -2,6 +2,7 @@ window.onload = function() {
 	curTime();
 	setInterval(curTime, 1000);
 	todayNews();
+	searchGet(1);
 }
 
 function curTime() {
@@ -51,7 +52,8 @@ function showNewsList(newsList) {
 	});
 } 
 
-var markers = [], infoWindows = [], map;
+var markers = [], map;
+//infoWindows = [];
 function showMap(province, sigungu) {
 	// 지도에 행정구역 표시
 	var mapDiv = document.getElementById('map');
@@ -100,9 +102,9 @@ function setMarkers(zoneName) {
 				s_code : s_code
 				}
 		}));
-		infoWindows.push(new naver.maps.InfoWindow({
-			content: '<div style="width:150px;text-align:center;padding:10px;">"'+ name +'"</div>'
-		}));
+//		infoWindows.push(new naver.maps.InfoWindow({
+//			content: '<div style="width:150px;text-align:center;padding:10px;">"'+ name +'"</div>'
+//		}));
 	}
 }
 
@@ -118,18 +120,17 @@ function clearmarkers() {
 
 function getClickHandler(seq) {
 	 return function(e) {
-		var marker = markers[seq], infoWindow = infoWindows[seq];
+		var marker = markers[seq];
+//		, infoWindow = infoWindows[seq];
 
 //		infoWindow.getMap() ? infoWindow.close() : infoWindow.open(map, marker);
 		var content = marker.content;
-		console.log(content);
 		document.getElementById('zoneName').innerText=content.name;
 		$.ajax({
 			url : 'selectZone',
 			type : 'GET',
 			data : { p_code : content.p_code, s_code : content.s_code },
 			success : function(data) {
-				console.log("Success data: " + data.zoneNews);
 				showNewsList(data.zoneNews);
 			},
 			error : function(request, status, error) {

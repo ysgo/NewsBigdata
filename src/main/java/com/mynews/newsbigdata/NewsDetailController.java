@@ -30,16 +30,6 @@ public class NewsDetailController {
 		return "TestView2";
 	}
 	
-	
-	/*
-	 * // NewsDetail 첫 화면
-	 * 
-	 * @RequestMapping(value = "/main", method = RequestMethod.GET) ModelAndView
-	 * select00() { System.out.println("상세검색 처음 접속시 발생"); ModelAndView mav = new
-	 * ModelAndView(); mav.setViewName("main"); return mav; }
-	 */
-	
-	
 	// NewsDetail 첫 화면
 	@RequestMapping(value = "/NewsdetailView", method = RequestMethod.POST)
 	ModelAndView select0() {
@@ -50,8 +40,6 @@ public class NewsDetailController {
 	}
 
 	// NewsDetail 검색 시작
-	//main.do?action=search&curPage=1&keyword=대통령
-	//@RequestMapping(value = "/NewsdetailView.do", method = RequestMethod.GET)
 	@ResponseBody
 	@RequestMapping(value = "/main/NewsdetailView", method = RequestMethod.GET
 							,produces = "application/json; charset=utf-8")
@@ -60,9 +48,10 @@ public class NewsDetailController {
 				int curPage) {
 		
 		HashMap<String, Object> map = new HashMap<>();
-		
+	
 		System.out.println("뉴스 디테일 keyword 값:" + newsinfo.getKeyword()  
-							+ " 페이지넘버" + newsinfo.getPageNo());
+							+ " 페이지넘버" + newsinfo.getPageNo()
+							+ " 언론사네임" + newsinfo.getNewsname());
 
 		int listCnt = dao.allListCount(newsinfo);
 		newsinfo.setPageNo((curPage - 1) * 10);
@@ -82,8 +71,8 @@ public class NewsDetailController {
 			// 1 - 전체조회
 			if (newsinfo.getKeyword() == "") {
 				list = service.selectTitle(newsinfo);
+				System.out.println("리스트 값 : "+list);
 				//map.put("todayNews",list);
-				
 				pagination = new Pagination(listCnt, curPage);
 				//mav.addObject("list1", list);
 				//mav.addObject("listCnt", listCnt);
@@ -92,19 +81,22 @@ public class NewsDetailController {
 				map.put("listtt",list);
 				map.put("listCnttt", listCnt);
 				map.put("paginationttt", pagination);
+				System.out.println("전체 페이징 값: "
+									+pagination);
 				return map;
 
 			}
-			// 2 - 키워드검색
+			// 2 - 키워드검색 및 필터링
 			else {
 				System.out.println("특정 키워드만 검색 : " + newsinfo.getKeyword());
+				System.out.println("키워드검색 들어오면서 newsname 출력 :"+newsinfo.getNewsname());
 				list = service.search(newsinfo);
 				listCnt = dao.searchListCnt(newsinfo);
 				//System.out.println("키워드 listCnt :"+listCnt);
 				//System.out.println("리스트 출력 :"+ list);	
 				//mav.addObject 를 해쉬 맵으로 수정
 				pagination = new Pagination(listCnt, curPage);
-				
+				System.out.println("키워드 리스트 값 : "+list);
 				map.put("listtt",list);
 				map.put("listCnttt", listCnt);
 				map.put("paginationttt", pagination);

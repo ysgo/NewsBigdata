@@ -4,7 +4,13 @@ if(!require(rJava)) install.packages("rJava")
 if(!require(Rserve)) install.packages("Rserve")
 if(!require(stringr)) install.packages("stringr")
 
+<<<<<<< HEAD
 remDr<-remoteDriver(remoteServerAddr="localhost", port=4445, browserName="chrome")
+=======
+getwd();
+
+remDr<-remoteDriver(remoteServerAddr = "localhost", port=4445, browserName="chrome")
+>>>>>>> cw
 remDr$open()
 remDr$maxWindowSize()
 remDr$navigate("https://www.bigkinds.or.kr/v2/news/search.do")
@@ -24,18 +30,31 @@ for(menu in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
+<<<<<<< HEAD
   Sys.sleep(5)
+=======
+  Sys.sleep(4)
+>>>>>>> cw
   
   categoryaddr<-paste0('#filter-category > div > div:nth-child(',menunb,') > label')
   categoryLink<-remDr$findElements(using='css',categoryaddr)
   getCategory<-unlist(sapply(categoryLink,function(x){x$getElementText()}))
   getCategory<-str_sub(getCategory,start = 1L,end=2L)
+<<<<<<< HEAD
+=======
+  Sys.sleep(4)
+>>>>>>> cw
   
   #############################################################################################3
 
   page<-4
+<<<<<<< HEAD
   for(pageNB in 1:4){ 
     for(index in 1:1){
+=======
+  for(pageNB in 1:7){ 
+    for(index in 1:10){
+>>>>>>> cw
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)
@@ -43,7 +62,11 @@ for(menu in 1:4){
       titleaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > h4')
       titleLink<-remDr$findElements(using='css',titleaddr)
       sapply(titleLink,function(x){x$clickElement()})
+<<<<<<< HEAD
       Sys.sleep(3)
+=======
+      Sys.sleep(4)
+>>>>>>> cw
       # if (length(titleLink)==0){
       #   endFlag <- TRUE
       #   break
@@ -81,16 +104,28 @@ for(menu in 1:4){
       xbtnLink<-remDr$findElements(using='css',xbtnaddr)
       sapply(xbtnLink,function(x){x$clickElement()})
       
+<<<<<<< HEAD
       Sys.sleep(3)
     }
 
     if(page==10)
       break
+=======
+      Sys.sleep(4)
+    }
+
+     if(page==10)
+       break
+>>>>>>> cw
     
     linkCss<-paste0('#news-results-pagination > ul > li:nth-child(',page,') > a')
     linkCssLink<-remDr$findElements(using='css',linkCss)
     sapply(linkCssLink,function(x){x$clickElement()})
+<<<<<<< HEAD
     Sys.sleep(5)
+=======
+    Sys.sleep(4)
+>>>>>>> cw
     if(page==10)
       page<-4
     else
@@ -102,7 +137,13 @@ for(menu in 1:4){
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
+<<<<<<< HEAD
   Sys.sleep(5)
+=======
+  Sys.sleep(4)
+  if(menunb==6)
+    break
+>>>>>>> cw
   menunb <- menunb + 1
 }
 

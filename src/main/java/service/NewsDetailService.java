@@ -23,7 +23,6 @@ public class NewsDetailService {
 		System.out.println("서비스의 키워드값 : " + info.getKeyword());
 		return dao.search(info);
 	}
-	
 	/*
 	public List<Pagination> searchCnt(NewsVO info) {
 		System.out.println("서비스 - SearachCnt에 들어옴");

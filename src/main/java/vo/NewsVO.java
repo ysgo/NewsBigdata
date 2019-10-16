@@ -103,10 +103,11 @@ public class NewsVO {
 		System.out.println("VO의 CntPerPage ");
 		this.CntPerPage=pageSize;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "[newsname: " + newsname + ", title:" + title + 
-				"\ncategory: " + category + ", date: " + date + "\ncontent: " + content + "]";
+		return "NewsVO [newsname=" + newsname + ", title=" + title + ", category=" + category + ", date=" + date
+				+ ", url=" + url + ", content=" + content + ", keyword=" + keyword + ", action=" + action + ", pageNo="
+				+ pageNo + ", startIndex=" + startIndex + ", CntPerPage=" + CntPerPage + "]";
 	}
 }
