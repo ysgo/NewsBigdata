@@ -28,10 +28,10 @@ public class MembershipController {
 	PasswordEncoder passwordEncoder;
 
 	// 메인페이지
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public ModelAndView main() {
-		return new ModelAndView("main");
-	}
+	/*
+	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public
+	 * ModelAndView main() { return new ModelAndView("main"); }
+	 */
 
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/signIn", method = RequestMethod.GET)

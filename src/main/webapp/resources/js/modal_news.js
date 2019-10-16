@@ -8,6 +8,7 @@ function readNews(num) {
 		success : function(data) {
 			console.log(data);
 			document.getElementById("modal_box").style.display = "block";
+			/*document.getElementById("modal_box").style.display = "block";*/
 			document.getElementById("m_newsname").innerHTML = data.newsname;
 			//document.getElementById("modal_box").style.backgroundColor="rgba(0,0,0,0.5)"
 			document.getElementById("m_title").innerHTML = data.title;
@@ -17,10 +18,10 @@ function readNews(num) {
 			if(data.url != 0)
 				document.getElementById("m_img").src = data.url;
 
-			// Modal Close Button
-			$('html, body').css({
+		
+			$('html, page-section').css({
 				'overflow-x' : 'hidden',
-				'overflow-y' : 'auto'
+				'overflow-y' : 'hidden'
 			});
 		},
 		error : function(request, status, error) {
@@ -34,4 +35,24 @@ function readNews(num) {
 // Modal Close Button
 function closeBtn() {
 	document.getElementById("modal_box").style.display = "none";
+	
+	$('html, body').css({
+		'overflow-x' : 'hidden',
+		'overflow-y' : 'auto'
+	});
+	
 }
+
+$("#closeModal").click(function(e){
+	$("#modal-content").scrollTop(0);
+	$("#modal_box").hide();
+	
+	
+	$("html, body").css({
+		"overflow-x": "hidden",
+		"overflow-y": "auto",
+	});
+	
+	
+	
+});

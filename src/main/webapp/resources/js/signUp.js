@@ -1,66 +1,40 @@
-// 회원가입 페이지 기본화면 동작
-$(function () {
-    $('.button-checkbox').each(function () {
+function signup() {
+	document.getElementById("signup").style.display="block";
+	$('html, page-section').css({
+		'overflow-x' : 'hidden',
+		'overflow-y' : 'hidden'
+	});
+}
 
-        // Settings
-        var $widget = $(this),
-            $button = $widget.find('button'),
-            $checkbox = $widget.find('input:checkbox'),
-            color = $button.data('color'),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
 
-        // Event Handlers
-        $button.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
+// Modal Close Button
+function closeSignup() {
+	document.getElementById("signup").style.display="none";	
+	$('html, body').css({
+		'overflow-x' : 'hidden',
+		'overflow-y' : 'auto'
+	});
+	
+}
 
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
 
-            // Set the button's state
-            $button.data('state', (isChecked) ? "on" : "off");
 
-            // Set the button's icon
-            $button.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$button.data('state')].icon);
+function openLogin() {
+	document.getElementById("login").style.display="block";
+	$('html, page-section').css({
+		'overflow-x' : 'hidden',
+		'overflow-y' : 'hidden'
+	});
+}
 
-            // Update the button's color
-            if (isChecked) {
-                $button
-                    .removeClass('btn-default')
-                    .addClass('btn-' + color + ' active');
-            }
-            else {
-                $button
-                    .removeClass('btn-' + color + ' active')
-                    .addClass('btn-default');
-            }
-        }
 
-        // Initialization
-        function init() {
+// Modal Close Button
+function closeLogin() {
+	document.getElementById("login").style.display="none";	
+	$('html, body').css({
+		'overflow-x' : 'hidden',
+		'overflow-y' : 'auto'
+	});
+	
+}
 
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($button.find('.state-icon').length == 0) {
-                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
-            }
-        }
-        init();
-    });
-});
