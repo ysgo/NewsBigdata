@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="common/header.jsp"%>
 <!DOCTYPE html>
@@ -46,62 +46,108 @@
 	<!--          오늘날짜의 기사를 키워드로 보여줌 </div> -->
 
 
-	<script type="text/javascript">
-	$(document).ready(function() {
-			$.ajax({
-				url : "wordclouds.do",
-				type : "GET",
-				success : function(data) {
-					var word_array = new Array();
-					var obj;	
+$(document).ready(function() {
+		$.ajax({
+			url : "wordclouds",
+			type : "GET",
+			success : function(data) {
+				var word_array = new Array();
+				var obj;	
+				
+				for (key in data) {
+					obj = new Object();
 					
+					obj.text=key;
+					obj.weight=data[key];
+					obj.handlers={
+							 click: function() {
+								 var keyword=$(this).val();
+							    	console.log(keyword);
+							    	searchGet(keyword);
+							       /*$.ajax({
+										url : "/main/NewsdetailView",// 검색창																			
+										type : "GET",
+										data:{"keyword":keyword},
+										success : function(data) {// 검색결과
+																	// 총
+																	// 기사리스트
+																	// 갖고오기(변수명:list?)
+											var ctg_btn_array = new Array();
+											
+											
+											 * for()
+											 * 
+											 * $(document).ready(function(){
+											 * $('#wordcloud').jQCloud('update',ctg_btn_array)
+											 * 
+											 * 
+											 * });
+											 
+										},
+										error : function(request, status, error) {
+											console.log("Error");
+											console.log("error code:" + request.status + "\n"
+													+ "message:" + request.responseText + "\n"
+													+ "error:" + error);
+										}
+			                    });*/
+							 }
+					}
+					word_array.push(obj);
+					// console.log(data);
+					// console.log(key,data[key]); link
+				}
+				console.log(obj);
+					console.log(word_array);
+	
+				$(document).ready(function(){
+					$('#wordcloud').jQCloud(word_array)
+					
+
+					 /*
+						 * $(".jqcloud-word").click(function(){ alert('You
+						 * clicked the word !'); });
+						 */
+				});
+			},
+			error : function(request, status, error) {
+				console.log("Error");
+				console.log("error code:" + request.status + "\n"
+						+ "message:" + request.responseText + "\n"
+						+ "error:" + error);
+			}
+		});
+	});
+
+	    $(".ctg_btn").click(function(){
+	    	var ctg=$(this).val();
+	    	console.log(ctg);
+	    	// ctg.style.backgroundColor = '#A9A9A9';
+	       $.ajax({
+				url : "ctgkeyword",
+				type : "GET",
+				data:{"ctg":ctg},
+				success : function(data) {
+					var ctg_btn_array = new Array();
+					var obj;
 					for (key in data) {
 						obj = new Object();
-						
 						obj.text=key;
 						obj.weight=data[key];
 						obj.handlers={
 								 click: function() {
-									 var keywordClicked=$(this).val();
-								    	console.log(keywordClicked);
-								       /* $.ajax({
-											url : "NewsdetailView.do",//검색창 주소
-											type : "GET",
-											data:{"keywordClicked":keywordClicked},
-											success : function(data) {//검색결과 총 기사리스트 갖고오기(변수명:list?)
-												var ctg_btn_array = new Array();
-												
-												for()
-												
-												$(document).ready(function(){
-													$('#wordcloud').jQCloud('update',ctg_btn_array)
-													
-													
-												});
-											},
-											error : function(request, status, error) {
-												console.log("Error");
-												console.log("error code:" + request.status + "\n"
-														+ "message:" + request.responseText + "\n"
-														+ "error:" + error);
-											}
-				                    }); */
+									 var keyword=$(this).val();
+								    	console.log(keyword);
+								    	searchGet(keyword);
+								 }
 						}
-						}	    
-						word_array.push(obj);
-						//console.log(data);
-						//console.log(key,data[key]);	link			
+						
+						ctg_btn_array.push(obj);		
 					}
-					console.log(obj);
-						console.log(word_array);
+						console.log(ctg_btn_array);
 		
 					$(document).ready(function(){
-						$('#wordcloud').jQCloud(word_array)
-						
-
-						 /* $(".jqcloud-word").click(function(){
-							 alert('You clicked the word !');
-						 }); */
+						$('#wordcloud').jQCloud('update',ctg_btn_array)
 					});
 				},
 				error : function(request, status, error) {
@@ -111,48 +157,8 @@
 							+ "error:" + error);
 				}
 			});
-		});
-		
-		/* var a=function() {
-			  $('span').click(function(){
-			     // type = $(this).val(); // update the value in the var type here
-			     alert("??");
-			   })
-	      } */
-	
-		    $(".ctg_btn").click(function(){
-		    	var ctg=$(this).val();
-		    	console.log(ctg);
-		    	//ctg.style.backgroundColor  = '#A9A9A9';
-		       $.ajax({
-					url : "ctgkeyword.do",
-					type : "GET",
-					data:{"ctg":ctg},
-					success : function(data) {
-						var ctg_btn_array = new Array();
-						var obj;
-						for (key in data) {
-							obj = new Object();
-							obj.text=key;
-							obj.weight=data[key];
-							ctg_btn_array.push(obj);		
-						}
-							console.log(ctg_btn_array);
-			
-						$(document).ready(function(){
-							$('#wordcloud').jQCloud('update',ctg_btn_array)
-						});
-					},
-					error : function(request, status, error) {
-						console.log("Error");
-						console.log("error code:" + request.status + "\n"
-								+ "message:" + request.responseText + "\n"
-								+ "error:" + error);
-					}
-				});
-		    });
-		
-	</script>
+	    });
 </body>
 </html>
 
+ --%>

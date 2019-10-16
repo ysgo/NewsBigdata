@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+/*import org.springframework.web.servlet.ModelAndView;*/
 
 @Controller
 public class RwordcloudsController {
@@ -24,9 +24,9 @@ public class RwordcloudsController {
 			r = new RConnection();
 			r.eval("ctg <- '전체'");
 			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
-			REXP x = r.eval("keyword20");
+			REXP x = r.eval("keyword30");
 			RList list = x.asList();
-
+ 
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
 			String keyword;
@@ -36,7 +36,6 @@ public class RwordcloudsController {
 				keyword = keywords[i];
 				freq = Integer.parseInt(freqs[i]);
 				keyMap.put(keyword, freq);
-
 			}
 			System.out.println(keyMap);
 
@@ -60,7 +59,7 @@ public class RwordcloudsController {
 			r.eval("ctg <- '" + ctg + "'");
 			r.eval("source('C:/Rstudy/bigkindsCrawling/wordclouds2.R',encoding='UTF-8')");
 
-			RList list = r.eval("keyword20").asList();
+			RList list = r.eval("keyword30").asList();
 
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
@@ -71,7 +70,6 @@ public class RwordcloudsController {
 				keyword = keywords[i];
 				freq = Integer.parseInt(freqs[i]);
 				keyMap.put(keyword, freq);
-
 			}
 			System.out.println(keyMap);
 
@@ -84,8 +82,5 @@ public class RwordcloudsController {
 		return keyMap;
 	}
 
-	@RequestMapping(value = "/wordcloudsGET", method = RequestMethod.GET)
-	public ModelAndView wordclouds() {
-		return new ModelAndView("wordclouds");
-	}
+
 }

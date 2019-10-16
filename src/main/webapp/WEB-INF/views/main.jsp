@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -12,6 +13,11 @@
 <meta name="author" content="">
 
 <title>Bigdata News</title>
+<!-- jqcloud -->
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+<script src="resources/js/jqcloud.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/jqcd.css" />
 
 <!-- Bootstrap core CSS -->
 <link href="resources/vendor/bootstrap/css/bootstrap.min.css"
@@ -36,16 +42,15 @@
 	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
 	rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
+<!-- 
 <script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	src="http://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+
 <!-- Custom styles for this template -->
 <link href="resources/css/main.css" rel="stylesheet">
-
-
+	
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=1${naverID}"></script>
+
 </head>
 
 <body id="page-top">
@@ -160,7 +165,7 @@
 					<div>
 						<img id="m_img" src="">
 					</div>
-					<p id="m_contents">Contents :</p>
+					<p id="m_content">Contents :</p>
 			</div>
 			<div class="modal_footer">
 				<footer>
@@ -178,7 +183,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<h2 class="section-heading">Today's News</h2>
+					<h2 class="section-heading" id="up_btnLine">Today's News</h2>
 					<div class="blank"></div>
 
 					<!-- action="/newsbigdata/main.do/NewsdetailView.do" -->
@@ -289,12 +294,23 @@
 					<h2 class="section-heading">Today's Keyword</h2>
 				</div>
 			</div>
-			<div class="blank"></div>
-			<div class="row text-center">
-				<div id="분석창" class="col-lg-12 text-center"
-					style="width: 1000px; height: 400px; align: center; margin: auto; border: 1px solid black">
-					분석창 넣기</div>
-
+		<!-- 	<div class="blank">
+				
+			</div> -->
+			<div class="row text-center col-lg-12">
+			<div id="btn_div" class="col-lg-1 text-center"
+					style="width: max; height: 400px; align: left; margin: auto; border: 1px solid black">
+				<input type="button" class="ctg_btn" id="all" value="전체" /> 
+				<input type="button" class="ctg_btn" value="정치" /> 
+				<input type="button" class="ctg_btn" value="경제" /> 
+				<input type="button" class="ctg_btn" value="사회" /> 
+				<input type="button" class="ctg_btn" value="지역" />
+				<input type="button" class="up_btn" value="키워드 검색결과로 이동" />
+			</div>
+				<div id="wordcloud Progress_Loading" class="col-lg-11 text-center"
+					style="width: max; height: 400px; align: right; margin: auto; border: 1px solid black">
+					<img src="resources/img/ajax-loader.gif"/>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -308,36 +324,50 @@
 
 
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="resources/vendor/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap core JavaScript --><!-- 
+	<script src="resources/vendor/jquery/jquery.min.js"></script> -->
 	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="resources/js/agency.min.js"></script>
+
 	<!-- javascript&ajax function -->
 	<script src="<c:url value='/resources/js/main_news.js' />"></script>
-	<script src="<c:url value='/resources/js/modal_news.js' />"></script>
+	<script src="<c:url value='/resources/js/modal_news.js' />"></script> 
+
 </body>
- <script>
+<script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
+	
+<script>
  	function fn_paging(pageNum){
 	//http://localhost:8000/newsbigdata/main.do/NewsdetailView.do?action=search&curPage=1&keyword=	
 	window.alert("fn_paging 눌림  : "+pageNum);
-   location.href = '/newsbigdata/main.do/NewsdetailView.do?action=search&curPage='+pageNum+'&keyword='; 
+   location.href = '/newsbigdata/main/NewsdetailView?action=search&curPage='+pageNum+'&keyword='; 
 } 
 </script>
 <script>
 var firstGrid = null;
-function searchGet(curPage) {
+function searchGet(action,curPage,value) {
+	window.alert("3-searchGet들어옴 "+action);
 	window.alert("3-searchGet들어옴 "+curPage);
-	
+	window.alert("3-searchGet들어옴 "+value);
+	var keyword; 
+	if(value != null) {
+		keyword = value;
+		document.getElementById("keyword").value = keyword;
+	}
+	else
+		keyword = $('#keyword').val();
+	console.log(keyword);
 	var curPage2= null;
     var sendData = 
     {"action":$('#action').val(), 
     "curPage":$('#curPage').val(), 
-    "keyword":$('#keyword').val()};
+    "keyword":keyword};
  	window.alert(sendData.keyword);
     $.ajax({
         type: "GET",
-        url : 'main.do/NewsdetailView.do' ,
+        url : 'main/NewsdetailView' ,
         data: sendData,
         dataType : "JSON",
         success: function(data){
@@ -393,7 +423,7 @@ var sendData2 =
 window.alert("drawPagination 테스트");
 $.ajax({
     type: "GET",
-    url : 'main.do/NewsdetailView.do' ,
+    url : 'main/NewsdetailView' ,
     data: sendData2,
     dataType : "JSON",
     success: function(data){
@@ -561,7 +591,7 @@ function searchBoardListPaging (page) {
 	    	        	pageFlag = 1;
 						window.alert("마지막페이지 +" + data.paginationttt.pageCnt );
 	    		       	$("상단 ajax를 함수로 만들어 재귀호출");
-	    		        location.href = '/newsbigdata/main.do/NewsdetailView.do?action=search&curPage='+pageNum+'&keyword='; 
+	    		        location.href = '/newsbigdata/main/NewsdetailView?action=search&curPage='+pageNum+'&keyword='; 
 	    		      	pageFlag = 0;
 
 	    	        });
@@ -604,6 +634,6 @@ function search(curPage) {
 			});
 		})
 	</script>
-</body>
+
 </html>
 

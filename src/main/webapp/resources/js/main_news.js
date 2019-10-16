@@ -54,7 +54,7 @@ function showNewsList(newsList) {
 var markers = [], infoWindows = [], map;
 function showMap(province, sigungu) {
 	// 지도에 행정구역 표시
-	var mapDiv = document.getElementById('mapList');
+	var mapDiv = document.getElementById('map');
 	var mapOptions = {
 		center : new naver.maps.LatLng(35.9, 127.2),
 		zoom : 2,

@@ -26,7 +26,7 @@
 	<select id="search" resultType="vo.NewsVO"
 		parameterType="vo.NewsVO">
 		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM news_list, (select @ROWNUM := 0) A 
-		WHERE title LIKE '%${keyword}%'  
+		WHERE content LIKE '%${keyword}%'  
 		order by title DESC LIMIT #{pageNo},10;
 		<!-- 
 			#{startIndex}
@@ -37,7 +37,7 @@
 
 	<!-- 검색한 게시글 갯수 -->
 	<select id="searchListCnt" parameterType="vo.NewsVO" resultType="_int">
-		SELECT count(title) FROM news_list WHERE title LIKE '%${keyword}%'
+		SELECT count(title) FROM news_list WHERE content LIKE '%${keyword}%'
 	</select>
 
 	<!-- 전체 게시글 갯수 -->
