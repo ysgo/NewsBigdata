@@ -38,10 +38,15 @@
 				content LIKE '%${keyword}%'  
 				order by idx DESC LIMIT #{pageNo},10		
 			</if>
+			<if test="newsname != null and keyword ==null">
+				newsname LIKE '%${newsname}%'  
+				order by idx DESC LIMIT #{pageNo},10		
+			</if>
 			<if test="newsname != null and keyword !=null" >
-				newsname LIKE '%${keyword}%'  
+				newsname LIKE '%${newsname}%' and content LIKE '%${keyword}%'
 				order by idx DESC LIMIT #{pageNo},10	
 			</if>
+			
 		</where>	 
 		<!-- SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM news_list, (select @ROWNUM := 0) A 
 		WHERE content LIKE '%${keyword}%'  
@@ -58,9 +63,14 @@
 				SELECT count(title) FROM news_list 
 				WHERE content LIKE '%${keyword}%'
 			</if>
+			<if test="newsname != null and keyword ==null" >
+				SELECT count(newsname) FROM news_list 
+				WHERE newsname LIKE '%${newsname}%'
+			</if>
 			<if test="newsname != null and keyword !=null" >
 				SELECT count(newsname) FROM news_list 
-				WHERE newsname LIKE '%${keyword}%'
+				WHERE newsname LIKE '%${newsname}%'
+				and content LIKE '%${keyword}%'			  
 			</if>
 	</select>
 
