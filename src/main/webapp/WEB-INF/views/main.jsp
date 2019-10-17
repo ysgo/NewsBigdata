@@ -308,25 +308,32 @@
 			<div class="row text-center">
 				<div class="col-md-3">
 					<div style="width: 100%; height: 750px; border: 1px solid black;">카테고리
-					<form>
-					checkbox 확인 : <span id="multiPrint"></span><br/>
-					<input type="checkbox" class="check" value=" KBS">KBS	
+					
+					<input type="checkbox" class="check" value="KBS">KBS	
 					<input type="checkbox" class="check" value="YTN">YTN	
-					<input type="checkbox" class="check" value="서울경제">서울경제
+					<input type="checkbox" class="check" value="MBC">MBC
 
 					<br><br>
 					<input type="checkbox" class="check" value="매일경제">매일경제
-					<input type="checkbox" class="check" value="중앙일보">중앙일보
-					<input type="checkbox" class="check" value="내일신문">내일신문
+					<input type="checkbox" class="check" value="한국경제">한국경제
+					<input type="checkbox" class="check" value="서울경제">서울경제
 					
 					<br><br>
 					<input type="checkbox" class="check" value="동아일보">동아일보
 					<input type="checkbox" class="check" value="문화일보">문화일보
 					<input type="checkbox" class="check" value="국민일보">국민일보	
 					
-					<input type="checkbox" class="check" value="다섯">다섯
+					<br><br>
+					<input type="checkbox" class="check" value="세계일보">세계일보
+					<input type="checkbox" class="check" value="중앙일보">중앙일보
+					<input type="checkbox" class="check" value="충북일보">충북일보
+					
+					<br><br>
+					<input type="checkbox" class="check" value="경향신문">경향신문
+					<input type="checkbox" class="check" value="내일신문">내일신문
+					<input type="checkbox" class="check" value="서울신문">서울신문
 
-					</form>	
+					
 					</div>
 			</div>
 				<div class="col-md-9">
@@ -346,19 +353,19 @@
 						
 					<ul style="align-items: center;" class="pagination">
 
-							<li class="disabled"><a>&lt;&lt;</a></li>
+							<li class="disabled"><a></a></li>
 
-							<li class="disabled"><a>&lt;</a></li>
+							<li class="disabled"><a></a></li>
 
-							<li class="disabled active"><a>1</a></li>
+							<li class="disabled active"><a></a></li>
 
-							<li class="goPage" data-page="2"><a>2</a></li>
+							<li class="goPage" data-page="2"><a></a></li>
 
-							<li class="goPage" data-page="3"><a>3</a></li>
+							<li class="goPage" data-page="3"><a></a></li>
 
-							<li class="disabled"><a>></a></li>
+							<li class="disabled"><a></a></li>
 
-							<li class="goLastPage"><a>>></a></li>
+							<li class="goLastPage"><a></a></li>
 
 						</ul>
 
@@ -415,7 +422,7 @@
 	<!-- javascript&ajax function -->
 <script src="<c:url value='/resources/js/main_news.js'/>"> </script>
 <script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
-<script src="<c:url value='/resources/js/newsDetail_Filter.js'/>"> </script>
+<!-- 필터와 키워드검색 통합중 -->
 <script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
 <script src="<c:url value='/resources/js/signUp.js' />"></script>
