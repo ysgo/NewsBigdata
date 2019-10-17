@@ -1,8 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
-<div class="panel panel-success">
-	<div class="panel-heading">Panel with panel-success class - Footer Panel</div>
-	<div class="panel-body">Panel Content - Footer</div>
-</div>
+<footer class="footer">
+	<div class="container">
+		<span class="copyright">Copyright &copy; NEWS ON MAP 2019</span>
+	</div>
+</footer>
+
+<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="resources/js/agency.min.js"></script>
+	
+<script src="<c:url value='/resources/js/main_news.js'/>"> </script>
+<script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
+<script src="<c:url value='/resources/js/newsDetail_Filter.js'/>"> </script>
+<script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
+<script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
+<script src="<c:url value='/resources/js/signUp.js' />"></script>
+<script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
+
 </body>
 </html>
