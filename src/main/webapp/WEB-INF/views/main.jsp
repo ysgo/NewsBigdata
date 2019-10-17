@@ -212,12 +212,11 @@
 						<input type="button" class="ctg_btn" value="지역" />
 					</div>
 			</div>
-			<div class="blank"></div>
-			<div style="width:850px; height:450px; margin:auto; border : 1px solid black">
-				분석창 넣기
+			<div id="wordcloud"> 
+				<div style="width:850px; height:450px; margin:auto;">
+				</div>
 			</div>
-			
-		</div>
+			</div>
 	</section>
 	
 <%@ include file="common/footer.jsp" %>
