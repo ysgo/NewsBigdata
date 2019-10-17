@@ -26,10 +26,10 @@ var chk_click = true; // 이벤트버블링(중복실행) 방지;
 
 // .check 클래스 중 어떤 원소가 체크되었을 때 발생하는 이벤트
 $(".check").click(function(){  // 여기서 .click은 체크박스의 체크를 뜻한다.
-		window.alert("들어온 chk_click " + chk_click);
+//		window.alert("들어온 chk_click " + chk_click);
 		CheckOnFlag =0;
 		str = "";  // 여러개가 눌렸을 때 전부 출력이 될 수 있게 하나의 객체에 담는다.
-		window.alert("Str!!!"+str);
+//		window.alert("Str!!!"+str);
 		$(".check").each(function(){  // .each()는 forEach를 뜻한다.
 			if($(this).is(":checked"))  // ":checked"를 이용하여 체크가 되어있는지 아닌지 확인한다.
 				str = $(this).val();  // 체크된 객체를 str에 저장한다.
@@ -77,8 +77,8 @@ function searchGet(curPage) {
 				   // "keyword":keyword,
 				    "newsname":str
 				    };
-					window.alert("키워드 " + keyword);
-					window.alert("str " + str);
+//					window.alert("키워드 " + keyword);
+//					window.alert("str " + str);
 					
 				}
 				if(curPage >=2 && str !=null){
