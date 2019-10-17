@@ -7,13 +7,13 @@ if(!require(DBI)) install.packages("DBI")
 if(!require(rJava)) install.packages("rJava")
 if(!require(Rserve)) install.packages("Rserve")
 
-drv<-JDBC(driverClass="com.mysql.jdbc.Driver",classPath="C:/Rstudy/mysql-connector-java-5.1.40.jar")
-conn<-dbConnect(drv,"jdbc:mysql://70.12.113.176:3306/newsbigdata","news","bigdata")
+drv<-JDBC(driverClass="com.mysql.jdbc.Driver",classPath=connectPath)
+conn<-dbConnect(drv,driver, userName, password)
 
 if(ctg=='전체'){
-  result<-dbGetQuery(conn,'select content from (select * from news_list where DATE="2019-10-14") news_list order by rand() limit 10')
+  result<-dbGetQuery(conn,'select content from (select * from news_list where DATE=curdate()) news_list order by rand() limit 10')
 }else{
-  result<-dbGetQuery(conn,paste0('select content from (select * from news_list where DATE="2019-10-14") news_list where category="',ctg,'" order by rand() limit 15'))
+  result<-dbGetQuery(conn,paste0('select content from (select * from news_list where DATE=curdate()) news_list where category="',ctg,'" order by rand() limit 15'))
 }
 
 resultStr<-as.character(result)

@@ -16,10 +16,13 @@ function requestAjax(value) {
 			document.getElementById("m_category").innerHTML = data.category;
 			document.getElementById("m_date").innerHTML = data.date;
 			document.getElementById("m_content").innerHTML = data.content;
-			if(data.url != 0)
-				document.getElementById("m_img").src = data.url;
-			else
-				document.getElementById("m_img").src = "";
+			if (data.url != 0) {
+				$("#m_img").attr("src", data.url);
+				$("#m_img").show();
+			} else {
+				$("#m_img").hide();
+				$("#m_img").empty();
+			}
 
 			$('html, page-section').css({
 				'overflow-x' : 'hidden',

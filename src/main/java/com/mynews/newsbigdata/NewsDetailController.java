@@ -63,7 +63,9 @@ public class NewsDetailController {
 		
 		// 전체리스트 출력
 		if (newsinfo.getAction().equals("search")) {
-
+			System.out.println("키워드검색ㅇ"+newsinfo.getKeyword()+"ㅇㅇㅇ");
+			System.out.println("언론사검색ㅇ"+newsinfo.getNewsname()+"ㅇㅇㅇ");
+			
 			// 1 - 전체조회
 			if (newsinfo.getKeyword() == "") {
 				list = service.selectTitle(newsinfo);
