@@ -4,10 +4,12 @@ window.onload = function() {
 	todayNews();
 	searchGet(1);
 	loadWordcloud();
+	$('#nav_myPage').hide();
+	$('#nav_logout').hide();
+	$('#nav_user').hide();
 }
 
 function curTime() {
-	// Today Date&Time Display
 	var d = new Date();
 	var days = [ '일', '월', '화', '수', '목', '금', '토' ];
 	var localeDate = d.toLocaleDateString();
@@ -18,7 +20,6 @@ function curTime() {
 }
 
 function todayNews(e) {
-	// Start window Ajax Request
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
@@ -29,8 +30,10 @@ function todayNews(e) {
 				var todayNews = jsonObj.todayNews;
 				
 				showNewsList(todayNews);
-				if(e != 1)
+				$('#zoneName').empty();
+				if(e != 1) {
 					showMap(province, sigungu);
+				}
 			} else {
 				console.log("Error: " + this.status);
 			}
@@ -41,7 +44,6 @@ function todayNews(e) {
 }
 
 function showNewsList(newsList) {
-	// 뉴스 리스트 출력 - idx는 인덱스, item은 데이터 json
 	$('#todayNews *').remove();
 	$.each(newsList, function(idx, item) {
 		var str='<li class="main_title" onclick="readNews('+ idx + ')">';
@@ -54,9 +56,7 @@ function showNewsList(newsList) {
 } 
 
 var markers = [], map;
-//infoWindows = [];
 function showMap(province, sigungu) {
-	// 지도에 행정구역 표시
 	var mapDiv = document.getElementById('map');
 	var mapOptions = {
 		center : new naver.maps.LatLng(35.9, 127.2),
@@ -103,9 +103,6 @@ function setMarkers(zoneName) {
 				s_code : s_code
 				}
 		}));
-//		infoWindows.push(new naver.maps.InfoWindow({
-//			content: '<div style="width:150px;text-align:center;padding:10px;">"'+ name +'"</div>'
-//		}));
 	}
 }
 
@@ -122,9 +119,6 @@ function clearmarkers() {
 function getClickHandler(seq) {
 	 return function(e) {
 		var marker = markers[seq];
-//		, infoWindow = infoWindows[seq];
-
-//		infoWindow.getMap() ? infoWindow.close() : infoWindow.open(map, marker);
 		var content = marker.content;
 		document.getElementById('zoneName').innerText=content.name;
 		$.ajax({

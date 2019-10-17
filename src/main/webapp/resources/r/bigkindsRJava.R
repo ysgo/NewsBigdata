@@ -4,7 +4,12 @@ if(!require(rJava)) install.packages("rJava")
 if(!require(Rserve)) install.packages("Rserve")
 if(!require(stringr)) install.packages("stringr")
 
-remDr<-remoteDriver(remoteServerAddr="localhost", port=4445, browserName="chrome")
+remDr<-remoteDriver(remoteServerAddr=seleniumIP, port=seleniumPort, browserName="chrome")
+#ch=wdman::chrome(port=4445L)
+#library(wdman)
+#pJS <- phantomjs(port=4445L)
+#pJS <<- wdman::phantomjs(port = 4445L)
+#remDr <- remoteDriver(port = 4445L, browserName = "chrome")
 remDr$open()
 remDr$maxWindowSize()
 remDr$navigate("https://www.bigkinds.or.kr/v2/news/search.do")
@@ -20,7 +25,6 @@ menunb <- 1
 for(menu in 1:4){
   if (menu==4)
     menunb<-6
-  
   menuBtn<-paste0('#filter-category-00',menunb,'000000')
   menuBtnLink<-remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink,function(x){x$clickElement()})
@@ -30,7 +34,7 @@ for(menu in 1:4){
   categoryLink<-remDr$findElements(using='css',categoryaddr)
   getCategory<-unlist(sapply(categoryLink,function(x){x$getElementText()}))
   getCategory<-str_sub(getCategory,start = 1L,end=2L)
-  
+  print(paste('category : ', getCategory))
   #############################################################################################3
 
   page<-4
@@ -80,7 +84,6 @@ for(menu in 1:4){
       xbtnaddr<-'#news-detail-modal > div > div > div.modal-header > button > span'
       xbtnLink<-remDr$findElements(using='css',xbtnaddr)
       sapply(xbtnLink,function(x){x$clickElement()})
-      
       Sys.sleep(3)
     }
 
@@ -96,7 +99,7 @@ for(menu in 1:4){
     else
       page<-page+1
   }
-
+  
   if(menunb==6)
     break
   menuBtn<-paste0('#filter-category-00',menunb,'000000')

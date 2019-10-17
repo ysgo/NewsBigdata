@@ -14,47 +14,7 @@
 	</select>
 	
 	<select id="viewMember" parameterType="vo.MemberVO" resultType="vo.MemberVO">
-		select email, password, username, gender, generation, create_at 
+		select email, password, username, gender, generation, created_at 
 		from memberinfo where email=#{email}
 	</select>
-	
-	<!-- 회원정보 수정 -->
-	<update id="updateMember" parameterType="vo.MemberVO">
-		update memberinfo set userName=#{userName}, password=#{password} 
-		where email=#{email}
-	</update>
-	
-	<!-- 회원 탈퇴 -->
-	<delete id="withdrawal">
-		delete from memberinfo where email = #{email}
-	</delete>
-	
-	<!-- 닉네임 존재여부 체크  -->
-	<select id="checkOverName" parameterType="String" resultType="int">
-		select count(*) from memberinfo where userName = #{userName}
-	</select>
-	
-	<!-- ID 존재여부 체크  -->
-	<select id="checkOverId" parameterType="String" resultType="int">
-		select count(*) from memberinfo where email = #{email}
-	</select>
-	
-
-	<!-- 아이디 찾기  -->
-	<select id="find_id" parameterType="String" resultType="String">
-		select userId from memberinfo where userName = #{userName}
-	</select>
-	
-	<!-- 비밀번호 찾기 -->
-	<select id="find_pw" parameterType="vo.MemberVO" resultType="String">
-		select userPass from memberinfo 
-			where userName = #{userName} and email = #{email}
-	</select>
-	
-	<!-- 비밀번호 임시 비밀번호 저장 -->
-	<update id="tmp_pw" parameterType="vo.MemberVO">
-		update memberinfo set
-			userPass=#{userPass}
-		where userName = #{userName} and email=#{email}
-	</update>
 </mapper>

@@ -68,51 +68,20 @@
 						href="#news-sec">NEWS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#keyword-sec">KEYWORD</a></li>
-					<c:choose>
-						<c:when test="${ !empty memberInfo }">
-							<li class="nav-item" id="nav_signup" style="display: block">
+							<li class="nav-item" id="nav_myPage" style="display: block">
 							<a class="nav-link js-scroll-trigger" onclick="openMypage()">MyPage</a></li>
-							<li class="nav-item" id="nav_login" style="display: block">
-							<a class="nav-link js-scroll-trigger" onclick="logout()">Logout</a></li>
-						</c:when>
-						<c:otherwise>
+							<li class="nav-item" id="nav_logout" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="signOut()">Logout</a></li>
+							<li class="nav-item" id="nav_user" style="display: block; position: relative;">
+							<a id="user" class="nav-link js-scroll-trigger" style="display: block;"></a>
 							<li class="nav-item" id="nav_signup" style="display: block">
 							<a class="nav-link js-scroll-trigger" onclick="signup()">SignUp</a></li>
 							<li class="nav-item" id="nav_login" style="display: block">
 							<a class="nav-link js-scroll-trigger" onclick="openLogin()">Login</a></li>
-							<li class="nav-item" id="user" style="display: block; position: relative;">
-					<a id="dropdown" class="nav-link js-scroll-trigger" style="display: block;">${ memberInfo.userName}</a>
-						</c:otherwise>
-					</c:choose>
-					<li class="nav-item" id="user" style="display: block; position: relative;">
-					<a id="dropdown" class="nav-link js-scroll-trigger" style="display: block;">${sessionScope.nickname}</a>
-						<div class="dropdown-content"
-							style="display: none; color: #95b3d7 !important; width: 140px; padding: 10px 15px 0 15px; height: 75px; position: absolute; top: 50px; left: 0; background: #fff; opacity: 0.7">
-							<a class="dcontent" href="mypage"
-								style="padding: 0; color: #000 !important; text-decoration: none;">마이페이지</a><br>
-							<a class="dcontent" href="logout"
-								style="padding: 0; color: #000 !important; text-decoration: none;">로그아웃</a>
-						</div> <script>
-							$("#dropdown").mouseover(function() {
-								$(".dropdown-content").css("display", "block");
-							});
-
-							$(".dropdown-content").mouseleave(function() {
-								$(this).css("display", "none");
-							});
-
-							$("a.dcontent").mouseover(function() {
-								$(this).css("color", "#95b3d7");
-							});
-							$("a.dcontent").mouseleave(function() {
-								$(this).css("color", "#000");
-							});
-						</script></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-
 
 
 	<!-- Header -->
@@ -216,7 +185,7 @@
 						<div>
 							<div style= "width: 100%; text-align: center;">
 								<input type="submit" value="회원가입" id="register-btn" onclick="submitSignUp();return false;"><br>
-								이미 회원이신가요? <a href="#" id="su-login-btn">로그인</a>
+								이미 회원이신가요? <a href="" onclick="closeSignup(); openLogin(); return false;" id="su-login-btn">로그인</a>
 							</div>
 						</div>
 					</form>
@@ -248,7 +217,7 @@
 						</div>
 						<div style="width: 100%; text-align: center;">
 							<input type="submit" value="로그인" id="login-btn" onclick="submitSignIn();return false;"><br>
-							아직 회원이 아니신가요? <a href="#">회원가입</a>
+							아직 회원이 아니신가요? <a href="" onclick="closeLogin(); signup(); return false;">회원가입</a>
 						</div>
 					</form>
 				</div>
@@ -427,6 +396,7 @@
 <script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
 <script src="<c:url value='/resources/js/signUp.js' />"></script>
+<script src="<c:url value='/resources/js/signIn.js' />"></script>
 <script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
 </body>
 </html>

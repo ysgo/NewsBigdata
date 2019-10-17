@@ -1,9 +1,9 @@
 function submitSignUp() {
-	var userName = $('#userName').val();
-	var email = $('#email').val();
-	var password = $('#password').val();
-	var gender = $('input[type=radio][name=gender]:checked').val();
-	var generation = $('input:radio[class="generation"]:checked').val();
+	var userName = $('#signUp_Form [name="userName"]').val();
+	var email = $('#signUp_Form [name="email"]').val();
+	var password = $('#signUp_Form [name="password"]').val();
+	var gender = $('#signUp_Form [type=radio][name=gender]:checked').val();
+	var generation = $('#signUp_Form [type=radio][name=generation]:checked').val();
 	var memberInfo = {"userName" : userName,
 				"email" : email,
 				"password" : password,
