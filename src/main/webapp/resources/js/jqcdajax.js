@@ -33,7 +33,8 @@ $(document).ajaxStop(function(){
 					click : function() {
 						keyword = $(this).html();
 						console.log(keyword);
-						searchGet("search", 1, keyword);
+						document.getElementById('news-sec').scrollIntoView(true);
+						//searchGet("search", 1, keyword);
 						// linearGraph()
 					}
 				}
@@ -80,7 +81,8 @@ $(".ctg_btn").click(
 							click : function() {
 								keyword = $(this).html();
 								console.log(keyword);
-								searchGet("search", 1, keyword);
+								//searchGet("search", 1, keyword);
+								document.getElementById('news-sec').scrollIntoView(true);
 							}
 						}
 						ctg_btn_array.push(obj);

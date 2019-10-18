@@ -40,24 +40,25 @@ $.ajax({
     $(".pagination").empty();
     
     //처음 페이지 (curPPage 1일때)
-   	$(".pagination").append("<button onclick='goFirstPage()' class=\"goFirstPage\"><a>처음</a></button>");        
+   	$(".pagination").append("<button onclick='goFirstPage()' class=\"goFirstPage\"><a><i class='fas fa-angle-double-left'></i></a></button>");        
 
    	//이전 페이지 
    	if(data.paginationttt.curRange >= 2){            
-  	    	$(".pagination").append("<button onclick='goBackPage()' class=\"goBackPage\"><a>이전</a></button>");        
+  	    	$(".pagination").append("<button onclick='goBackPage()' class=\"goBackPage\"><a><i class='fas fa-angle-left'></i></a></button>");        
   	  }
   	
    	//searchGet에서 발생한 데이터 갯수만큼 리스트 출력;
   	for(var i = data.paginationttt.startPage ; i <= data.paginationttt.endPage ; i++){        //시작페이지부터 종료페이지까지 반복문    	
-  	    		$(".pagination").append("<button onclick='goPage()' class=\"goPage\" data-page=\""+i+"\"><a>"+i+"</a></button>"); //버튼 활성화  	    	
-  	    }
+  	    		$(".pagination").append("<button onclick='goPage()' class=\"goPage\" data-page=\""+i+"\"><a>"+i+"</a></button>") //버튼 활성화  	    	
+  	    		
+  	}
   	 
   	if(data.paginationttt.curRange <  data.paginationttt.rangeCnt){           
   		 //전체페이지블럭수가 현재블럭수보다 작을때
-  	    	$(".pagination").append("<button onclick='goNextPage()' class=\"goNextPage\" ><a>다음</a></button>");         //다음페이지버튼 활성화
+  	    	$(".pagination").append("<button onclick='goNextPage()' class=\"goNextPage\" ><a><i class='fas fa-angle-right'></i></a></button>");         //다음페이지버튼 활성화
   	    	curPPage = data.paginationttt.curPage;
   	  	}
- 	$(".pagination").append("<button onclick='goLastPage()' class=\"goLastPage\" data-page=\""+data.paginationttt.pageCnt+"\"><a>끝</a></button>");        //첫페이지로가는버튼 활성화	
+ 	$(".pagination").append("<button onclick='goLastPage()' class=\"goLastPage\" data-page=\""+data.paginationttt.pageCnt+"\"><a><i class='fas fa-angle-double-right'></i></a></button>");        //첫페이지로가는버튼 활성화	
 		
 	var lstCnt = data.paginationttt.listCnt;
    },
@@ -72,7 +73,7 @@ function goPage() {
 	$('.goPage').click(function(){
 		page = $(this).attr("data-page");
 		pageNum = page;
-		searchGet(pageNum);  
+		searchGet(pageNum);
 	});
 }
 

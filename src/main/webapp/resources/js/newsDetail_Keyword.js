@@ -155,14 +155,14 @@ function searchGet(curPage) {
                 }
                 else{
                    //디폴트 이미지
-                  newsurl = "http://70.12.113.163:8000/newsbigdata/resources/img/news_default.png";
+                  newsurl = "resources/img/logo3.png";
                 }
                 
                 var date = data.listtt[i].date;
                 var category = data.listtt[i].category;
                 var newsname =data.listtt[i].newsname;    
                 var curRange =data.paginationttt.curRange;    
-                $('#url'+i).append('<img src="'+newsurl+'" height="60px">');
+                $('#url'+i).append('<img src="'+newsurl+'" style="width:100px; height:60px; padding:7px 15px 5px 2px">');
                 $('#title'+i).append(newstitle);
                 $('#date'+i).append(date);
                 $('#category'+i).append(category); 

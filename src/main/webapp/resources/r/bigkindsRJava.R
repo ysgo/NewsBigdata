@@ -38,8 +38,8 @@ for(menu in 1:4){
   #############################################################################################3
 
   page<-4
-  for(pageNB in 1:4){ 
-    for(index in 1:1){
+  for(pageNB in 1:2){ 
+    for(index in 1:10){
  
       NewsNameaddr<-paste0('#news-results > div:nth-child(',index,') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink<-remDr$findElements(using='css',NewsNameaddr)
