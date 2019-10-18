@@ -155,15 +155,19 @@
 							<h4>언론사</h4>
 						</div>
 							<span id="multiPrint"></span><br/>
-							<div class="cb">서울경제 <input type="checkbox" class="check" value="서울경제"><br></div>
-							<div class="cb">매일경제 <input type="checkbox" class="check" value="매일경제"><br></div>
-							<div class="cb">중앙일보 <input type="checkbox" class="check" value="중앙일보"><br></div>
-							<div class="cb">내일신문 <input type="checkbox" class="check" value="내일신문"><br></div>
-							<div class="cb">동아일보 <input type="checkbox" class="check" value="동아일보"><br></div>
-							<div class="cb">문화일보 <input type="checkbox" class="check" value="문화일보"><br></div>
-							<div class="cb">국민일보 <input type="checkbox" class="check" value="국민일보"><br></div>
-							<div class="cb">KBS <input type="checkbox" class="check" value=" KBS"><br></div>
-							<div class="cb">YTN <input type="checkbox" class="check" value="YTN"><br></div>
+							<div class="cb">KBS<input type="checkbox" class="check" value="KBS"><br></div>
+							<div class="cb">YTN<input type="checkbox" class="check" value="YTN"><br></div>
+							<div class="cb">서울경제<input type="checkbox" class="check" value="서울경제"><br></div>
+							<div class="cb">매일경제<input type="checkbox" class="check" value="매일경제"><br></div>
+							<div class="cb">중앙일보<input type="checkbox" class="check" value="중앙일보"><br></div>
+							<div class="cb">내일신문<input type="checkbox" class="check" value="내일신문"><br></div>
+							<div class="cb">동아일보<input type="checkbox" class="check" value="동아일보"><br></div>
+							<div class="cb">문화일보<input type="checkbox" class="check" value="문화일보"><br></div>
+							<div class="cb">국민일보<input type="checkbox" class="check" value="국민일보"><br></div>
+							<div class="cb">조선일보<input type="checkbox" class="check" value="조선일보"><br></div>
+							<div class="cb">머니투데이<input type="checkbox" class="check" value="머니투데이"><br></div>
+							<div class="cb">파이낸셜뉴스<input type="checkbox" class="check" value="파이낸셜뉴스"><br></div>
+							<div class="cb">디지털타임스<input type="checkbox" class="check" value="디지털타임스"><br></div>
 						</div>
 					</div>
 				</div>

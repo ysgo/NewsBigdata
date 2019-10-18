@@ -96,10 +96,6 @@ function goNextPage() {
 		//       window.alert("최종 pageNum 값 " +pageNum);
 		       searchGet(pageNum); 
 		}
-		else
-		{
-		       window.alert("지금 처리중입니다. 잠시만 기다려 주세요.");
-		}		
 	});
 }
 
@@ -114,10 +110,6 @@ function goBackPage() {
 		     //  window.alert("gobackPage 최종 값 " +pageNum);
 		       searchGet(pageNum); 
 		}
-		else
-		{
-		       window.alert("지금 처리중입니다. 잠시만 기다려 주세요.");
-		}		
 	});
 }
 
