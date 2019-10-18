@@ -10,7 +10,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
 			<a class="navbar-brand js-scroll-trigger" href="#page-top"><img
-				src="resources/img/logo1.png" style="width: 150px; height: 60px;"></a>
+				src="resources/img/logo1.png" style="width: 200px; height: 65px;"></a>
 
 			<button class="navbar-toggler navbar-toggler-right" type="button"
 				data-toggle="collapse" data-target="#navbarResponsive"
@@ -162,7 +162,7 @@
 							<div class="cb">동아일보 <input type="checkbox" class="check" value="동아일보"><br></div>
 							<div class="cb">문화일보 <input type="checkbox" class="check" value="문화일보"><br></div>
 							<div class="cb">국민일보 <input type="checkbox" class="check" value="국민일보"><br></div>
-							<div class="cb">KBS <input type="checkbox" class="check" value=" KBS"><br></div>
+							<div class="cb">KBS <input type="checkbox" class="check" value="KBS"><br></div>
 							<div class="cb">YTN <input type="checkbox" class="check" value="YTN"><br></div>
 						</div>
 					</div>

@@ -116,7 +116,7 @@ body::-webkit-scrollbar {
 }
 
 #issue-wrap li:hover {
-	background-color: rgba(121, 154, 184, 0.5);
+	background-color: rgba(121, 154, 184, 0.6);
 	font-weight: 700;
 }
 
@@ -166,6 +166,10 @@ body::-webkit-scrollbar {
 	padding:15px;
 }
 
+.n_img{
+	width:50px;
+	height:10px;
+}
 .img-responsive {
     display: block;
     max-width: 100%;
@@ -332,6 +336,7 @@ body::-webkit-scrollbar {
     color:white;
     text-weight:500;
 }
+
 @media ( min-width : 768px) {
 	section {
 		padding: 150px 0;
@@ -368,7 +373,7 @@ img::-moz-selection {
 }
 
 #mainNav {
-	background-color: rgba(121, 154, 184, 0.5);
+	background-color: rgba(121, 154, 184, 0.6);
 }
 
 #mainNav .navbar-toggler {
@@ -411,7 +416,8 @@ img::-moz-selection {
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover
 	{
-	color: #b5948f;
+	color: #b09292;
+    font-weight: 600;
 }
 
 @media ( min-width : 992px) {
@@ -429,7 +435,7 @@ img::-moz-selection {
 	#mainNav.navbar-shrink {
 		padding-top: 0;
 		padding-bottom: 0;
-		background-color: rgb(121, 154, 184, 0.5);
+		background-color: rgba(121, 154, 184, 0.6);
 	}
 	#mainNav.navbar-shrink .navbar-brand {
 		font-size: 1.25em;
