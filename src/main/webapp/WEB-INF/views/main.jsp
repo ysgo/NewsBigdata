@@ -2,14 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="common/header.jsp" %>
-
 <%@ include file="signUp.jsp" %>
-
-<!DOCTYPE html>
-<html>
-<head>
 </head>
-
 <body id="page-top">
 
 	<!-- Navigation -->
@@ -32,36 +26,16 @@
 						href="#news-sec">NEWS</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger"
 						href="#keyword-sec">KEYWORD</a></li>
-					<li class="nav-item" id="nav_signup" style="display: block"><a
-						class="nav-link js-scroll-trigger" onclick="signup()">SignUp</a></li>
-					<li class="nav-item" id="nav_login" style="display: block"><a
-						class="nav-link js-scroll-trigger" onclick="openLogin()">Login</a></li>
-					<li class="nav-item" id="user"
-						style="display: block; position: relative;"><a id="dropdown"
-						class="nav-link js-scroll-trigger" style="display: block;">${sessionScope.nickname}</a>
-						<div class="dropdown-content"
-							style="display: none; color: #95b3d7 !important; width: 140px; padding: 10px 15px 0 15px; height: 75px; position: absolute; top: 50px; left: 0; background: #fff; opacity: 0.7">
-							<a class="dcontent" href="mypage"
-								style="padding: 0; color: #000 !important; text-decoration: none;">마이페이지</a><br>
-							<a class="dcontent" href="logout"
-								style="padding: 0; color: #000 !important; text-decoration: none;">로그아웃</a>
-						</div> <script>
-							$("#dropdown").mouseover(function() {
-
-								$(".dropdown-content").css("display", "block");
-							});
-
-							$(".dropdown-content").mouseleave(function() {
-								$(this).css("display", "none");
-							});
-
-							$("a.dcontent").mouseover(function() {
-								$(this).css("color", "#95b3d7");
-							});
-							$("a.dcontent").mouseleave(function() {
-								$(this).css("color", "#000");
-							});
-						</script></li>
+							<li class="nav-item" id="nav_myPage" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="openMypage()">MyPage</a></li>
+							<li class="nav-item" id="nav_logout" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="signOut()">Logout</a></li>
+							<li class="nav-item" id="nav_user" style="display: block; position: relative;">
+							<a id="user" class="nav-link js-scroll-trigger" style="display: block;"></a>
+							<li class="nav-item" id="nav_signup" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="signup()">SignUp</a></li>
+							<li class="nav-item" id="nav_login" style="display: block">
+							<a class="nav-link js-scroll-trigger" onclick="openLogin()">Login</a></li>
 				</ul>
 			</div>
 		</div>

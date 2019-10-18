@@ -12,10 +12,10 @@
 	
 <script src="<c:url value='/resources/js/main_news.js'/>"> </script>
 <script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
-<script src="<c:url value='/resources/js/newsDetail_Filter.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
 <script src="<c:url value='/resources/js/signUp.js' />"></script>
+<script src="<c:url value='/resources/js/signIn.js' />"></script>
 <script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
 
 </body>

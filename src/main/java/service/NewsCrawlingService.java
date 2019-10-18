@@ -29,7 +29,8 @@ public class NewsCrawlingService {
 	@Autowired
 	private CheckInsertService checkInsertService;
 	
-	@Scheduled(fixedDelay=1800000)	// 종료 시점으로부터 30분 뒤에 시작
+//	@Scheduled(cron="0 /30 * * * *")	// 시작 후 30분 뒤부터 시작
+	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
 	public void scheduleRun() {
 		checkInsertService.loadCSV("province");
 		checkInsertService.loadCSV("sigungu");
@@ -42,8 +43,10 @@ public class NewsCrawlingService {
 		request.put("access_key", accessKey);
 		RConnection rc = null;
          try {
+        	rc = new RConnection();
+        	rc.eval("seleniumIP <- '" + env.getProperty("selenium.ip") + "'");
+        	rc.eval("seleniumPort <- " + env.getProperty("selenium.port"));
         	String eval = "imsi<-source('"+env.getProperty("r.url").toString()+"');imsi$value";
-            rc = new RConnection();
     		REXP x = rc.eval(eval);
     		RList list = x.asList();
     		

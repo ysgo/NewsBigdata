@@ -13,28 +13,27 @@
 					<span aria-hidden="true">×</span>
 				</button>
 				<div class = "signup-form">
-					<form class="form" method="POST" action=""
-						onsubmit='return check()'>
+					<form class="form" method="POST" id="signUp_Form">
 						<h2>SIGN UP</h2>
 						<hr>
 						<div>
 							<div class="form-group">
 								이름
-								<input type="text" name="userName" id="userName"
+								<input required type="text" name="userName" id="userName"
 									class="form-control input-lg" placeholder="이름을 입력하세요."
 									tabindex="3"> <span id="alert_userName"></span>
 							</div>
 
 							<div class="form-group">
 								이메일
-								<input type="email" name="email" id="email"
+								<input required type="email" name="email" id="email"
 									class="form-control input-lg" placeholder="이메일을 입력하세요."
 									tabindex="4"> <span id="alert_email"></span>
 							</div>
 
 							<div class="form-group">
 								비밀번호
-								<input onkeyup='mykeyup()' type="password" name="password"
+								<input required type="password" name="password"
 									id="password" class="form-control input-lg"
 									placeholder="비밀번호를 입력하세요." tabindex="5"> <span
 									id="alert_password"></span>
@@ -42,7 +41,7 @@
 
 							<div class="form-group">
 								비밀번호 확인
-								<input onkeyup='mykeyup()' type="password" name="re_password"
+								<input required type="password" name="re_password"
 									id="password_confirmation" class="form-control input-lg"
 									placeholder="비밀번호를 한 번 더 입력하세요." tabindex="6"> <span
 									id="alert_re_password"></span>
@@ -62,8 +61,8 @@
 						<div style="height:30px;"></div>
 						<div>
 							<div style= "width: 100%; text-align: center;">
-								<input type="submit" value="회원가입" id="register-btn"><br>
-								이미 회원이신가요? <a href="signIn.do" id="su-login-btn">로그인</a>
+								<input type="submit" value="회원가입" id="register-btn" onclick="submitSignUp(); return false;"><br>
+								이미 회원이신가요? <a href="" id="su-login-btn" onclick="openLogin(); closeSignup();return false;">로그인</a>
 							</div>
 						</div>
 						
@@ -83,7 +82,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 				<div class="login-form">
-					<form class="form" action="signIn.do" method="POST">
+					<form class="form" method="POST" id="signIn_Form">
 						<h2>Login</h2>
 						<hr>
 						<div class="form-group">
@@ -95,8 +94,8 @@
 								class="form-control input-lg" placeholder="비밀번호">
 						</div>
 						<div style="width: 100%; text-align: center;">
-							<input type="submit" value="로그인" id="login-btn"><br>
-							아직 회원이 아니신가요? <a href="">회원가입</a>
+							<input type="submit" value="로그인" id="login-btn" onclick="submitSignIn(); return false;"><br>
+							아직 회원이 아니신가요? <a href="" onclick="signup();closeLogin();return false;">회원가입</a>
 						</div>
 					</form>
 				</div>
