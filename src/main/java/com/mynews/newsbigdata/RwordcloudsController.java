@@ -20,26 +20,25 @@ public class RwordcloudsController {
 	@RequestMapping(value = "/wordclouds", method = RequestMethod.GET)
 	public Map<String, Object> Rwordclouds(String ctg) {
 		Map<String, Object> keyMap = new HashMap<String, Object>();
-		RConnection r = null;
+		RConnection rc = null;
 		try {
-			r = new RConnection();
+			rc = new RConnection();
 			if(ctg == null || ctg.equals(""))
-				r.eval("ctg <- '전체'");
+				rc.eval("ctg <- '전체'");
 			else 
-				r.eval("ctg <- '" + ctg + "'");
-			r.eval("connectPath <- '" + env.getProperty("mysql-connector.url") + "'");
-			r.eval("driver <- '" + env.getProperty("rdb.driver") + "'");
-			r.eval("userName <- '" + env.getProperty("db.userName") + "'");
-			r.eval("password <- '" + env.getProperty("db.password") + "'");
-			r.eval("source('" + env.getProperty("wordclouds.url") + "',encoding='UTF-8')");
-			REXP x = r.eval("keyword30");
+				rc.eval("ctg <- '" + ctg + "'");
+			rc.eval("driverClass <- '" + env.getProperty("rdb.class") + "'");
+			rc.eval("connectPath <- '" + env.getProperty("mysql-connector.url") + "'");
+			rc.eval("driver <- '" + env.getProperty("rdb.driver") + "'");
+			rc.eval("userName <- '" + env.getProperty("db.userName") + "'");
+			rc.eval("password <- '" + env.getProperty("db.password") + "'");
+			rc.eval("source('" + env.getProperty("wordclouds.url") + "', encoding='UTF-8')");
+			REXP x = rc.eval("keyword30");
 			RList list = x.asList();
- 
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
 			String keyword;
 			int freq;
-
 			for (int i = 0; i < keywords.length; i++) {
 				keyword = keywords[i];
 				freq = Integer.parseInt(freqs[i]);
@@ -50,7 +49,7 @@ public class RwordcloudsController {
 			System.out.println(e);
 			e.printStackTrace();
 		} finally {
-			r.close();
+			rc.close();
 		}
 		return keyMap;
 	}
