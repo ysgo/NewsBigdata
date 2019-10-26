@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
+import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,18 +39,21 @@ public class RwordcloudsController {
 			RList list = x.asList();
 			String[] keywords = list.at("keyword").asStrings();
 			String[] freqs = list.at("Freq").asStrings();
-			String keyword;
+			StringBuilder sb;
 			int freq;
 			for (int i = 0; i < keywords.length; i++) {
-				keyword = keywords[i];
+				sb = new StringBuilder(keywords[i]);
 				freq = Integer.parseInt(freqs[i]);
-				keyMap.put(keyword, freq);
+				keyMap.put(sb.toString(), freq);
 			}
 			System.out.println(keyMap);
-		} catch (Exception e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} finally {
+		} catch(RserveException e) {
+        	System.out.println("Rserve 실패");
+        } catch(REXPMismatchException e) {
+        	System.out.println("R 문법 오류");
+        } catch(NullPointerException e) {
+        	System.out.println("Today newsdata is empty! You need to collect todat\'s newsdata ");
+        } finally {
 			rc.close();
 		}
 		return keyMap;

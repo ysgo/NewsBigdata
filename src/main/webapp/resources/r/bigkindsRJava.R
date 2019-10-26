@@ -1,11 +1,19 @@
+start <- Sys.time()
 if(!require(rvest)) install.packages("rvest")
 if(!require(RSelenium)) install.packages("RSelenium")
 if(!require(rJava)) install.packages("rJava")
 if(!require(Rserve)) install.packages("Rserve")
 if(!require(stringr)) install.packages("stringr")
+if(!require(httr)) install.packages("httr")
 
-pJS <- wdman::phantomjs(port = seleniumPort)
-remDr <- remoteDriver(remoteServerAddr=seleniumIP,port = seleniumPort, browserName = seleniumBrowser)
+#drv <- JDBC(driverClass=driverClass, classPath=connectPath)
+#conn <- dbConnect(drv, driver, userName, password)
+
+#pJS <- wdman::phantomjs(port = seleniumPort)
+#remDr <- remoteDriver(remoteServerAddr=seleniumIP,port = seleniumPort, browserName = seleniumBrowser)
+
+pJS <- wdman::phantomjs(port = 4445L)
+remDr <- remoteDriver(remoteServerAddr="localhost",port = 4445L, browserName = "chrome")
 
 remDr$open(); remDr$maxWindowSize()
 remDr$navigate("https://www.bigkinds.or.kr/v2/news/search.do")
@@ -15,8 +23,8 @@ print('getElementText is Start')
 for(menu in 1:4) {
   if (menu == 4)
     menu <- 6
-  menuBtn <- paste0('#filter-category-00', menu, '000000')
-  menuBtnLink <- remDr$findElements(using='css', menuBtn)
+  menuBtn <- paste0('#filter-category-00',menu,'000000')
+  menuBtnLink <- remDr$findElements(using='css',menuBtn)
   sapply(menuBtnLink, function(x){ x$clickElement() })
   Sys.sleep(6)
   
@@ -27,22 +35,21 @@ for(menu in 1:4) {
   #############################################################################################3
   page<-4
   for(pageNB in 1:1) { 
-    print(paste('pageNB: ', pageNB))
     for(index in 1:1){
-      print(paste('index: ', index))
+      print(paste0('pageNB: ', pageNB))
+      print(paste0('index: ', index))
       
       NewsNameaddr <- paste0('#news-results > div:nth-child(', index, ') > div.news-item__body > div.news-item__meta > a')
       NewsNameLink <- remDr$findElements(using='css', NewsNameaddr)
       getNewsName <- unlist(sapply(NewsNameLink, function(x){ x$getElementText() }))
+      
       titleaddr <- paste0('#news-results > div:nth-child(', index, ') > div.news-item__body > h4')
       titleLink <- remDr$findElements(using='css', titleaddr)
-      sapply(titleLink, function(x){ x$clickElement() })
-      Sys.sleep(2)
-      
-      titleddr <- '#news-detail-modal > div > div > div.modal-header > h4.modal-title'
-      titleLink <- remDr$findElements(using='css', titleddr)
       getTitle <- unlist(sapply(titleLink, function(x){ x$getElementText() }))
       getTitle <- gsub(pattern = "\\\"", replacement = "", getTitle)
+      
+      sapply(titleLink, function(x){ x$clickElement() })
+      Sys.sleep(2)
       
       dateaddr <- '#news-detail-modal > div > div > div.modal-header > div.pull-left > span:nth-child(4)'
       dateLink <- remDr$findElements(using='css', dateaddr)
@@ -60,13 +67,6 @@ for(menu in 1:4) {
       getContent <- unlist(sapply(contentLink, function(x){ x$getElementText() }))
       getContent <- gsub(pattern = "\n", replacement = "<br>", getContent)
       
-      newsname <- c(newsname, getNewsName)
-      title <- c(title, getTitle)
-      category <- c(category, getCategory)
-      date <- c(date, getDate)
-      url <- c(url, getUrl)
-      content <- c(content, getContent)
-
       print(paste('newsname: ', getNewsName))
       print(paste('title: ', getTitle))
       print(paste('category: ', getCategory))
@@ -74,13 +74,20 @@ for(menu in 1:4) {
       print(paste('url: ', getUrl))
       print(paste('content: ', getContent))
       
+      newsname <- c(newsname, getNewsName)
+      title <- c(title, getTitle)
+      category <- c(category, getCategory)
+      date <- c(date, getDate)
+      url <- c(url, getUrl)
+      content <- c(content, getContent)
+      
       xbtnaddr <- '#news-detail-modal > div > div > div.modal-header > button > span'
       xbtnLink <- remDr$findElements(using='css', xbtnaddr)
       sapply(xbtnLink, function(x){ x$clickElement() })
       Sys.sleep(2)
     }
     
-    if(page == 1)
+    if(page == 4)
       break
     linkCss <- paste0('#news-results-pagination > ul > li:nth-child(', page, ') > a')
     linkCssLink <- remDr$findElements(using='css', linkCss)
@@ -94,12 +101,16 @@ for(menu in 1:4) {
   
   if(menu == 6)
     break
-  menuBtn <- paste0('#filter-category-00', menu, '000000')
+  menuBtn <- '#collapse-step-2 > div > div > div.col-sm-3.col-lg-2 > div > h4 > button > i'
   menuBtnLink <- remDr$findElements(using='css', menuBtn)
   sapply(menuBtnLink, function(x){ x$clickElement() })
   Sys.sleep(6)
 }
 print('getElementText is Finish')
-
 result <- data.frame(newsname, title, category, date, url, content)
-remDr$close(); pJS$stop(); rm(list=setdiff(ls(), "result"))
+end <- Sys.time(); print(start); print(end)
+print(paste('Time estimate : ', end-start))
+#dbDisconnect(conn); 
+remDr$close(); pJS$stop()
+rm(list=setdiff(ls(), "result"))
+

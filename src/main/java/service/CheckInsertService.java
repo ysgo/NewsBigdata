@@ -49,12 +49,10 @@ public class CheckInsertService {
 		return dao.zoneTitle(vo);
 	}
 	
-	// 시도명 위도, 경도 전체 데이터 가져오기
 	public List<ProvinceVO> provinceList() {
 		return dao.provinceList();
 	}
 	
-	// 시군구 위도, 경도 전체 데이터 가져오기
 	public List<SigunguVO> sigunguList() {
 		return dao.sigunguList();
 	}

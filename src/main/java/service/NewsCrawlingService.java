@@ -30,7 +30,7 @@ public class NewsCrawlingService {
 	private CheckInsertService checkInsertService;
 	
 //	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
-	@Scheduled(cron="0 0/30 * * * *")	// 매시간 30분에 시작
+	@Scheduled(cron="0 0/2 * * * *")	// 매시간 30분에 시작
 	public void scheduleRun() {
 		checkInsertService.loadCSV("province");
 		checkInsertService.loadCSV("sigungu");
@@ -44,6 +44,11 @@ public class NewsCrawlingService {
 		RConnection rc = null;
          try {
         	rc = new RConnection();
+//        	rc.eval("driverClass <- '" + env.getProperty("rdb.class") + "'");
+//			rc.eval("connectPath <- '" + env.getProperty("mysql-connector.url") + "'");
+//			rc.eval("driver <- '" + env.getProperty("rdb.driver") + "'");
+//			rc.eval("userName <- '" + env.getProperty("db.userName") + "'");
+//			rc.eval("password <- '" + env.getProperty("db.password") + "'");
         	rc.eval("seleniumIP <- '" + env.getProperty("selenium.ip") + "'");
         	rc.eval("seleniumPort <- " + env.getProperty("selenium.port"));
         	rc.eval("seleniumBrowser <- '" + env.getProperty("selenium.browser") + "'");
@@ -127,13 +132,11 @@ public class NewsCrawlingService {
     			}
     		}
         } catch(RserveException e) {
-        	System.out.println("Rserve 실패");
+        	System.out.println("Failed Rserve");
         } catch(REXPMismatchException e) {
-        	System.out.println("R 문법 오류");
+        	System.out.println("R full of grammatical errors");
         } catch(NullPointerException e) {
-        	System.out.println("Zone Value is Null");
-        } catch(Exception e) {
-        	e.printStackTrace();
+        	System.out.println("There's no analysis of the data we've collected!");
         } finally {
         	if(rc != null)
         		rc.close();
