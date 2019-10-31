@@ -4,16 +4,12 @@ if(!require(RSelenium)) install.packages("RSelenium")
 if(!require(rJava)) install.packages("rJava")
 if(!require(Rserve)) install.packages("Rserve")
 if(!require(stringr)) install.packages("stringr")
-if(!require(httr)) install.packages("httr")
 
-#drv <- JDBC(driverClass=driverClass, classPath=connectPath)
-#conn <- dbConnect(drv, driver, userName, password)
+drv <- JDBC(driverClass=driverClass, classPath=connectPath)
+conn <- dbConnect(drv, driver, userName, password)
 
-#pJS <- wdman::phantomjs(port = seleniumPort)
-#remDr <- remoteDriver(remoteServerAddr=seleniumIP,port = seleniumPort, browserName = seleniumBrowser)
-
-pJS <- wdman::phantomjs(port = 4445L)
-remDr <- remoteDriver(remoteServerAddr="localhost",port = 4445L, browserName = "chrome")
+pJS <- wdman::phantomjs(port = seleniumPort)
+remDr <- remoteDriver(remoteServerAddr=seleniumIP,port = seleniumPort, browserName = seleniumBrowser)
 
 remDr$open(); remDr$maxWindowSize()
 remDr$navigate("https://www.bigkinds.or.kr/v2/news/search.do")
@@ -110,7 +106,7 @@ print('getElementText is Finish')
 result <- data.frame(newsname, title, category, date, url, content)
 end <- Sys.time(); print(start); print(end)
 print(paste('Time estimate : ', end-start))
-#dbDisconnect(conn); 
 remDr$close(); pJS$stop()
 rm(list=setdiff(ls(), "result"))
+View(result)
 
