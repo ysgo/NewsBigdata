@@ -5,8 +5,8 @@ if(!require(rJava)) install.packages("rJava")
 if(!require(Rserve)) install.packages("Rserve")
 if(!require(stringr)) install.packages("stringr")
 
-drv <- JDBC(driverClass=driverClass, classPath=connectPath)
-conn <- dbConnect(drv, driver, userName, password)
+#drv <- JDBC(driverClass=driverClass, classPath=connectPath)
+#conn <- dbConnect(drv, driver, userName, password)
 
 pJS <- wdman::phantomjs(port = seleniumPort)
 remDr <- remoteDriver(remoteServerAddr=seleniumIP,port = seleniumPort, browserName = seleniumBrowser)
@@ -30,8 +30,8 @@ for(menu in 1:4) {
   getCategory <- str_sub(getCategory, start=1L, end=2L)
   #############################################################################################3
   page<-4
-  for(pageNB in 1:1) { 
-    for(index in 1:1){
+  for(pageNB in 1:3) { 
+    for(index in 1:10){
       print(paste0('pageNB: ', pageNB))
       print(paste0('index: ', index))
       
@@ -83,7 +83,7 @@ for(menu in 1:4) {
       Sys.sleep(2)
     }
     
-    if(page == 4)
+    if(page == 6)
       break
     linkCss <- paste0('#news-results-pagination > ul > li:nth-child(', page, ') > a')
     linkCssLink <- remDr$findElements(using='css', linkCss)
@@ -108,5 +108,5 @@ end <- Sys.time(); print(start); print(end)
 print(paste('Time estimate : ', end-start))
 remDr$close(); pJS$stop()
 rm(list=setdiff(ls(), "result"))
-View(result)
+#View(result)
 

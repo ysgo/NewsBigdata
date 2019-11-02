@@ -30,7 +30,7 @@ public class NewsCrawlingService {
 	private CheckInsertService checkInsertService;
 	
 //	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
-	@Scheduled(cron="0 0/2 * * * *")	// 매시간 30분에 시작
+	@Scheduled(cron="0 0/40 * * * *")	// 매시간 30분에 시작
 	public void scheduleRun() {
 		checkInsertService.loadCSV("province");
 		checkInsertService.loadCSV("sigungu");
