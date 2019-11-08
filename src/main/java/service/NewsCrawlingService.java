@@ -29,8 +29,8 @@ public class NewsCrawlingService {
 	@Autowired
 	private CheckInsertService checkInsertService;
 	
-//	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
-	@Scheduled(cron="0 0/40 * * * *")	// 매시간 30분에 시작
+//	@Scheduled(cron="0 0/50 9-18 * * *")	// 9시 ~ 18시까지 50분 간격으로 실행
+	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
 	public void scheduleRun() {
 		checkInsertService.loadCSV("province");
 		checkInsertService.loadCSV("sigungu");
@@ -44,7 +44,7 @@ public class NewsCrawlingService {
 		RConnection rc = null;
          try {
         	rc = new RConnection();
-//        	rc.eval("driverClass <- '" + env.getProperty("rdb.class") + "'");
+//        rc.eval("driverClass <- '" + env.getProperty("rdb.class") + "'");
 //			rc.eval("connectPath <- '" + env.getProperty("mysql-connector.url") + "'");
 //			rc.eval("driver <- '" + env.getProperty("rdb.driver") + "'");
 //			rc.eval("userName <- '" + env.getProperty("db.userName") + "'");

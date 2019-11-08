@@ -30,7 +30,7 @@ for(menu in 1:4) {
   getCategory <- str_sub(getCategory, start=1L, end=2L)
   #############################################################################################3
   page<-4
-  for(pageNB in 1:3) { 
+  for(pageNB in 1:2) { 
     for(index in 1:10){
       print(paste0('pageNB: ', pageNB))
       print(paste0('index: ', index))
@@ -83,7 +83,7 @@ for(menu in 1:4) {
       Sys.sleep(2)
     }
     
-    if(page == 6)
+    if(page == 5)
       break
     linkCss <- paste0('#news-results-pagination > ul > li:nth-child(', page, ') > a')
     linkCssLink <- remDr$findElements(using='css', linkCss)
