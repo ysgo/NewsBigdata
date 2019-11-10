@@ -39,13 +39,9 @@ public class NewsController {
 		} catch(NullPointerException e) {
 			System.out.println("NewsList or ProvinceList or SigunguList is null!");
 		} 
-//		finally {
-//			crawlingService.startCrawling();
-//		}
 		return map;
 	}
 	
-	// 메인페이지 뉴스 기사 리스트 출력 & 모달페이지 뉴스 기사 내용 출력
 	@RequestMapping(value="/readNews", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public NewsVO readNews(@ModelAttribute NewsVO vo) {
 		try {

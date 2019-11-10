@@ -106,8 +106,9 @@ public class NewsVO {
 
 	@Override
 	public String toString() {
-		return "NewsVO [newsname=" + newsname + ", title=" + title + ", category=" + category + ", date=" + date
-				+ ", url=" + url + ", content=" + content + ", keyword=" + keyword + ", action=" + action + ", pageNo="
-				+ pageNo + ", startIndex=" + startIndex + ", CntPerPage=" + CntPerPage + "]";
+		return "NewsVO [newsname=" + newsname + ", title=" + title + ", category=" + category + 
+				", date=" + date + ", url=" + url + ", content=" + content + ", keyword=" + 
+				keyword + ", action=" + action + ", pageNo="	+ pageNo + ", startIndex=" + 
+				startIndex + ", CntPerPage=" + CntPerPage + "]";
 	}
 }

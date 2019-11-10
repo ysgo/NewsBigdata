@@ -25,9 +25,9 @@ public class RwordcloudsController {
 		RConnection rc = null;
 		try {
 			rc = new RConnection();
-			if(ctg == null || ctg.equals(""))
+			if (ctg == null || ctg.equals(""))
 				rc.eval("ctg <- '전체'");
-			else 
+			else
 				rc.eval("ctg <- '" + ctg + "'");
 			rc.eval("driverClass <- '" + env.getProperty("rdb.class") + "'");
 			rc.eval("connectPath <- '" + env.getProperty("mysql-connector.url") + "'");
@@ -47,13 +47,13 @@ public class RwordcloudsController {
 				keyMap.put(sb.toString(), freq);
 			}
 			System.out.println(keyMap);
-		} catch(RserveException e) {
-        	System.out.println("Rserve 실패");
-        } catch(REXPMismatchException e) {
-        	System.out.println("R 문법 오류");
-        } catch(NullPointerException e) {
-        	System.out.println("Today newsdata is empty! You need to collect todat\'s newsdata ");
-        } finally {
+		} catch (RserveException e) {
+			System.out.println("Rserve 실패");
+		} catch (REXPMismatchException e) {
+			System.out.println("R 문법 오류");
+		} catch (NullPointerException e) {
+			System.out.println("Today newsdata is empty! You need to collect todat\'s newsdata ");
+		} finally {
 			rc.close();
 		}
 		return keyMap;

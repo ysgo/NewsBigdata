@@ -11,9 +11,16 @@ public class MainController {
 	@Autowired
 	private Environment env;
 	
-	@RequestMapping("/main")
+	@RequestMapping("/")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView("main");
+		mav.addObject("naverID", env.getProperty("naver.ID"));
+		return mav;
+	}
+	
+	@RequestMapping("/main")
+	public ModelAndView view() {
+		ModelAndView mav = new ModelAndView("main2");
 		mav.addObject("naverID", env.getProperty("naver.ID"));
 		return mav;
 	}

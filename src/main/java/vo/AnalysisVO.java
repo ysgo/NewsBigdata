@@ -44,4 +44,11 @@ public class AnalysisVO {
 	public void setSigungu(HashSet<Integer> sigungu) {
 		this.sigungu = sigungu;
 	}
+	
+	@Override
+	public String toString() {
+		return "AnalysisVO [strFirst=" + strFirst + 
+				", strSecond=" + strSecond + ", province=" + 
+				province + ", sigungu=" + sigungu + "]";
+	}
 }
