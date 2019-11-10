@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,5 +41,10 @@ public class NewsDAO {
 	public int insertNews(NewsVO vo) {
 		String statement = mapperRoute+"insertNews";
 		return session.insert(statement,vo);
+	}
+	
+	public void loadNews(HashMap<String, String> map) {
+		String statement = mapperRoute+"loadNews";
+		session.insert(statement, map);
 	}
 }

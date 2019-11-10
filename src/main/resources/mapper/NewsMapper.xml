@@ -87,4 +87,13 @@
 		on duplicate key update newsname=#{newsname}, title=#{title}, 
 		category=#{category}, date=#{date}, url=#{url}, content=#{content}
 	</insert>
+	
+	<insert id="loadNews" parameterType="HashMap">
+		<!-- 
+		# csv load data
+		load data local infile '/home/ysgo/workspace/Development/R_workspace/test.csv' 
+		into table news_list character set utf8 
+		fields terminated by ';' lines terminated by '\n' ignore 1 lines;
+	 -->
+	</insert>
 </mapper>

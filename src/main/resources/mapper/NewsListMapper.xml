@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="resource.NewsListMapper">
-
 	<!-- 전체 출력  -->
 	<select id="selectNews" resultType="vo.NewsVO" >
 		SELECT * from news_test where keyword like '%'||#{keyword}||'%'
