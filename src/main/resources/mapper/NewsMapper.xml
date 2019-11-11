@@ -80,20 +80,4 @@
 		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
 			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
 	</select>
-	
-	<insert id="insertNews" parameterType="vo.NewsVO" useGeneratedKeys="true" keyProperty="idx">
-		insert into news_list (newsname, title, category, date, url, content) 
-		values(#{newsname},#{title},#{category},#{date},#{url},#{content})
-		on duplicate key update newsname=#{newsname}, title=#{title}, 
-		category=#{category}, date=#{date}, url=#{url}, content=#{content}
-	</insert>
-	
-	<insert id="loadNews" parameterType="HashMap">
-		<!-- 
-		# csv load data
-		load data local infile '/home/ysgo/workspace/Development/R_workspace/test.csv' 
-		into table news_list character set utf8 
-		fields terminated by ';' lines terminated by '\n' ignore 1 lines;
-	 -->
-	</insert>
 </mapper>

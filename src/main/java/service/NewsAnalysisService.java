@@ -31,8 +31,6 @@ public class NewsAnalysisService {
 	private NewsDAO newsDAO;
 	@Autowired
 	private NewsAnalysisDAO anlysisDao;
-//	@Autowired
-//	private NewsAnalysisService analysisService;
 	@Autowired
 	private CheckInsertService checkInsertService;
 
