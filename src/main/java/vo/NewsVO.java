@@ -1,12 +1,14 @@
 package vo;
 
 public class NewsVO {
+	private int idx;
 	private String newsname;
 	private String title;
 	private String category;
 	private String date;
 	private String url;
 	private String content;
+	private int dataSize;
 	
 	private String keyword;
 	private String action;
@@ -15,6 +17,12 @@ public class NewsVO {
 	private int startIndex;
 	private int CntPerPage;
 	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getNewsname() {
 		return newsname;
 	}
@@ -63,6 +71,14 @@ public class NewsVO {
 		this.content = content;
 	}
 	
+	public int getDataSize() {
+		return dataSize;
+	}
+	
+	public void setDataSize(int dataSize) {
+		this.dataSize = dataSize;
+	}
+	
 	public String getKeyword() {
 		return keyword;
 	}
@@ -106,8 +122,8 @@ public class NewsVO {
 
 	@Override
 	public String toString() {
-		return "NewsVO [newsname=" + newsname + ", title=" + title + ", category=" + category + 
-				", date=" + date + ", url=" + url + ", content=" + content + ", keyword=" + 
+		return "NewsVO [idx=" + idx + ", newsname=" + newsname + ", title=" + title + ", category=" + category + 
+				", date=" + date + ", url=" + url + ", content=" + content + ", dataSize=" + dataSize + ", keyword=" + 
 				keyword + ", action=" + action + ", pageNo="	+ pageNo + ", startIndex=" + 
 				startIndex + ", CntPerPage=" + CntPerPage + "]";
 	}

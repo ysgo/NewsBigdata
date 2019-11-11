@@ -11,7 +11,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -44,59 +43,71 @@ public class CheckInsertService {
 	public boolean districtZone(NewsAnalysisVO vo) {
 		return dao.districtZone(vo);
 	}
-	
+
 	public List<String> zoneTitle(NewsAnalysisVO vo) {
 		return dao.zoneTitle(vo);
 	}
-	
+
 	public List<ProvinceVO> provinceList() {
 		return dao.provinceList();
 	}
-	
+
 	public List<SigunguVO> sigunguList() {
 		return dao.sigunguList();
 	}
-	
+
 	public int getProvince(AnalysisVO vo) {
 		return dao.getProvince(vo);
 	}
-	
+
 	public NewsAnalysisVO getZone(NewsAnalysisVO vo) {
 		return dao.getZone(vo);
 	}
-	
+
 	public int getSigungu(AnalysisVO vo) {
 		return dao.getSigungu(vo);
 	}
-	
+
 	public NewsAnalysisVO getCode(NewsAnalysisVO vo) {
 		return dao.getCode(vo);
 	}
-	
-	public String loadCSV(@RequestParam("zoneName") String zoneName) {
+
+	public void checkZone() {
+		String[] zoneName = { "province", "sigungu" };
 		HashMap<String, String> map = new HashMap<>();
-		map.put("zoneName", zoneName);
-		String csvURL=env.getProperty(zoneName+".url");
-		List<Object> list = null;
-		if(emptyZone(map)) {
-			try {
-				list = loadCSV(csvURL, zoneName);
-				Iterator<Object> it = list.iterator();
-				while(it.hasNext()) {
-					Object vo = it.next();
-					if(insert(vo, zoneName))
-						System.out.println("Insert Success!");
-					else
-						System.out.println("Insert Failed!");
-				}
-			} catch(NullPointerException e) {
-				System.out.println("List is not Empty!");
+		for (int i = 0; i < zoneName.length; i++) {
+			String name = zoneName[i];
+			map.put("zoneName", name);
+			if (emptyZone(map)) {
+				loadCSV(name);
+			} else {
+				System.out.println(name + " database is not Empty!");
 			}
-		} else
-			System.out.println("Zone Database not Empty!");
-		return "home";
+		}
 	}
 	
+	public void getZoneName() {
+		// KoNLP로 지역 정보 얻기 (kormaps2014) 
+	}
+
+	public void loadCSV(String zoneName) {
+		String csvURL = env.getProperty(zoneName + ".url");
+		List<Object> list = null;
+		try {
+			list = loadCSV(csvURL, zoneName);
+			Iterator<Object> it = list.iterator();
+			while (it.hasNext()) {
+				Object vo = it.next();
+				if (insert(vo, zoneName))
+					System.out.println("Insert Success!");
+				else
+					System.out.println("Insert Failed!");
+			}
+		} catch (NullPointerException e) {
+			System.out.println("List is not Empty!");
+		}
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Object> loadCSV(String csvURL, String zoneName) {
 		List<Object> list = null;

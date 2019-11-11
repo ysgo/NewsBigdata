@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
 import dao.NewsAnalysisDAO;
-import dao.NewsDAO;
 import vo.AnalysisVO;
 import vo.NewsAnalysisVO;
 import vo.NewsVO;
@@ -28,37 +27,20 @@ import vo.NewsVO;
 @Service
 public class NewsAnalysisService {
 	@Autowired
-	private NewsDAO newsDAO;
-	@Autowired
 	private NewsAnalysisDAO anlysisDao;
 	@Autowired
 	private CheckInsertService checkInsertService;
 
-	public AnalysisVO checkInsert(AnalysisVO vo) {
-		int tmp = 0;
-		if (anlysisDao.checkProvince(vo)) {
-			tmp = anlysisDao.getProvince(vo);
-			vo.getProvince().add(tmp);
-		} else if (anlysisDao.checkSigungu(vo)) {
-			tmp = anlysisDao.getSigungu(vo);
-			vo.getSigungu().add(tmp);
-		}
-		return vo;
-	}
-	
-	public void runNewsAnalysis(String accessKey) {
+	public void runNewsAnalysis(List<NewsVO> list, String accessKey) {
 		String openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU";
 		String analysisCode = "ner";
 		Map<String, Object> request = new HashMap<>();
 		Map<String, String> argument = new HashMap<>();
 		argument.put("analysis_code", analysisCode);
 		request.put("access_key", accessKey);
-		// mapper에 news_district idx 최대값보다 news_list의 값이 큰 데이터들 리스트로 조회 
-		NewsVO vo = new NewsVO();
-		// for문 길이 필요 
-		for (int i=0;i<10;i++) {
-			// 조회하는 데이터 어떤 건지에 대해 idx 
-			int idx = newsDAO.getIdx(vo);
+		for (int i=0;i<list.size();i++) {
+			NewsVO vo = list.get(i);
+			int idx = vo.getIdx();
 			argument.put("text", vo.getTitle()+vo.getContent());
 			request.put("argument", argument);
 			
@@ -204,5 +186,17 @@ public class NewsAnalysisService {
 			System.out.println("Input&Output Exception Error!");
 		}
 		return al;
+	}
+	
+	public AnalysisVO checkInsert(AnalysisVO vo) {
+		int tmp = 0;
+		if (anlysisDao.checkProvince(vo)) {
+			tmp = anlysisDao.getProvince(vo);
+			vo.getProvince().add(tmp);
+		} else if (anlysisDao.checkSigungu(vo)) {
+			tmp = anlysisDao.getSigungu(vo);
+			vo.getSigungu().add(tmp);
+		}
+		return vo;
 	}
 }

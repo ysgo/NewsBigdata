@@ -54,7 +54,8 @@ public class RwordcloudsController {
 		} catch (NullPointerException e) {
 			System.out.println("Today newsdata is empty! You need to collect todat\'s newsdata ");
 		} finally {
-			rc.close();
+			if(rc != null)
+				rc.close();
 		}
 		return keyMap;
 	}
