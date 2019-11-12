@@ -4,9 +4,6 @@ window.onload = function() {
 	todayNews();
 	searchGet(1);
 	loadWordcloud();
-	$('#nav_myPage').hide();
-	$('#nav_logout').hide();
-	$('#nav_user').hide();
 }
 
 function curTime() {

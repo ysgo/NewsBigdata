@@ -1,7 +1,5 @@
 package service;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,4 @@ public class MemberService {
 		return dao.viewMember(vo);
 	}
 
-	public void signOut(HttpSession session) {
-		session.removeAttribute("memberInfo");
-	}
 }

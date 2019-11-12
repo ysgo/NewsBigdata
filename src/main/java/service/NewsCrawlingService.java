@@ -43,7 +43,8 @@ public class NewsCrawlingService {
 		List<NewsVO> list = null;
 		try (FileInputStream fis = new FileInputStream(newsFilePath);
 				InputStreamReader isr = new InputStreamReader(fis, "EUC-KR");) {
-			list = new CsvToBeanBuilder(isr).withSkipLines(1).build().parse();
+			Class type = getClass();
+			list = new CsvToBeanBuilder(isr).withType(type).withSkipLines(1).build().parse();
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
 		} catch (IOException e) {

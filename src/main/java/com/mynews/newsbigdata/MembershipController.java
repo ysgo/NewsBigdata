@@ -1,7 +1,5 @@
 package com.mynews.newsbigdata;
 
-import java.util.HashMap;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import service.MemberService;
 import vo.MemberVO;
@@ -28,20 +27,17 @@ public class MembershipController {
 	PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public HashMap<String, Object> signUp(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
-		HashMap<String, Object> map = new HashMap<>();
+	public int signUp(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
 		vo.setPassword(passwordEncoder.encode(vo.getPassword()));
 		int result = service.signUp(vo) ? 1 : 0;
-		if(result == 1)
+		if(result == 1) {
 			session.setAttribute("memberInfo", vo);
-		map.put("result", result);
-		map.put("memberInfo", vo);
-		return map;
+		}
+		return result;
 	}
 	
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public HashMap<String, Object> signIn(@ModelAttribute MemberVO vo, HttpSession session) {
-		HashMap<String, Object> map = new HashMap<>();
+	public int signIn(@ModelAttribute MemberVO vo, HttpSession session) {
 		if (session.getAttribute("memberInfo") != null) {
 			session.removeAttribute("memberInfo");
 		}
@@ -51,25 +47,20 @@ public class MembershipController {
 			vo = service.viewMember(vo);
 			boolean checkPassword = passwordEncoder.matches(pw, vo.getPassword());
 			if(checkPassword) {
-				result = 1;
 				session.setAttribute("memberInfo", vo);
+				result = 1;
+			} else {
+				session.setAttribute("msg", "일치하는 정보가 존재하지 않습니다. 다시 입력해주세요.");
 			}
 		} catch(NullPointerException e) {
-			result = 0;
-		} finally {
-			map.put("result", result);
-			map.put("memberInfo", vo);
+			System.out.println("Exception : There is no information corresponding to the information entered");
+			session.setAttribute("msg", "일치하는 정보가 존재하지 않습니다. 다시 입력해주세요.");
 		}
-		return map;
+		return result;
 	}
 	
 	@RequestMapping("/signOut")
-	public int signOut(HttpSession session) throws Exception {
-		int result = 0;
-		if(session.getAttribute("memberInfo") != null) {
-			service.signOut(session);
-			result = 1;
-		}
-		return result;
+	public void signOut(SessionStatus session) throws Exception {
+		session.setComplete();
 	}
 }

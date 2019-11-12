@@ -9,7 +9,6 @@
 <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="resources/js/agency.min.js"></script>
-	
 <script src="<c:url value='/resources/js/main_news.js'/>"> </script>
 <script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
 <script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>

@@ -8,14 +8,8 @@ function submitSignIn() {
 		data : loginInfo,
 		success : function(data) {
 			console.log(data);
-			if(data.result == 1) {
-				closeLogin();
-				$('#nav_signup').hide();
-				$('#nav_login').hide();
-				$('#nav_myPage').show();
-				$('#nav_logout').show();
-				$('#nav_user').show();
-				document.getElementById('user').innerText=data.memberInfo.userName;
+			if(data == 1) {
+				location.reload();
 			} else {
 				$('#signIn_Form')[0].reset();
 			}
@@ -25,22 +19,18 @@ function submitSignIn() {
 			console.log("error code:" + request.status + "\n" + "message:"
 					+ request.responseText + "\n" + "error:" + error);
 		}
-	});
+	})
 }
 
 function signOut() {
 	$.ajax({
 		url : "signOut",
 		type : "POST",
-		success : function(data) {
+		success : function() {
 			if(data== 1) {
+				location.reload();
 				console.log("로그아웃 성공");
 				document.getElementById('signIn_Form').reset();
-				$('#nav_myPage').hide();
-				$('#nav_logout').hide();
-				$('#nav_user').hide();
-				$('#nav_signup').show();
-				$('#nav_login').show();
 			}
 		},
 		error : function(request, status, error) {

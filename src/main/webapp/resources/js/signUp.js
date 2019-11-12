@@ -15,9 +15,9 @@ function submitSignUp() {
 		data : memberInfo,
 		success : function(data) {
 			console.log(data);
-			if(data.result == 1) {
+			if(data == 1) {
 				console.log("가입 성공");
-				closeSignup();
+				location.reload();
 			} else {
 				console.log("가입 실패");
 				$('#signUp_Form')[0].reset();
