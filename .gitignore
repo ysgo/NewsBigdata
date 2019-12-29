@@ -3,6 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=java,gradle,eclipse,java-web,code-java
 
 # Add Ignore
+HELP.md
 *.properties
 *.yml 
 
