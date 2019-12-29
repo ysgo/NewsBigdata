@@ -1,10 +1,21 @@
 
 # Created by https://www.gitignore.io/api/java,gradle,eclipse
-# Edit at https://www.gitignore.io/?templates=java,gradle,eclipse
+# Edit at https://www.gitignore.io/?templates=java,gradle,eclipse,java-web,code-java
 
 # Add Ignore
-target/
 *.properties
+*.yml 
+
+### Code-Java ### 
+# Language Support for Java(TM) by Red Hat extension for Visual Studio Code - https://marketplace.visualstudio.com/items?itemName=redhat.java 
+ 
+### Java-Web ### 
+## ignoring target file 
+target/ 
+ 
+.project 
+.classpath 
+factoryConfiguration.json 
 
 ### Eclipse ###
 .metadata
@@ -119,4 +130,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# End of https://www.gitignore.io/api/java,gradle,eclipse
+# End of https://www.gitignore.io/api/java,gradle,eclipse,java-web,code-java

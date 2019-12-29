@@ -2,8 +2,8 @@ window.onload = function() {
 	curTime();
 	setInterval(curTime, 1000);
 	todayNews();
-	searchGet(1);
-	loadWordcloud();
+//	searchGet(1);
+//	loadWordcloud();
 }
 
 function curTime() {

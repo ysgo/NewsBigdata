@@ -5,15 +5,16 @@
 ## 회원 정보 테이블
 
 ```mysql
-create table memberinfo( 
-    email varchar(100) not null, 
-    password varchar(100) not null default '0', 
-    username varchar(20) not null, 
-    gender varchar(8) not null, 
-    generation int(5) not null, 
-    created_at datetime default now() not null, 
-    primary key(email), 
-    unique key(username) 
+CREATE TABLE memberinfo ( 
+    email varchar(100) NOT NULL, 
+    password varchar(100) NOT NULL DEFAULT '0', 
+    username varchar(20) NOT NULL, 
+    gender varchar(8) NOT NULL, 
+    generation int(5) NOT NULL, 
+    created_at DATETIME DEFAULT NOW() NOT NULL, 
+	
+    PRIMARY KEY (email), 
+    UNIQUE KEY (username) 
 );
 
 select * from memberinfo;

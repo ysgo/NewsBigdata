@@ -27,7 +27,7 @@ public class NewsCrawlingService {
 	private CheckInsertService checkInsertService;
 	
 //	@Scheduled(cron="0 0/50 9-18 * * *")	// 9시 ~ 18시까지 50분 간격으로 실행
-	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
+//	@Scheduled(fixedDelay=180000)	// 시작 후 30분 뒤부터 시작
 	public void scheduleRun() {
 		String accessKey = env.getProperty("etri.KEY"); // 발급받은 API Key
 		String newsFilePath = env.getProperty("newsFile.url");

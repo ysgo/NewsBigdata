@@ -1,10 +1,10 @@
 package com.mynews.newsbigdata;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +21,9 @@ import vo.MemberVO;
 public class MembershipController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Inject
+	@Autowired
 	private MemberService service;
-	@Inject
+	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
