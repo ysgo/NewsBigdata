@@ -9,7 +9,7 @@ import com.mynews.newsbigdata.vo.MemberVO;
 @Repository
 public class MemberDAO {
 	@Autowired
-	SqlSession session = null;	 
+	SqlSession session;	 
 	String mapperRoute = "resource.MemberMapper.";
 	
 	public boolean signUp(MemberVO vo) {

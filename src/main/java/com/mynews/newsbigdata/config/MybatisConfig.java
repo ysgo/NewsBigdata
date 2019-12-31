@@ -10,23 +10,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@MapperScan(value= {"com.mynews.resources.mapper"})
-@EnableTransactionManagement
+@MapperScan(value= {"com.mynews.newsbigdata.mapper"})
 public class MybatisConfig {
 	
 	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource)throws Exception{
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+//        factoryBean.setTypeAliasesPackage("com.mynews.newsbigdata.vo");
         Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*Mapper.xml");
+        factoryBean.setMapperLocations(res);
         
-        sessionFactory.setMapperLocations(res);
-        
-        return sessionFactory.getObject();
+        return factoryBean.getObject();
 }
 
 	@Bean

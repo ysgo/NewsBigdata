@@ -15,7 +15,7 @@ import com.mynews.newsbigdata.vo.SigunguVO;
 @Repository
 public class NewsAnalysisDAO {
 	@Autowired
-	SqlSession session = null;
+	SqlSession session;
 	String mapperRoute = "resource.NewsZoneMapper.";
 	
 	public boolean emptyZone(HashMap<String, String> map) {

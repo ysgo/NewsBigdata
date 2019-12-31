@@ -3,7 +3,7 @@ package com.mynews.newsbigdata.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +20,10 @@ public class MembershipController {
 	
 	@Autowired
 	private MemberService service;
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
+	
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public int signUp(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		vo.setPassword(passwordEncoder.encode(vo.getPassword()));
 		int result = service.signUp(vo) ? 1 : 0;
 		if(result == 1) {
@@ -35,6 +34,7 @@ public class MembershipController {
 	
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public int signIn(@ModelAttribute MemberVO vo, HttpSession session) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (session.getAttribute("memberInfo") != null) {
 			session.removeAttribute("memberInfo");
 		}

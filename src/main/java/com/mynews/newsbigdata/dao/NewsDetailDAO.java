@@ -12,7 +12,7 @@ import com.mynews.newsbigdata.vo.NewsVO;
 @Repository
 public class NewsDetailDAO {
 	@Autowired
-	SqlSession session = null;
+	SqlSession session;
 	String mapperRoute = "resource.NewsMapper.";
 
 	public List<NewsVO> allTitle() {
