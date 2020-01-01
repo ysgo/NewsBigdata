@@ -1,0 +1,16 @@
+spring:
+  main:    allow-bean-definition-overriding: true
+  datasource:
+    username: 
+    password: 
+    url: jdbc:mariadb://:/?characterEncoding=UTF-8&serverTimezone=UTC
+    driverClassName: org.mariadb.jdbc.Driver
+    
+server:  port: 
+
+logging:
+  level:
+    org.springframework:
+      web: DEBUG
+      security: DEBUG
+    hibernate: DEBUG

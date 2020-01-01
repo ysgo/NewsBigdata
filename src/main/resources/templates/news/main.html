@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+  layout:decorator="layout/base">
+<head>
+<th:block th:include="fragments/signUp"/>
+<th:block th:include="fragments/signIn"/>
+<th:block th:include="fragments/newsModal"/>
+<th:block layout:fragment="css_area">
+</th:block>
+</head>
+<body id="page-top">
+<div layout:fragment="page_content">
+	<th:block th:replace="fragments/navigation :: navigation">
+
+	<!-- ISSUE -->
+	<section class="page-section" id="issue-sec" th:insert="fragments/section1">
+	</section>
+	
+	<!-- NEWS -->
+	<section class="page-section" id="news-sec" style="border-top: 1px solid #e8e8e8" th:insert="fragments/section2">
+	</section>
+
+	<!-- KEYWORD -->
+	<section class="page-section" id="keyword-sec" style="border-top: 1px solid #e8e8e8" th:insert="fragments/section3">
+	</section>
+	
+</div>
+
+<div layout:fragment="script_area">
+	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="resources/js/agency.min.js"></script>
+	<script src="<c:url value='/resources/js/main_news.js'/>"> </script>
+	<script src="<c:url value='/resources/js/modal_news.js'/>"> </script>
+	<script src="<c:url value='/resources/js/newsDetail_Keyword.js'/>"> </script>
+	<script src="<c:url value='/resources/js/newsDetailPaging.js'/>"> </script>
+	<script src="<c:url value='/resources/js/signUp.js' />"></script>
+	<script src="<c:url value='/resources/js/signIn.js' />"></script>
+	<script type="text/javascript" src="resources/js/jqcdajax.js" charset="utf-8"></script>
+</div>
+</body>
+</html>
+	

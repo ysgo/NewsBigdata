@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<th:block th:replace="fragments/common/head :: commonHead"></th:block>
 </head>
 <body>
-
+	<header th:replace="fragments/common/header :: commonFooter"></header>
+	<div layout:fragment="page_content"></div>
+	<footer th:replace="fragments/common/footer :: commonFooter"></footer>
+	<th:block th:replace="fragments/common/scripts"></th:block>
+	<div layout:fragment="script_area"></div>
 </body>
 </html>
