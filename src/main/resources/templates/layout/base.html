@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-	<th:block th:replace="fragments/common/head"></th:block>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: commonHead"></head>
 <body>
-	<header th:include="fragments/common/header :: commonHeader"></header>
-	<div layout:fragment="page_content"></div>
-	<footer th:include="fragments/common/footer :: commonFooter"></footer>
-	<th:block th:replace="fragments/common/scripts"></th:block>
-	<div layout:fragment="script_area"></div>
+<th:block th:include="fragments/header :: commonHeader"></th:block>
+
+<div layout:fragment="page_content">
+</div>
+
+<th:block th:include="fragments/footer :: commonFooter"></th:block>
+<div layout:fragment="script_area"></div>
 </body>
 </html>
