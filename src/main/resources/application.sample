@@ -5,6 +5,12 @@ spring:
     password: 
     url: jdbc:mariadb://:/?characterEncoding=UTF-8&serverTimezone=UTC
     driverClassName: org.mariadb.jdbc.Driver
+  thymeleaf:
+    prefix: 'classpath:templates/'
+    check-template-location: true
+    suffix: .html
+    mode: HTML5
+    cache: false
     
 server:  port: 
 
