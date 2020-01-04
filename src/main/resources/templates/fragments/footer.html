@@ -2,9 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<footer class="footer" th:fragment="commonFooter">
-	<div class="container">
-		<span class="copyright">Copyright &copy; NEWS ON MAP 2019</span>
-	</div>
+	
+<footer class="footer copyright text-center" th:fragment="commonFooter">
+	<p class="copyright text-center">
+		Copyright &copy; <a th:href="@{http://www.creative-tim.com}">NEWS
+			ON MAP</a>
+		<script>
+			document.write(new Date().getFullYear())
+		</script>
+	</p>
 </footer>
 </html>

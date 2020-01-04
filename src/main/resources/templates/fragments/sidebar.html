@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="sidebar" th:data-image="@{/assets/img/sidebar-5.jpg}" th:fragment="commonSidebar">
+	<div class="sidebar-wrapper">
+		<div class="logo">
+			<a th:href="@{/news/}" class="simple-text">Pronews</a>
+		</div>
+		<ul class="nav">
+			<li class="nav-item active"><a class="nav-link" th:href="@{/news/}"><i class="nc-icon nc-chart-pie-35"></i>
+					Dashboard
+			</a></li>
+			<li><a class="nav-link" th:href="@{/news/user}"><i class="nc-icon nc-circle-09"></i>
+					User Profile
+			</a></li>
+			<li><a class="nav-link" th:href="@{/news/map}"><i class="nc-icon nc-pin-3"></i>
+					Maps
+			</a></li>
+		</ul>
+	</div>
+</div>
+</html>
