@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import com.mynews.newsbigdata.vo.NewsVO;
 
 @RestController
 @SessionAttributes("status")
+@RequestMapping("news")
 public class NewsController {
 	@Autowired
 	NewsService newsService;
@@ -27,15 +29,15 @@ public class NewsController {
 	@Autowired
 	NewsCrawlingService crawlingService;
 	
-	@RequestMapping(value="/mainNews", method=RequestMethod.GET)
+	@GetMapping("/mainNews")
 	public HashMap<String, Object> mainNews() {
 		HashMap<String, Object> map = new HashMap<>();
 		try {
 			// 오늘의 뉴스 데이터 로드
-			map.put("todayNews", newsService.listAll());
+//			map.put("todayNews", newsService.listAll());
 			// 지도에 시도명, 시군구명, 위도, 경도 데이터 로드
-			map.put("province", checkInsertService.provinceList());
-			map.put("sigungu", checkInsertService.sigunguList());
+//			map.put("province", checkInsertService.provinceList());
+//			map.put("sigungu", checkInsertService.sigunguList());
 		} catch(NullPointerException e) {
 			System.out.println("NewsList or ProvinceList or SigunguList is null!");
 		} 

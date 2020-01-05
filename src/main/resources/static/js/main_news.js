@@ -1,7 +1,7 @@
 window.onload = function() {
 	curTime();
 	setInterval(curTime, 1000);
-//	todayNews();
+	todayNews();
 //	searchGet(1);
 //	loadWordcloud();
 }

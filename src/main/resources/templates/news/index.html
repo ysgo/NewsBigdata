@@ -6,6 +6,7 @@
 <head>
 	<title>Map</title>
 	<th:block layout:fragment="css_area"></th:block>
+	<script type="text/javascript" th:src="@{'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=' + ${naverID}}"></script>
 </head>
 
 <body>
@@ -32,14 +33,14 @@
 			</h5>
 		</div>
 	</article>
-	<article class="row text-center">
+	<article class="row text-center" style="height: 550px;">
 		<section class="col-md-8">
-			<div class="bg-secondary" id="map">지도자리</div>
+			<div class="h-100" id="map">지도자리</div>
 		</section>
 		<section class="col-md-3">
-			<div id="issue-wrap">
+			<div id="issue-wrap" class="h-100">
 				<div class="row bg-secondary">
-					<ul id="todayNews"></ul>
+					<ul id="todayNews" class="pl-15"></ul>
 				</div>
 			</div>
 		</section>
@@ -47,7 +48,6 @@
 </div>
 </th:block>
 <th:block layout:fragment="script_area">
-	<script type="text/javascript" th:src="@{https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${naverID}}"></script>
 	<script type="text/javascript" th:src="@{/js/main_news.js}"></script>
 </th:block>
 </body>
