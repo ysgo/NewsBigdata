@@ -1,7 +1,7 @@
 window.onload = function() {
 	curTime();
 	setInterval(curTime, 1000);
-	todayNews();
+//	todayNews();
 //	searchGet(1);
 //	loadWordcloud();
 }
@@ -14,6 +14,7 @@ function curTime() {
 	var dateTime = localeDate.substr(0, localeDate.length - 1) + ' ('
 			+ days[d.getDay()] + ') ' + localeTime;
 	document.getElementById("issue-analysis-time").innerHTML = dateTime;
+	
 }
 
 function todayNews(e) {

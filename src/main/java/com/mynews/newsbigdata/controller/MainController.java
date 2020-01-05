@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
 	@GetMapping
-	public String viewDashboard() {
+	public String viewMain() {
 		return "news/index";
 	}
 	
@@ -18,8 +18,8 @@ public class MainController {
 		return "news/user";
 	}
 	
-	@GetMapping("/map")
-	public String viewMap() {
-		return "news/maps";
+	@GetMapping("/dashboard")
+	public String viewDashboard() {
+		return "news/dashboard";
 	}
 }
