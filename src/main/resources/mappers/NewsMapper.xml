@@ -10,23 +10,22 @@
 		ORDER BY RAND() LIMIT 10
 	</select>
 	
-	<select id="getIdx" parameterType="com.mynews.newsbigdata.model.NewsVO" resultType="int">
+	<select id="getIdx" parameterType="NewsVO" resultType="int">
 		select idx from news_list where title=#{title} limit 1
 	</select>
 	
-	<select id="readNews" parameterType="com.mynews.newsbigdata.model.NewsVO" resultType="com.mynews.newsbigdata.model.NewsVO">
+	<select id="readNews" parameterType="NewsVO" resultType="NewsVO">
 		select newsname, title, category, content, date, url, content from news_list 
 		where title=#{title} limit 1
 	</select> 
 	
 	<!-- 뉴스 타이틀 출력 -->
-	<select id="selectTitle" resultType="com.mynews.newsbigdata.model.NewsVO" parameterType="com.mynews.newsbigdata.model.NewsVO">
+	<select id="selectTitle" resultType="NewsVO" parameterType="NewsVO">
 		select title, url, newsname, category, content, date from news_list order by idx LIMIT #{pageNo},10;
 	</select>
 	
 	<!-- 키워드별로 검색한 결과물 출력 -->
-	<select id="search" resultType="com.mynews.newsbigdata.model.NewsVO"
-		parameterType="com.mynews.newsbigdata.model.NewsVO">
+	<select id="search" resultType="NewsVO" parameterType="NewsVO">
 		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title, url, newsname, category, content, date 
 		FROM news_list, (select @ROWNUM := 0) A 
 		<where>
@@ -54,7 +53,7 @@
 	</select>
 	
 	<!-- 검색한 게시글 갯수 -->
-	<select id="searchListCnt" parameterType="com.mynews.newsbigdata.model.NewsVO" resultType="_int">
+	<select id="searchListCnt" parameterType="NewsVO" resultType="_int">
 			<if test="newsname == null and keyword ==null">
 				SELECT count(title) FROM news_list 
 				WHERE content LIKE '%${keyword}%'
@@ -75,7 +74,7 @@
 	</select>
 
 	<!-- 전체 게시글 갯수 -->
-	<select id="allListCount" parameterType="com.mynews.newsbigdata.model.NewsVO" resultType="_int">
+	<select id="allListCount" parameterType="NewsVO" resultType="_int">
 		select count(*)	from news_list
 		<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
 			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
