@@ -3,50 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="resource.NewsZoneMapper">
+<mapper namespace="com.mynews.newsbigdata.NewsZoneMapper">
 	<select id="emptyZone" parameterType="hashmap" resultType="int">
 		select count(p_code) from ${zoneName}
 	</select>
 	
-	<select id="checkProvince" parameterType="com.mynews.newsbigdata.vo.AnalysisVO" resultType="int">
+	<select id="checkProvince" parameterType="com.mynews.newsbigdata.model.AnalysisVO" resultType="int">
 		select count(p_code) from province where name like '%${strFirst}%${strSecond}%'
 	</select>
 	
-	<select id="checkSigungu" parameterType="com.mynews.newsbigdata.vo.AnalysisVO" resultType="int">
+	<select id="checkSigungu" parameterType="com.mynews.newsbigdata.model.AnalysisVO" resultType="int">
 		select count(s_code) from sigungu where name like '%${strFirst}%${strSecond}%'
 	</select>
 	
-	<select id="listProvince" resultType="com.mynews.newsbigdata.vo.ProvinceVO">
+	<select id="listProvince" resultType="com.mynews.newsbigdata.model.ProvinceVO">
 		select * from province
 	</select>
 	
-	<select id="listSigungu" resultType="com.mynews.newsbigdata.vo.SigunguVO">
+	<select id="listSigungu" resultType="com.mynews.newsbigdata.model.SigunguVO">
 		select * from sigungu
 	</select>
 	
-	<select id="getProvince" parameterType="com.mynews.newsbigdata.vo.AnalysisVO" resultType="int">
+	<select id="getProvince" parameterType="com.mynews.newsbigdata.model.AnalysisVO" resultType="int">
 		SELECT NVL(p.p_code, 1) FROM province p INNER join sigungu s ON p.p_code=s.p_code
  		WHERE p.name LIKE '%${strFirst}%${strSecond}%' limit 1
 	</select>
 	
-	<select id="getSigungu" parameterType="com.mynews.newsbigdata.vo.AnalysisVO" resultType="int">
+	<select id="getSigungu" parameterType="com.mynews.newsbigdata.model.AnalysisVO" resultType="int">
 		SELECT NVL(s.s_code, 1) FROM province p INNER join sigungu s ON p.p_code=s.p_code
  		WHERE s.name LIKE '%${strFirst}%${strSecond}%' limit 1
 	</select>
 	
-	<select id="getZone" parameterType="com.mynews.newsbigdata.vo.NewsAnalysisVO" resultType="com.mynews.newsbigdata.vo.NewsAnalysisVO">
+	<select id="getZone" parameterType="com.mynews.newsbigdata.model.NewsAnalysisVO" resultType="com.mynews.newsbigdata.model.NewsAnalysisVO">
 		SELECT NVL(p.p_code,1) p_code, NVL(s.s_code,1) s_code 
 		FROM province p INNER join sigungu s ON p.p_code=s.p_code
  		WHERE p.p_code=#{p_code} AND s.s_code=#{s_code} LIMIT 1
 	</select>
 	
-	<select id="getCode" parameterType="com.mynews.newsbigdata.vo.NewsAnalysisVO" resultType="com.mynews.newsbigdata.vo.NewsAnalysisVO">
+	<select id="getCode" parameterType="com.mynews.newsbigdata.model.NewsAnalysisVO" resultType="com.mynews.newsbigdata.model.NewsAnalysisVO">
 		SELECT NVL(p.p_code, 1) p_code, NVL(s.s_code, 1) s_code 
 		FROM province p INNER join sigungu s ON p.p_code=s.p_code
  		WHERE s.s_code=#{s_code} limit 1
 	</select>
 	
-	<select id="zoneTitle" parameterType="com.mynews.newsbigdata.vo.NewsAnalysisVO" resultType="String">
+	<select id="zoneTitle" parameterType="com.mynews.newsbigdata.model.NewsAnalysisVO" resultType="String">
 		SELECT l.title FROM news_list l
 		INNER JOIN news_district d ON l.idx=d.idx
 		LEFT JOIN province p ON d.p_code=p.p_code
@@ -56,7 +56,7 @@
 	</select>
 	
 	
-	<insert id="districtZone" parameterType="com.mynews.newsbigdata.vo.NewsAnalysisVO">
+	<insert id="districtZone" parameterType="com.mynews.newsbigdata.model.NewsAnalysisVO">
 		insert into news_district (idx, p_code, s_code) 
 		select #{idx}, #{p_code}, #{s_code} from dual 
 		where not exists (
@@ -65,7 +65,7 @@
 		) limit 1
 	</insert>
 	
-	<insert id="insertProvince" parameterType="com.mynews.newsbigdata.vo.ProvinceVO">
+	<insert id="insertProvince" parameterType="com.mynews.newsbigdata.model.ProvinceVO">
 		<choose>
 			<when test="latitude != null">
 				INSERT INTO province VALUES (#{p_code}, #{name}, #{latitude}, #{longitude})			
@@ -76,7 +76,7 @@
 		</choose>
 	</insert>
 	
-	<insert id="insertSigungu" parameterType="com.mynews.newsbigdata.vo.SigunguVO">
+	<insert id="insertSigungu" parameterType="com.mynews.newsbigdata.model.SigunguVO">
 		<choose>
 			<when test="latitude != null">
 				insert into sigungu set p_code=#{p_code}, s_code=#{s_code}, name=#{name}, 

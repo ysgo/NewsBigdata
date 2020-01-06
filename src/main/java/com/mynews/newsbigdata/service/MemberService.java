@@ -3,8 +3,8 @@ package com.mynews.newsbigdata.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mynews.newsbigdata.dao.MemberDAO;
-import com.mynews.newsbigdata.vo.MemberVO;
+import com.mynews.newsbigdata.model.MemberVO;
+import com.mynews.newsbigdata.repository.MemberDAO;
 
 @Service
 public class MemberService {

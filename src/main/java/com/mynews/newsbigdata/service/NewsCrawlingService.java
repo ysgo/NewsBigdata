@@ -13,7 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.mynews.newsbigdata.vo.NewsVO;
+import com.mynews.newsbigdata.model.NewsVO;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service

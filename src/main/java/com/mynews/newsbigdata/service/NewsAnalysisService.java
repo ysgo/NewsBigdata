@@ -18,10 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
-import com.mynews.newsbigdata.dao.NewsAnalysisDAO;
-import com.mynews.newsbigdata.vo.AnalysisVO;
-import com.mynews.newsbigdata.vo.NewsAnalysisVO;
-import com.mynews.newsbigdata.vo.NewsVO;
+import com.mynews.newsbigdata.model.AnalysisVO;
+import com.mynews.newsbigdata.model.NewsAnalysisVO;
+import com.mynews.newsbigdata.model.NewsVO;
+import com.mynews.newsbigdata.repository.NewsAnalysisDAO;
 
 @Service
 public class NewsAnalysisService {

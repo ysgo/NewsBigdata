@@ -1,10 +1,10 @@
-package com.mynews.newsbigdata.dao;
+package com.mynews.newsbigdata.repository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mynews.newsbigdata.vo.MemberVO;
+import com.mynews.newsbigdata.model.MemberVO;
 
 @Repository
 public class MemberDAO {

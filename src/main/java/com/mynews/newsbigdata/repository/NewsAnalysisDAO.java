@@ -1,4 +1,4 @@
-package com.mynews.newsbigdata.dao;
+package com.mynews.newsbigdata.repository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mynews.newsbigdata.vo.AnalysisVO;
-import com.mynews.newsbigdata.vo.NewsAnalysisVO;
-import com.mynews.newsbigdata.vo.ProvinceVO;
-import com.mynews.newsbigdata.vo.SigunguVO;
+import com.mynews.newsbigdata.model.AnalysisVO;
+import com.mynews.newsbigdata.model.NewsAnalysisVO;
+import com.mynews.newsbigdata.model.ProvinceVO;
+import com.mynews.newsbigdata.model.SigunguVO;
 
 @Repository
 public class NewsAnalysisDAO {

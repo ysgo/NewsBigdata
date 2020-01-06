@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mynews.newsbigdata.dao.NewsDetailDAO;
-import com.mynews.newsbigdata.vo.NewsVO;
+import com.mynews.newsbigdata.model.NewsVO;
+import com.mynews.newsbigdata.repository.NewsDetailDAO;
 
 @Repository
 public class NewsDetailService {

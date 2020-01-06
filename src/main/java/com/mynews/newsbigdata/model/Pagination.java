@@ -1,4 +1,4 @@
-package com.mynews.newsbigdata.vo;
+package com.mynews.newsbigdata.model;
 
 public class Pagination {
 

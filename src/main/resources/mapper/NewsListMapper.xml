@@ -3,15 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="resource.NewsListMapper">
+<mapper namespace="com.mynews.newsbigdata.NewsListMapper">
 	<!-- 전체 출력  -->
-	<select id="selectNews" resultType="com.mynews.newsbigdata.vo.NewsVO" >
+	<select id="selectNews" resultType="com.mynews.newsbigdata.model.NewsVO" >
 		SELECT * from news_test where keyword like '%'||#{keyword}||'%'
 	</select>
 	<!-- select * from memberinfo where email=#{email} -->
 	
 	<!-- 뉴스 타이틀  출력 -->
-	<select id="selectTitle" resultType="com.mynews.newsbigdata.vo.NewsVO">
+	<select id="selectTitle" resultType="com.mynews.newsbigdata.model.NewsVO">
 		select title from news_test;
 	</select>
 </mapper>

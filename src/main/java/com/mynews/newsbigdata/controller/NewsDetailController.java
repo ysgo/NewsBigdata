@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mynews.newsbigdata.dao.NewsDetailDAO;
+import com.mynews.newsbigdata.model.NewsVO;
+import com.mynews.newsbigdata.model.Pagination;
+import com.mynews.newsbigdata.repository.NewsDetailDAO;
 import com.mynews.newsbigdata.service.NewsDetailService;
-import com.mynews.newsbigdata.vo.NewsVO;
-import com.mynews.newsbigdata.vo.Pagination;
 
 @Controller
 @SessionAttributes("status")

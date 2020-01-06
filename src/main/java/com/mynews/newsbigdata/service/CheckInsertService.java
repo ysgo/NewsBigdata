@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.mynews.newsbigdata.dao.NewsAnalysisDAO;
-import com.mynews.newsbigdata.vo.AnalysisVO;
-import com.mynews.newsbigdata.vo.NewsAnalysisVO;
-import com.mynews.newsbigdata.vo.ProvinceVO;
-import com.mynews.newsbigdata.vo.SigunguVO;
+import com.mynews.newsbigdata.model.AnalysisVO;
+import com.mynews.newsbigdata.model.NewsAnalysisVO;
+import com.mynews.newsbigdata.model.ProvinceVO;
+import com.mynews.newsbigdata.model.SigunguVO;
+import com.mynews.newsbigdata.repository.NewsAnalysisDAO;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service

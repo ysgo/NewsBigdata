@@ -9,11 +9,11 @@
 		values(#{email}, #{password}, #{userName}, #{gender}, #{generation}, current_timestamp())  
 	</insert>
 
-	<select id="checkMember" parameterType="com.mynews.newsbigdata.vo.MemberVO" resultType="int">
+	<select id="checkMember" parameterType="com.mynews.newsbigdata.model.MemberVO" resultType="int">
 		select count(email) from memberinfo where email=#{email}
 	</select>
 	
-	<select id="viewMember" parameterType="com.mynews.newsbigdata.vo.MemberVO" resultType="com.mynews.newsbigdata.vo.MemberVO">
+	<select id="viewMember" parameterType="com.mynews.newsbigdata.model.MemberVO" resultType="com.mynews.newsbigdata.model.MemberVO">
 		select email, password, username, gender, generation, created_at 
 		from memberinfo where email=#{email}
 	</select>

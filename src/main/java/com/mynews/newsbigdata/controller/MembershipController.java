@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.mynews.newsbigdata.model.MemberVO;
 import com.mynews.newsbigdata.service.MemberService;
-import com.mynews.newsbigdata.vo.MemberVO;
 
 @RestController
 @SessionAttributes("memberInfo")

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.mynews.newsbigdata.model.NewsAnalysisVO;
+import com.mynews.newsbigdata.model.NewsVO;
 import com.mynews.newsbigdata.service.CheckInsertService;
 import com.mynews.newsbigdata.service.NewsCrawlingService;
 import com.mynews.newsbigdata.service.NewsService;
-import com.mynews.newsbigdata.vo.NewsAnalysisVO;
-import com.mynews.newsbigdata.vo.NewsVO;
 
 @RestController
 @SessionAttributes("status")
