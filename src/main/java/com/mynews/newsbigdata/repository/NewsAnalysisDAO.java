@@ -3,7 +3,7 @@ package com.mynews.newsbigdata.repository;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,76 +14,77 @@ import com.mynews.newsbigdata.model.SigunguVO;
 
 @Repository
 public class NewsAnalysisDAO {
+	private static final String NAMESPACE = "com.mynews.newsbigdata.NewsZoneMapper.";
+	
 	@Autowired
-	SqlSession session;
-	String mapperRoute = "resource.NewsZoneMapper.";
+	private SqlSessionTemplate sqlSession;
 	
 	public boolean emptyZone(HashMap<String, String> map) {
-		String statement = mapperRoute + "emptyZone";
-		int result = session.selectOne(statement, map);
+		String statement = NAMESPACE + "emptyZone";
+		int result = sqlSession.selectOne(statement, map);
 		return result == 0 ? true : false;
 	}
 	
 	public boolean checkProvince(AnalysisVO vo) {
-		String statement = mapperRoute + "checkProvince";
-		int result = session.selectOne(statement, vo);
+		String statement = NAMESPACE + "checkProvince";
+		int result = sqlSession.selectOne(statement, vo);
 		return result >= 1 ? true : false;
 	}
 	
 	public boolean checkSigungu(AnalysisVO vo) {
-		String statement = mapperRoute + "checkSigungu";
-		int result = session.selectOne(statement, vo);
+		String statement = NAMESPACE + "checkSigungu";
+		int result = sqlSession.selectOne(statement, vo);
 		return result >= 1 ? true : false;
 	}
 	
 	public List<ProvinceVO> provinceList() {
-		String statement = mapperRoute+"listProvince";
-		return session.selectList(statement);
+		String statement = NAMESPACE+"listProvince";
+		return sqlSession.selectList(statement);
 	}
 	
 	public List<SigunguVO> sigunguList() {
-		String statement = mapperRoute+"listSigungu";
-		return session.selectList(statement);
+		String statement = NAMESPACE+"listSigungu";
+		return sqlSession.selectList(statement);
 	}
 	
 	public int getProvince(AnalysisVO vo) {
-		String statement = mapperRoute + "getProvince";
-		return session.selectOne(statement, vo);
+		String statement = NAMESPACE + "getProvince";
+		return sqlSession.selectOne(statement, vo);
 	}
 
 	public int getSigungu(AnalysisVO vo) {
-		String statement = mapperRoute + "getSigungu";
-		return session.selectOne(statement, vo);
+		String statement = NAMESPACE + "getSigungu";
+		return sqlSession.selectOne(statement, vo);
 	}
 	
 	public NewsAnalysisVO getZone(NewsAnalysisVO vo) {
-		String statement = mapperRoute + "getZone";
-		return session.selectOne(statement, vo);
+		String statement = NAMESPACE + "getZone";
+		return sqlSession.selectOne(statement, vo);
 	}
 
 	public NewsAnalysisVO getCode(NewsAnalysisVO vo) {
-		String statement = mapperRoute + "getCode";
-		return session.selectOne(statement, vo);
+		String statement = NAMESPACE + "getCode";
+		return sqlSession.selectOne(statement, vo);
 	}
 	
 	// 지역명 뉴스 타이틀 불러오기
 	public List<String> zoneTitle(NewsAnalysisVO vo) {
-		String statement = mapperRoute + "zoneTitle";
-		return session.selectList(statement, vo);
+		String statement = NAMESPACE + "zoneTitle";
+		return sqlSession.selectList(statement, vo);
 	}
 	
 	public boolean districtZone(NewsAnalysisVO vo) {
-		String statement = mapperRoute + "districtZone";
-		return session.insert(statement, vo) == 1 ? true : false;
+		String statement = NAMESPACE + "districtZone";
+		return sqlSession.insert(statement, vo) == 1 ? true : false;
 	}
 	
 	public boolean insertProvince(Object vo) {
-		String statement = mapperRoute + "insertProvince";
-		return session.insert(statement, vo) == 1 ? true : false;
+		String statement = NAMESPACE + "insertProvince";
+		return sqlSession.insert(statement, vo) == 1 ? true : false;
 	}
 	
 	public boolean insertSigungu(Object vo) {
-		String statement = mapperRoute + "insertSigungu";
-		return session.insert(statement, vo) == 1 ? true : false;
+		String statement = NAMESPACE + "insertSigungu";
+		return sqlSession.insert(statement, vo) == 1 ? true : false;
 	}
 }

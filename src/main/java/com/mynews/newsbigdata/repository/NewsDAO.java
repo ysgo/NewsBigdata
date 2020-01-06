@@ -11,9 +11,10 @@ import com.mynews.newsbigdata.model.NewsVO;
 
 @Repository
 public class NewsDAO {
+	private static final String NAMESPACE = "com.mynews.newsbigdata.NewsMapper.";
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	private static final String NAMESPACE = "com.mynews.newsbigdata.NewsMapper.";
 	
 	public List<String> listAll() {
 		String statement = NAMESPACE + "allTitle";
