@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mynews.newsbigdata.mapper.NewsMapper;
 import com.mynews.newsbigdata.model.NewsVO;
 import com.mynews.newsbigdata.model.Pagination;
-import com.mynews.newsbigdata.repository.NewsDetailDAO;
 import com.mynews.newsbigdata.service.NewsDetailService;
 
 @Controller
 @SessionAttributes("status")
 public class NewsDetailController {
 	@Autowired
-	NewsDetailDAO dao;
+	NewsMapper mapper;
 	@Autowired
 	NewsDetailService service;
 	
@@ -52,7 +52,7 @@ public class NewsDetailController {
 							+ " 페이지넘버" + newsinfo.getPageNo()
 							+ " 언론사네임" + newsinfo.getNewsname());
 
-		int listCnt = dao.allListCount(newsinfo);
+		int listCnt = mapper.allListCount(newsinfo);
 		newsinfo.setPageNo((curPage - 1) * 10);
 
 		Pagination pagination = new Pagination(listCnt, curPage);
@@ -84,7 +84,7 @@ public class NewsDetailController {
 				System.out.println("특정 키워드만 검색 : " + newsinfo.getKeyword());
 				System.out.println("키워드검색 들어오면서 newsname 출력 :"+newsinfo.getNewsname());
 				list = service.search(newsinfo);
-				listCnt = dao.searchListCnt(newsinfo);
+				listCnt = mapper.searchListCount(newsinfo);
 				pagination = new Pagination(listCnt, curPage);
 				System.out.println("키워드 리스트 값 : "+list);
 				map.put("listtt",list);

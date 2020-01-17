@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.mynews.newsbigdata.mapper.NewsAnalysisMapper;
 import com.mynews.newsbigdata.model.AnalysisVO;
 import com.mynews.newsbigdata.model.NewsAnalysisVO;
 import com.mynews.newsbigdata.model.ProvinceVO;
 import com.mynews.newsbigdata.model.SigunguVO;
-import com.mynews.newsbigdata.repository.NewsAnalysisDAO;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service
@@ -24,51 +24,51 @@ public class CheckInsertService {
 	@Autowired
 	private Environment env;
 	@Autowired
-	NewsAnalysisDAO dao;
+	NewsAnalysisMapper mapper;
 
 	public boolean insert(Object vo, String zoneName) {
 		boolean result = false;
 		if (zoneName.equals("province"))
-			result = dao.insertProvince(vo);
+			result = mapper.insertProvince(vo);
 		else if (zoneName.equals("sigungu"))
-			result = dao.insertSigungu(vo);
+			result = mapper.insertSigungu(vo);
 		return result;
 	}
 
 	public boolean emptyZone(HashMap<String, String> map) {
-		return dao.emptyZone(map);
+		return mapper.emptyZone(map);
 	}
 
 	public boolean districtZone(NewsAnalysisVO vo) {
-		return dao.districtZone(vo);
+		return mapper.districtZone(vo);
 	}
 
 	public List<String> zoneTitle(NewsAnalysisVO vo) {
-		return dao.zoneTitle(vo);
+		return mapper.zoneTitle(vo);
 	}
 
 	public List<ProvinceVO> provinceList() {
-		return dao.provinceList();
+		return mapper.listProvince();
 	}
 
 	public List<SigunguVO> sigunguList() {
-		return dao.sigunguList();
+		return mapper.listSigungu();
 	}
 
 	public int getProvince(AnalysisVO vo) {
-		return dao.getProvince(vo);
+		return mapper.getProvince(vo);
 	}
 
 	public NewsAnalysisVO getZone(NewsAnalysisVO vo) {
-		return dao.getZone(vo);
+		return mapper.getZone(vo);
 	}
 
 	public int getSigungu(AnalysisVO vo) {
-		return dao.getSigungu(vo);
+		return mapper.getSigungu(vo);
 	}
 
 	public NewsAnalysisVO getCode(NewsAnalysisVO vo) {
-		return dao.getCode(vo);
+		return mapper.getCode(vo);
 	}
 
 	public void checkZone() {

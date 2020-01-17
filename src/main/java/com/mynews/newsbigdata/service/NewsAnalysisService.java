@@ -18,15 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.mynews.newsbigdata.mapper.NewsAnalysisMapper;
 import com.mynews.newsbigdata.model.AnalysisVO;
 import com.mynews.newsbigdata.model.NewsAnalysisVO;
 import com.mynews.newsbigdata.model.NewsVO;
-import com.mynews.newsbigdata.repository.NewsAnalysisDAO;
 
 @Service
 public class NewsAnalysisService {
 	@Autowired
-	private NewsAnalysisDAO anlysisDao;
+	private NewsAnalysisMapper anlysisMapper;
 	@Autowired
 	private CheckInsertService checkInsertService;
 
@@ -189,11 +189,11 @@ public class NewsAnalysisService {
 	
 	public AnalysisVO checkInsert(AnalysisVO vo) {
 		int tmp = 0;
-		if (anlysisDao.checkProvince(vo)) {
-			tmp = anlysisDao.getProvince(vo);
+		if (anlysisMapper.checkProvince(vo)) {
+			tmp = anlysisMapper.getProvince(vo);
 			vo.getProvince().add(tmp);
-		} else if (anlysisDao.checkSigungu(vo)) {
-			tmp = anlysisDao.getSigungu(vo);
+		} else if (anlysisMapper.checkSigungu(vo)) {
+			tmp = anlysisMapper.getSigungu(vo);
 			vo.getSigungu().add(tmp);
 		}
 		return vo;
