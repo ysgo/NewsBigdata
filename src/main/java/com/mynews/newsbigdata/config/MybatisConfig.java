@@ -13,7 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@MapperScan(value= {"com.mynews.newsbigdata.mapper"})
+@MapperScan(basePackages = {"com.mynews.newsbigdata.mapper"})
 public class MybatisConfig {
 	@SuppressWarnings("unused")
 	private static Logger logger = org.slf4j.LoggerFactory.getLogger(MybatisConfig.class);
@@ -24,7 +24,7 @@ public class MybatisConfig {
         sqlSessionFactory.setDataSource(dataSource);
         sqlSessionFactory.setTypeAliasesPackage("com.mynews.newsbigdata.model");
         
-        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:/mappers/*Mapper.xml");
+        Resource[] res = new PathMatchingResourcePatternResolver().getResources("classpath:mappers/*Mapper.xml");
         sqlSessionFactory.setMapperLocations(res);
         return sqlSessionFactory.getObject();
 }
