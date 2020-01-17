@@ -13,6 +13,10 @@ spring:
     cache: false
     
 server:  port: 
+  
+jasypt:
+  encryptor:
+    bean: jasyptStringEncrptor
 
 logging:
   level:
