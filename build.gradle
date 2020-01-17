@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.github.lucarosellini.rJava:JRIEngine:0.9-7'
     implementation 'net.rforge:Rserve:0.6-8.1'
     
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot:2.1.0'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     runtimeOnly 'mysql:mysql-connector-java'
     compile "org.springframework.boot:spring-boot-devtools"
