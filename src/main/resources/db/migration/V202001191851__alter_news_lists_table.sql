@@ -1,0 +1,1 @@
+ALTER TABLE news_lists ADD data_size INT
