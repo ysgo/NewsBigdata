@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.mynews.newsbigdata.model.NewsAnalysisVO;
-import com.mynews.newsbigdata.model.NewsVO;
-import com.mynews.newsbigdata.service.CheckInsertService;
-import com.mynews.newsbigdata.service.NewsCrawlingService;
+import com.mynews.newsbigdata.model.News;
+import com.mynews.newsbigdata.model.NewsDistrict;
 import com.mynews.newsbigdata.service.NewsService;
 
 @RestController
@@ -24,20 +22,12 @@ import com.mynews.newsbigdata.service.NewsService;
 public class NewsController {
 	@Autowired
 	NewsService newsService;
-	@Autowired
-	CheckInsertService checkInsertService;
-	@Autowired
-	NewsCrawlingService crawlingService;
 	
 	@GetMapping("/mainNews")
 	public HashMap<String, Object> mainNews() {
 		HashMap<String, Object> map = new HashMap<>();
 		try {
-			// 오늘의 뉴스 데이터 로드
 //			map.put("todayNews", newsService.listAll());
-			// 지도에 시도명, 시군구명, 위도, 경도 데이터 로드
-//			map.put("province", checkInsertService.provinceList());
-//			map.put("sigungu", checkInsertService.sigunguList());
 		} catch(NullPointerException e) {
 			System.out.println("NewsList or ProvinceList or SigunguList is null!");
 		} 
@@ -45,7 +35,7 @@ public class NewsController {
 	}
 	
 	@RequestMapping(value="/readNews", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public NewsVO readNews(@ModelAttribute NewsVO vo) {
+	public News readNews(@ModelAttribute News vo) {
 		try {
 			vo = newsService.readNews(vo);
 		} catch(NullPointerException e) {
@@ -55,10 +45,8 @@ public class NewsController {
 	}
 	
 	@RequestMapping(value="/selectZone", method=RequestMethod.GET, produces="application/json; charset=utf-8")
-	public Map<String, HashSet<String>> selectZone(@ModelAttribute NewsAnalysisVO vo) {
+	public Map<String, HashSet<String>> selectZone(@ModelAttribute NewsDistrict vo) {
 		HashMap<String, HashSet<String>> map = new HashMap<>();
-		HashSet<String> set = new HashSet<>(checkInsertService.zoneTitle(vo));
-		map.put("zoneNews", set);
 		return map;
 	}
 }

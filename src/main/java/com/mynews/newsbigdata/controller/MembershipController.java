@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.mynews.newsbigdata.model.MemberVO;
+import com.mynews.newsbigdata.model.Member;
 import com.mynews.newsbigdata.service.MemberService;
 
 @RestController
@@ -21,7 +21,7 @@ public class MembershipController {
 	private MemberService service;
 	
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public int signUp(@ModelAttribute MemberVO vo, HttpSession session) throws Exception {
+	public int signUp(@ModelAttribute Member vo, HttpSession session) throws Exception {
 //		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //		vo.setPassword(passwordEncoder.encode(vo.getPassword()));
 		int result = service.signUp(vo) ? 1 : 0;
@@ -32,7 +32,7 @@ public class MembershipController {
 	}
 	
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
-	public int signIn(@ModelAttribute MemberVO vo, HttpSession session) {
+	public int signIn(@ModelAttribute Member vo, HttpSession session) {
 //		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (session.getAttribute("memberInfo") != null) {
 			session.removeAttribute("memberInfo");

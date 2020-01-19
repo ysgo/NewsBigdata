@@ -4,19 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mynews.newsbigdata.mapper.MembersMapper;
-import com.mynews.newsbigdata.model.MemberVO;
+import com.mynews.newsbigdata.model.Member;
 
 @Service
 public class MemberService {
 	@Autowired
 	private MembersMapper mapper;
 
-	public boolean signUp(MemberVO vo) {
+	public boolean signUp(Member vo) {
 		boolean result = mapper.checkMember(vo); 
 		return result ? false : mapper.signUp(vo);
 	}
 	
-	public MemberVO viewMember(MemberVO vo) {
+	public Member viewMember(Member vo) {
 		return mapper.viewMember(vo);
 	}
 

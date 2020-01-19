@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mynews.newsbigdata.mapper.NewsMapper;
-import com.mynews.newsbigdata.model.NewsVO;
+import com.mynews.newsbigdata.model.News;
 
 @Repository
 public class NewsDetailService {
@@ -14,12 +14,12 @@ public class NewsDetailService {
 	private NewsMapper mapper;
 
 	// 뉴스 타이틀 전체출력
-	public List<NewsVO> selectTitle(NewsVO info) {
+	public List<News> selectTitle(News info) {
 		System.out.println("서비스 - List에 들어옴");
 		return mapper.selectTitle(info);
 	}
 
-	public List<NewsVO> search(NewsVO info) {
+	public List<News> search(News info) {
 		System.out.println("서비스의 키워드값 : " + info.getKeyword());
 		return mapper.search(info);
 	}

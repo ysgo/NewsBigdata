@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mynews.newsbigdata.mapper.NewsMapper;
-import com.mynews.newsbigdata.model.NewsVO;
+import com.mynews.newsbigdata.model.News;
 import com.mynews.newsbigdata.model.Pagination;
 import com.mynews.newsbigdata.service.NewsDetailService;
 
@@ -43,7 +43,7 @@ public class NewsDetailController {
 	@ResponseBody
 	@RequestMapping(value = "/main/NewsdetailView", method = RequestMethod.GET
 							,produces = "application/json; charset=utf-8")
-	public HashMap<String, Object> select1(Model model,NewsVO newsinfo, 
+	public HashMap<String, Object> select1(Model model,News newsinfo, 
 				int curPage) {
 		
 		HashMap<String, Object> map = new HashMap<>();
@@ -59,7 +59,7 @@ public class NewsDetailController {
 		newsinfo.setStartIndex(pagination.getStartIndex());
 		newsinfo.setCntPerPage(pagination.getPageSize());
 
-		List<NewsVO> list ;
+		List<News> list ;
 		
 		// 전체리스트 출력
 		if (newsinfo.getAction().equals("search")) {
