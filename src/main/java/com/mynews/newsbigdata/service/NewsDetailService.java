@@ -3,12 +3,12 @@ package com.mynews.newsbigdata.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.mynews.newsbigdata.mapper.NewsMapper;
 import com.mynews.newsbigdata.model.News;
 
-@Repository
+@Service
 public class NewsDetailService {
 	@Autowired
 	private NewsMapper mapper;
@@ -24,9 +24,7 @@ public class NewsDetailService {
 		return mapper.search(info);
 	}
 	/*
-	public List<Pagination> searchCnt(NewsVO info) {
-		System.out.println("서비스 - SearachCnt에 들어옴");
-		return mapper.searchCnt(info);
-	}
-	*/
+	 * public List<Pagination> searchCnt(NewsVO info) {
+	 * System.out.println("서비스 - SearachCnt에 들어옴"); return mapper.searchCnt(info); }
+	 */
 }
