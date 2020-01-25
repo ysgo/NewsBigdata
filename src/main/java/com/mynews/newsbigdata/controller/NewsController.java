@@ -7,19 +7,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mynews.newsbigdata.model.News;
 import com.mynews.newsbigdata.service.NewsService;
+import com.mynews.newsbigdata.constants.PathConstants;
 
 @RestController
-@SessionAttributes("status")
-@RequestMapping("news")
+@RequestMapping("/" + News.MULTIPLE)
 public class NewsController {
 	@Autowired
 	NewsService newsService;
 
-	@GetMapping("/mainNews")
+	@GetMapping(PathConstants.CRUD_MAIN)
 	public HashMap<String, Object> mainNews() {
 		HashMap<String, Object> map = new HashMap<>();
 		try {
@@ -30,7 +29,7 @@ public class NewsController {
 		return map;
 	}
 
-	@RequestMapping(value = "/readNews", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@GetMapping(value = PathConstants.CRUD_DETAIL, produces = "application/json; charset=utf-8")
 	public News readNews(@ModelAttribute News vo) {
 		try {
 			vo = newsService.readNews(vo);

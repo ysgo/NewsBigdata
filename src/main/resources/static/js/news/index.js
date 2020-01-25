@@ -35,7 +35,7 @@ function todayNews(e) {
       }
     }
   }
-  xhttp.open("GET", "mainNews", true)
+  xhttp.open("GET", "/news/mainNews", true)
   xhttp.send()
 }
 
