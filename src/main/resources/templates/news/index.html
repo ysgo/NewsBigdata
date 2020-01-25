@@ -1,51 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/base}">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/base}"
+>
   <head>
     <title>Map</title>
     <th:block layout:fragment="css_area"></th:block>
     <script type="text/javascript" th:src="@{'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=' + ${naverID}}"></script>
   </head>
-
-  <body>
+  <body id="page-top">
     <th:block layout:fragment="page_content">
-      <div class="container-fluid px-5">
-        <article class="row">
-          <header class="col-lg-12 text-center">
-            <h2 class="section-heading">Today's Issue</h2>
-          </header>
-        </article>
-        <article class="row">
-          <div class="col-md-8 pr-5 text-right">
-            <h5>
-              <i class="far fa-clock"></i>
-              <span id="issue-analysis-time"></span>
-            </h5>
-          </div>
-          <div class="col-md-4">
-            <h5>
-              <button id="refresh" onclick="todayNews(1)">
-                <i class="fas fa-sync-alt"></i>
-              </button>
-              <span id="zoneName"></span>
-            </h5>
-          </div>
-        </article>
-        <article class="row text-center" style="height: 550px;">
-          <section class="col-md-8">
-            <div class="h-100" id="map">지도자리</div>
-          </section>
-          <section class="col-md-4">
-            <div id="issue-wrap" class="h-100">
-              <div class="row bg-secondary">
-                <ul id="todayNews" class="pl-15"></ul>
-              </div>
-            </div>
-          </section>
-        </article>
-      </div>
+      <th:block th:replace="fragments/map :: section-map"></th:block>
+      <th:block th:replace="fragments/search :: section-search"></th:block>
+      <th:block th:replace="fragments/keyword :: section-keyword"></th:block>
+      <th:block th:replace="fragments/modal :: commonModal"></th:block>
     </th:block>
-    <th:block layout:fragment="script_area">
-      <script type="text/javascript" th:src="@{/js/main_news.js}"></script>
-    </th:block>
+    <th:block layout:fragment="script_area"> </th:block>
   </body>
 </html>

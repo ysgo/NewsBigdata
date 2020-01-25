@@ -1,0 +1,72 @@
+.jqcloud {
+	font: 10px Helvetica, Arial, sans-serif;
+	line-height: normal;
+	overflow: hidden;
+	position: relative
+}
+
+.jqcloud-word {
+	margin: 0;
+	padding: 0
+}
+
+.jqcloud-word.w1 {
+	color: #aab5f0;
+	font-size: 300%
+}
+
+.jqcloud-word.w2 {
+	color: darkslategray;
+	font-size: 350%
+}
+
+.jqcloud-word.w3 {
+	color: darkturquoise;
+	font-size: 400%
+}
+
+.jqcloud-word.w4 {
+	color: tomato;
+	font-size: 450%
+}
+
+.jqcloud-word.w5 {
+	color: cornflowerblue;
+	font-size: 500%
+}
+
+.jqcloud-word.w6 {
+	color: yellowgreen;
+	font-size: 550%
+}
+
+.jqcloud-word.w7 {
+	color: skyblue;
+	font-size: 600%
+}
+
+.jqcloud-word.w8 {
+	color: sienna;
+	font-size: 650%
+}
+
+.jqcloud-word.w9 {
+	color: teal;
+	font-size: 700%
+}
+
+.jqcloud-word.w10 {
+	color: crimson;
+	font-size: 750%
+}
+
+.jqcloud-word a {
+	color: inherit;
+	font-size: inherit;
+	text-decoration:none;
+}
+
+.jqcloud-word a:hover {
+	color: red;
+	
+}

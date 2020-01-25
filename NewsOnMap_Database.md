@@ -6,20 +6,19 @@
 ## 회원 정보 테이블
 
 ```mariadb
-CREATE TABLE memberinfo ( 
-    email varchar(100) NOT NULL, 
-    password varchar(100) NOT NULL DEFAULT '0', 
-    username varchar(20) NOT NULL, 
-    gender varchar(8) NOT NULL, 
-    generation int(5) NOT NULL, 
-    created_at DATETIME DEFAULT NOW() NOT NULL, 
-	
-    PRIMARY KEY (email), 
-    UNIQUE KEY (username) 
+CREATE TABLE memberinfo (
+		id INT NOT NULL AUTO_INCREMENT,
+    email varchar(100) NOT NULL,
+    password varchar(100) NOT NULL DEFAULT '0',
+    username varchar(20) NOT NULL,
+    gender varchar(8) NOT NULL,
+    generation int(5) NOT NULL,
+    created_at DATETIME DEFAULT NOW() NOT NULL,
+
+    PRIMARY KEY (id),
+    UNIQUE KEY (email)
 );
 ```
-
-
 
 ## 뉴스 정보 테이블 - 1
 
@@ -32,12 +31,11 @@ CREATE TABLE news_lists (
 	date VARCHAR(50) NOT NULL,
 	url VARCHAR(255),
 	content LONGTEXT NOT NULL,
-	
+	data_size INT NOT NULL
+
 	PRIMARY KEY (id)
 );
 ```
-
-
 
 ## 지역 정보 테이블
 
@@ -50,7 +48,7 @@ CREATE TABLE provinces (
 	name VARCHAR(50),
 	latitude DOUBLE,
 	longitude DOUBLE,
-	
+
 	PRIMARY KEY(id)
 );
 ```
@@ -65,13 +63,11 @@ CREATE TABLE sigungus (
 	name VARCHAR(50),
 	latitude DOUBLE,
 	longitude DOUBLE,
-	
+
 	PRIMARY KEY(id),
 	FOREIGN KEY(province_id) REFERENCES provinces (id)
-)
+);
 ```
-
-
 
 ## 뉴스 관련 지역 정보 테이블 - 4
 
@@ -81,10 +77,10 @@ CREATE TABLE news_districts (
 	news_id INT NOT NULL,
 	province_id INT NOT NULL,
 	sigungu_id INT NOT NULL,
-	
+
 	PRIMARY KEY(id),
 	FOREIGN KEY(news_id) REFERENCES news_lists (id),
 	FOREIGN KEY(province_id) REFERENCES provinces (id),
 	FOREIGN KEY(sigungu_id) REFERENCES sigungus (id)
-)
+);
 ```
