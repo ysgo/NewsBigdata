@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.mynews.newsbigdata.model.News;
+import com.mynews.newsbigdata.constants.PathConstants;
 
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/" + News.MULTIPLE)
 public class MainController {
 	@Value("${naver.ID}")
 	private String naverId;
@@ -15,6 +17,6 @@ public class MainController {
 	@GetMapping
 	public String viewMain(Model model) {
 		model.addAttribute("naverID", naverId);
-		return "news/index";
+		return News.MULTIPLE + PathConstants.CRUD_INDEX;
 	}
 }

@@ -8,6 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "news_lists")
 public class News {
+	public static final String MULTIPLE = "news";
+
 	@Id
 	private int id;
 
