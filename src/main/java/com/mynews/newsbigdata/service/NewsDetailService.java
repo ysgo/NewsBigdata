@@ -11,20 +11,14 @@ import com.mynews.newsbigdata.model.News;
 @Service
 public class NewsDetailService {
 	@Autowired
-	private NewsMapper mapper;
+	private NewsMapper newsMapper;
 
 	// 뉴스 타이틀 전체출력
 	public List<News> selectTitle(News info) {
-		System.out.println("서비스 - List에 들어옴");
-		return mapper.selectTitle(info);
+		return newsMapper.selectTitle(info);
 	}
 
 	public List<News> search(News info) {
-		System.out.println("서비스의 키워드값 : " + info.getKeyword());
-		return mapper.search(info);
+		return newsMapper.search(info);
 	}
-	/*
-	 * public List<Pagination> searchCnt(NewsVO info) {
-	 * System.out.println("서비스 - SearachCnt에 들어옴"); return mapper.searchCnt(info); }
-	 */
 }
