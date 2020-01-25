@@ -4,79 +4,84 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mynews.newsbigdata.NewsMapper">
-	<select id="allTitle" resultType="String">
+	<resultMap type="News" id="newsMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="title" column="title" />
+		<result property="category" column="category" />
+		<result property="date" column="date" />
+		<result property="url" column="url" />
+		<result property="content" column="content" />
+		<result property="dataSize" column="data_size" />
+	</resultMap>
+
+	<select id="allTitle" resultMap="newsMap">
 		SELECT title FROM 
-		(SELECT * FROM news_list WHERE DATE=CURDATE()) AS news_list 
+		(SELECT * FROM news_lists WHERE DATE=CURDATE()) AS news_lists
 		ORDER BY RAND() LIMIT 10
 	</select>
 
-	<select id="getIdx" parameterType="News" resultType="int">
-		select idx from news_list where title=#{title} limit 1
+	<select id="getId" parameterMap="newsMap" resultMap="newsMap">
+		SELECT id FROM news_lists WHERE title=#{title} LIMIT 1
 	</select>
 
-	<select id="readNews" parameterType="News" resultType="News">
-		select newsname, title, category, content, date, url, content from news_list 
-		where title=#{title} limit 1
+	<select id="readNews" parameterMap="newsMap" resultMap="newsMap">
+		SELECT id, name, title, category, content, date, url, content, data_size FROM news_lists WHERE title=#{title} LIMIT 1
 	</select>
 
 	<!-- 뉴스 타이틀 출력 -->
-	<select id="selectTitle" resultType="News" parameterType="News">
-		select title, url, newsname, category, content, date from news_list order by idx LIMIT #{pageNo},10;
+	<select id="selectTitle" parameterMap="newsMap" resultMap="newsMap">
+		SELECT title, url, name, category, content, date FROM news_lists ORDER BY id LIMIT #{pageNo}, 10;
 	</select>
 
 	<!-- 키워드별로 검색한 결과물 출력 -->
-	<select id="search" resultType="News" parameterType="News">
-		SELECT @ROWNUM := @ROWNUM + 1 as rnum, title, url, newsname, category, content, date 
-		FROM news_list, (select @ROWNUM := 0) A 
+	<select id="search" parameterMap="newsMap" resultMap="newsMap">
+		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, title, url, name, category, content, date 
+		FROM news_lists, (SELECT @ROWNUM := 0) A 
 		<where>
 			<if test="newsname == null and keyword ==null">
 				content LIKE '%${keyword}%'  
-				order by idx DESC LIMIT #{pageNo},10		
+				ORDER BY id DESC LIMIT #{pageNo},10		
 			</if>
 			<if test="newsname == null and keyword !=null">
 				content LIKE '%${keyword}%'  
-				order by idx DESC LIMIT #{pageNo},10		
+				ORDER BY id DESC LIMIT #{pageNo},10		
 			</if>
 			<if test="newsname != null and keyword ==null">
-				newsname LIKE '%${newsname}%'  
-				order by idx DESC LIMIT #{pageNo},10		
+				name LIKE '%${newsname}%'  
+				ORDER BY id DESC LIMIT #{pageNo},10		
 			</if>
 			<if test="newsname != null and keyword !=null">
-				newsname LIKE '%${newsname}%' and content LIKE '%${keyword}%'
-				order by idx DESC LIMIT #{pageNo},10	
+				name LIKE '%${newsname}%' and content LIKE '%${keyword}%'
+				ORDER BY id DESC LIMIT #{pageNo},10	
 			</if>
 
 		</where>
-		<!-- SELECT @ROWNUM := @ROWNUM + 1 as rnum, title FROM news_list, (select @ROWNUM := 0) A 
-		WHERE content LIKE '%${keyword}%'  
-		order by title DESC LIMIT #{pageNo},10 -->
 	</select>
 
 	<!-- 검색한 게시글 갯수 -->
-	<select id="searchListCount" parameterType="News" resultType="_int">
+	<select id="searchListCount" parameterMap="newsMap" resultMap="newsMap">
 		<if test="newsname == null and keyword ==null">
-				SELECT count(title) FROM news_list 
+				SELECT COUNT(title) FROM news_lists
 				WHERE content LIKE '%${keyword}%'
 		</if>
 		<if test="newsname == null and keyword !=null">
-				SELECT count(title) FROM news_list 
+				SELECT COUNT(title) FROM news_lists
 				WHERE content LIKE '%${keyword}%'
 		</if>
 		<if test="newsname != null and keyword ==null">
-				SELECT count(newsname) FROM news_list 
-				WHERE newsname LIKE '%${newsname}%'
+				SELECT COUNT(newsname) FROM news_lists
+				WHERE name LIKE '%${newsname}%'
 		</if>
 		<if test="newsname != null and keyword !=null">
-				SELECT count(newsname) FROM news_list 
-				WHERE newsname LIKE '%${newsname}%'
-				and content LIKE '%${keyword}%'			  
+				SELECT COUNT(newsname) FROM news_lists
+				WHERE name LIKE '%${newsname}%'
+				AND content LIKE '%${keyword}%'			  
 		</if>
 	</select>
 
 	<!-- 전체 게시글 갯수 -->
-	<select id="allListCount" parameterType="News" resultType="_int">
-		select count(*)	from news_list
-				<!-- where type like '%'||#{searchType}||'%' and place like '%'||#{district}||'%' 
-			and f.fid = d.fid and to_char(d.opendate, 'mm') like '%'||#{month}||'%' -->
+	<select id="allListCount" parameterMap="newsMap" resultMap="newsMap">
+		SELECT COUNT(*)	FROM news_lists
 	</select>
 </mapper>

@@ -12,21 +12,21 @@ import com.mynews.newsbigdata.model.News;
 public class NewsService {
 	@Autowired
 	private NewsMapper mapper;
-	
+
 	public List<String> listAll() {
 		return mapper.allTitle();
 	}
-	
+
 	public News readNews(News vo) {
 		return mapper.readNews(vo);
 	}
-	
+
 	public int insertNews(News vo) {
 		return mapper.insertNews(vo);
 	}
-	
-	public int getIdx(News vo) {
-		return mapper.getIdx(vo);
+
+	public int getId(News vo) {
+		return mapper.getId(vo);
 	}
-	
+
 }
