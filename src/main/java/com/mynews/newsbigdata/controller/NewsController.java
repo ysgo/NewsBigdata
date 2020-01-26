@@ -36,12 +36,12 @@ public class NewsController {
 	}
 
 	@GetMapping(value = PathConstants.CRUD_DETAIL, produces = "application/json; charset=utf-8")
-	public News readNews(@ModelAttribute News vo) {
+	public News readNews(@ModelAttribute News news) {
 		try {
-			// vo = newsService.readNews(vo);
+			news = newsService.getNewsByTitle(news);
 		} catch (NullPointerException e) {
 			System.out.println("There is no matching article with the title!");
 		}
-		return vo;
+		return news;
 	}
 }

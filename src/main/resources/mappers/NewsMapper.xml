@@ -17,16 +17,17 @@
 
 	<select id="getAllTitles" resultMap="newsMap">
 		SELECT id, title FROM news_lists ORDER BY RAND() LIMIT 10
-				<!-- SELECT id, title FROM news_lists WHERE date=CURDATE() ORDER BY RAND() LIMIT 10 -->
+												<!-- SELECT id, title FROM news_lists WHERE date=CURDATE() ORDER BY RAND() LIMIT 10 -->
+	</select>
+
+	<select id="getNewsByTitle" parameterType="News" resultMap="newsMap">
+		SELECT id, name, title, category, content, date, url, content, data_size FROM news_lists WHERE title=#{title} LIMIT 1
 	</select>
 
 	<!-- <select id="getId" parameterMap="newsMap" resultMap="newsMap">
 		SELECT id FROM news_lists WHERE title=#{title} LIMIT 1
 	</select>
 
-	<select id="readNews" parameterMap="newsMap" resultMap="newsMap">
-		SELECT id, name, title, category, content, date, url, content, data_size FROM news_lists WHERE title=#{title} LIMIT 1
-	</select>
 
 	<select id="selectTitle" parameterMap="newsMap" resultMap="newsMap">
 		SELECT title, url, name, category, content, date FROM news_lists ORDER BY id LIMIT #{pageNo}, 10;

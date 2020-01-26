@@ -10,11 +10,11 @@ import com.mynews.newsbigdata.model.News;
 @Mapper
 public interface NewsMapper {
 	public List<News> getAllTitles();
+
+	public News getNewsByTitle(News news);
 	// public List<News> getAllTitles();
 
 	// public int getId(News vo);
-
-	// public News readNews(News vo);
 
 	// public int insertNews(News vo);
 

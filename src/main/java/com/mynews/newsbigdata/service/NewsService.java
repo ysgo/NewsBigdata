@@ -17,9 +17,9 @@ public class NewsService {
 		return newsMapper.getAllTitles();
 	}
 
-	// public News readNews(News vo) {
-	// return newsMapper.readNews(vo);
-	// }
+	public News getNewsByTitle(News news) {
+		return newsMapper.getNewsByTitle(news);
+	}
 
 	// public int insertNews(News vo) {
 	// return newsMapper.insertNews(vo);
