@@ -9,21 +9,22 @@ import com.mynews.newsbigdata.model.News;
 
 @Mapper
 public interface NewsMapper {
-	public List<String> allTitle();
+	public List<News> getAllTitles();
+	// public List<News> getAllTitles();
 
-	public int getId(News vo);
+	// public int getId(News vo);
 
-	public News readNews(News vo);
+	// public News readNews(News vo);
 
-	public int insertNews(News vo);
+	// public int insertNews(News vo);
 
-	public void loadNews(HashMap<String, String> map);
+	// public void loadNews(HashMap<String, String> map);
 
-	public List<News> selectTitle(News vo);
+	// public List<News> selectTitle(News vo);
 
-	public List<News> search(News vo);
+	// public List<News> search(News vo);
 
-	public int allListCount(News vo);
+	// public int allListCount(News vo);
 
-	public int searchListCount(News vo);
+	// public int searchListCount(News vo);
 }
