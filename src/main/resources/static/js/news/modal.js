@@ -11,7 +11,7 @@ function requestAjax(value) {
     data: { title: value },
     success: function(data) {
       document.getElementById("modal_box").style.display = "block"
-      document.getElementById("m_newsname").innerHTML = data.newsname
+      document.getElementById("m_name").innerHTML = data.name
       document.getElementById("m_title").innerHTML = data.title
       document.getElementById("m_category").innerHTML = data.category
       document.getElementById("m_date").innerHTML = data.date
