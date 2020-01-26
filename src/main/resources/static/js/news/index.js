@@ -54,8 +54,8 @@ function showNewsList(newsList) {
 let markers = [],
   map
 function showMap(province, sigungu) {
-  var mapDiv = document.getElementById("map")
-  var mapOptions = {
+  let mapDiv = document.getElementById("map")
+  let mapOptions = {
     center: new naver.maps.LatLng(35.9, 127.2),
     zoom: 2,
     minZoom: 1,
@@ -69,36 +69,35 @@ function showMap(province, sigungu) {
   }
 
   map = new naver.maps.Map(mapDiv, mapOptions)
-  setMarkers(province)
+  setMarkers(province, 1)
   markerInfo()
   naver.maps.Event.addListener(map, "zoom_changed", function(zoom) {
-    if (zoom >= 3) {
-      clearmarkers()
-      setMarkers(sigungu)
+    if (zoom >= 7) {
+      clearMarkers()
+      setMarkers(sigungu, 0)
     } else {
-      clearmarkers()
-      setMarkers(province)
+      clearMarkers()
+      setMarkers(province, 1)
     }
     markerInfo()
   })
 }
 
-function setMarkers(zoneName) {
+function setMarkers(zoneName, chk_zone) {
   for (var key in zoneName) {
-    var lat = zoneName[key].latitude
-    var lng = zoneName[key].longitude
-    var name = zoneName[key].name
-    var p_code = zoneName[key].p_code
-    var s_code = zoneName[key].code
-
+    let province_id = chk_zone == 1 ? zoneName[key].id : zoneName[key].province.id
+    let sigungu_id = chk_zone == 1 ? 0 : zoneName[key].id
+    let latitude = zoneName[key].latitude
+    let longitude = zoneName[key].longitude
+    let name = zoneName[key].name
     markers.push(
       new naver.maps.Marker({
-        position: new naver.maps.LatLng(lat, lng),
+        position: new naver.maps.LatLng(latitude, longitude),
         map: map,
         content: {
           name: name,
-          p_code: p_code,
-          s_code: s_code
+          province_id: province_id,
+          sigungu_id: sigungu_id
         }
       })
     )
@@ -106,17 +105,17 @@ function setMarkers(zoneName) {
 }
 
 function markerInfo() {
-  for (var i = 0; i < markers.length; i++) naver.maps.Event.addListener(markers[i], "click", getClickHandler(i))
+  for (let i = 0; i < markers.length; i++) naver.maps.Event.addListener(markers[i], "click", getClickHandler(i))
 }
 
-function clearmarkers() {
-  for (var i in markers) markers[i].setMap(null)
+function clearMarkers() {
+  for (let i in markers) markers[i].setMap(null)
 }
 
 function getClickHandler(seq) {
   return function(e) {
-    var marker = markers[seq]
-    var content = marker.content
+    let marker = markers[seq]
+    let content = marker.content
     document.getElementById("zoneName").innerText = content.name
     $.ajax({
       url: "selectZone",
