@@ -7,23 +7,23 @@ window.onload = function() {
 }
 
 function curTime() {
-  var d = new Date()
-  var days = ["일", "월", "화", "수", "목", "금", "토"]
-  var localeDate = d.toLocaleDateString()
-  var localeTime = d.toLocaleTimeString()
-  var dateTime = localeDate.substr(0, localeDate.length - 1) + " (" + days[d.getDay()] + ") " + localeTime
+  const d = new Date()
+  const days = ["일", "월", "화", "수", "목", "금", "토"]
+  let localeDate = d.toLocaleDateString()
+  let localeTime = d.toLocaleTimeString()
+  let dateTime = localeDate.substr(0, localeDate.length - 1) + " (" + days[d.getDay()] + ") " + localeTime
   document.getElementById("issue-analysis-time").innerHTML = dateTime
 }
 
 function todayNews(e) {
-  var xhttp = new XMLHttpRequest()
+  const xhttp = new XMLHttpRequest()
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4) {
       if (this.status == 200) {
-        var jsonObj = JSON.parse(this.responseText)
-        var province = jsonObj.province
-        var sigungu = jsonObj.sigungu
-        var todayNews = jsonObj.todayNews
+        const jsonObj = JSON.parse(this.responseText)
+        const province = jsonObj.province
+        const sigungu = jsonObj.sigungu
+        const todayNews = jsonObj.todayNews
 
         showNewsList(todayNews)
         $("#zoneName").empty()
@@ -42,16 +42,16 @@ function todayNews(e) {
 function showNewsList(newsList) {
   $("#todayNews *").remove()
   $.each(newsList, function(idx, item) {
-    var str = '<li class="main_title" onclick="readNews(' + idx + ')">'
+    let str = '<li class="main_title" onclick="readNews(' + idx + ')">'
     str += "<span>"
-    str += item
+    str += item.title
     str += "</span>"
     str += "</li>"
     $("#todayNews").append(str)
   })
 }
 
-var markers = [],
+let markers = [],
   map
 function showMap(province, sigungu) {
   var mapDiv = document.getElementById("map")
