@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mynews.newsbigdata.mapper.NewsZonesMapper">
+  <resultMap type="Sigungu" id="sigunguMap">
+    <result property="id" column="id" />
+    <result property="province.id" column="province_id" />
+    <result property="code" column="code" />
+    <result property="name" column="name" />
+    <result property="latitude" column="latitude" />
+    <result property="longitude" column="longitude" />
+  </resultMap>
+  <select id="getAllProvinces" resultType="Province">
+    SELECT id, code, name, latitude, longitude FROM provinces
+  </select>
+
+  <select id="getAllSigungus" resultMap="sigunguMap">
+    SELECT id, province_id, code, name, latitude, longitude FROM sigungus
+  </select>
+</mapper>
