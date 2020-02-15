@@ -7,10 +7,8 @@ spring:
     driverClassName: org.mariadb.jdbc.Driver
   thymeleaf:
     prefix: 'classpath:templates/'
-    check-template-location: true
     suffix: .html
-    mode: HTML5
-    cache: false
+    encoding: UTF-8
     
 server:  port: 
   
