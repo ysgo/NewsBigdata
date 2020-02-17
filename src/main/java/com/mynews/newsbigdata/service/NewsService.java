@@ -20,13 +20,4 @@ public class NewsService {
 	public News getNewsByTitle(News news) {
 		return newsMapper.getNewsByTitle(news);
 	}
-
-	// public int insertNews(News vo) {
-	// return newsMapper.insertNews(vo);
-	// }
-
-	// public int getId(News vo) {
-	// return newsMapper.getId(vo);
-	// }
-
 }

@@ -1,6 +1,5 @@
 package com.mynews.newsbigdata.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,10 +12,6 @@ public interface NewsMapper {
 
 	public News getNewsByTitle(News news);
 	// public List<News> getAllTitles();
-
-	// public int getId(News vo);
-
-	// public int insertNews(News vo);
 
 	// public void loadNews(HashMap<String, String> map);
 
