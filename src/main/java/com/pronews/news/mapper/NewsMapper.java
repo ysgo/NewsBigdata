@@ -1,5 +1,6 @@
 package com.pronews.news.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,15 +12,14 @@ public interface NewsMapper {
 	public List<News> getAllTitles();
 
 	public News getNewsByTitle(News news);
-	// public List<News> getAllTitles();
 
-	// public void loadNews(HashMap<String, String> map);
+	 public void loadNews(HashMap<String, String> map);
 
-	// public List<News> selectTitle(News vo);
+	 public List<News> selectTitle(News vo);
 
-	// public List<News> search(News vo);
+	 public List<News> search(News vo);
 
-	// public int allListCount(News vo);
+	 public int allListCount(News vo);
 
-	// public int searchListCount(News vo);
+	 public int searchListCount(News vo);
 }

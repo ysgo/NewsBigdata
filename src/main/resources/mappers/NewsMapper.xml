@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mynews.newsbigdata.mapper.NewsMapper">
+<mapper namespace="com.pronews.news.mapper.NewsMapper">
 	<resultMap type="News" id="newsMap">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
@@ -24,16 +24,16 @@
 		SELECT id, name, title, category, content, date, url, content, data_size FROM news_lists WHERE title=#{title} LIMIT 1
 	</select>
 
-	<!-- <select id="getId" parameterMap="newsMap" resultMap="newsMap">
+	<select id="getId" parameterType="News" resultMap="newsMap">
 		SELECT id FROM news_lists WHERE title=#{title} LIMIT 1
 	</select>
 
 
-	<select id="selectTitle" parameterMap="newsMap" resultMap="newsMap">
+	<select id="selectTitle" parameterType="News" resultMap="newsMap">
 		SELECT title, url, name, category, content, date FROM news_lists ORDER BY id LIMIT #{pageNo}, 10;
 	</select>
 
-	<select id="search" parameterMap="newsMap" resultMap="newsMap">
+	<select id="search" parameterType="News" resultMap="newsMap">
 		SELECT @ROWNUM := @ROWNUM + 1 AS rnum, title, url, name, category, content, date 
 		FROM news_lists, (SELECT @ROWNUM := 0) A 
 		<where>
@@ -57,7 +57,7 @@
 		</where>
 	</select>
 
-	<select id="searchListCount" parameterMap="newsMap" resultMap="newsMap">
+	<select id="searchListCount" parameterType="News" resultMap="newsMap">
 		<if test="newsname == null and keyword ==null">
 				SELECT COUNT(title) FROM news_lists
 				WHERE content LIKE '%${keyword}%'
@@ -77,7 +77,7 @@
 		</if>
 	</select>
 
-	<select id="allListCount" parameterMap="newsMap" resultMap="newsMap">
+	<select id="allListCount" parameterType="News" resultMap="newsMap">
 		SELECT COUNT(*)	FROM news_lists
-	</select> -->
+	</select>
 </mapper>
