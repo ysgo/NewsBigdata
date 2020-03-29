@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head>
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">NewsOnMap</title>
-    <th:block th:replace="fragments/head :: commonHead"></th:block>
-  </head>
-  <body>
-    <th:block th:replace="fragments/navbar :: commonNavbar"></th:block>
-    <th:block th:replace="fragments/header :: commonHeader"></th:block>
-    <th:block layout:fragment="page_content"> </th:block>
-    <th:block th:replace="fragments/footer :: commonFooter"></th:block>
-    <th:block th:replace="fragments/scripts"></th:block>
-    <th:block layout:fragment="script_area"></th:block>
-  </body>
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">NewsOnMap</title>
+  <th:block th:replace="fragments/head :: commonHead"></th:block>
+</head>
+<body>
+  <th:block th:replace="fragments/navbar :: commonNavbar"></th:block>
+  <th:block th:replace="fragments/header :: commonHeader"></th:block>
+  <th:block layout:fragment="page_content"> </th:block>
+  <th:block th:replace="fragments/footer :: commonFooter"></th:block>
+  <th:block th:replace="fragments/scripts"></th:block>
+  <th:block layout:fragment="script_area"></th:block>
+</body>
 </html>

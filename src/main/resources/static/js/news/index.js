@@ -24,8 +24,12 @@ function todayNews(e) {
         const province = jsonObj.province;
         const sigungu = jsonObj.sigungu;
         const todayNews = jsonObj.todayNews;
-
-        showNewsList(todayNews);
+//        showNewsList(todayNews);
+        const source = $("#map-template").html();
+        const template = Handlebars.compile(source);
+        const item = template(jsonObj);
+        $("#map-content").append(item);
+        
         $("#zoneName").empty();
         if (e != 1) {
           showMap(province, sigungu);
@@ -42,12 +46,14 @@ function todayNews(e) {
 function showNewsList(newsList) {
   $("#todayNews *").remove();
   $.each(newsList, function(idx, item) {
-    let str = '<li class="main_title" onclick="readNews(' + idx + ')">';
-    str += "<span>";
-    str += item.title;
-    str += "</span>";
-    str += "</li>";
-    $("#todayNews").append(str);
+	  console.log(idx);
+	  console.log(item);
+//    let str = '<li class="main_title" onclick="readNews(' + idx + ')">';
+//    str += "<span>";
+//    str += item.title;
+//    str += "</span>";
+//    str += "</li>";
+//    $("#todayNews").append(str);
   })
 }
 
@@ -65,7 +71,7 @@ function showMap(province, sigungu) {
     zoomControl: true,
     zoomControlOptions: {
       position: naver.maps.Position.TOP_RIGHT
-    };
+    }
   }
 
   map = new naver.maps.Map(mapDiv, mapOptions);
@@ -99,8 +105,8 @@ function setMarkers(zoneName, chk_zone) {
           province_id: province_id,
           sigungu_id: sigungu_id
         }
-      });
-    )
+      })
+    );
   }
 }
 

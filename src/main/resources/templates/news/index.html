@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout/base}"
->
-  <head>
-    <title>Map</title>
-    <th:block layout:fragment="css_area"></th:block>
-    <script type="text/javascript" th:src="@{'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=' + ${naverID}}"></script>
-  </head>
-  <body id="page-top">
-    <th:block layout:fragment="page_content">
-      <th:block th:replace="fragments/map :: section-map"></th:block>
-      <th:block th:replace="fragments/search :: section-search"></th:block>
-      <th:block th:replace="fragments/keyword :: section-keyword"></th:block>
-      <th:block th:replace="fragments/modal :: commonModal"></th:block>
-    </th:block>
-    <th:block layout:fragment="script_area"> </th:block>
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base}">
+<head>
+<title>Map</title>
+<th:block layout:fragment="css_area"></th:block>
+<script type="text/javascript" th:src="@{'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=' + ${naverID}}"></script>
+</head>
+<body id="page-top">
+	<th:block layout:fragment="page_content">
+		<th:block th:replace="fragments/map :: section-map"></th:block>
+		<th:block th:replace="fragments/search :: section-search"></th:block>
+		<th:block th:replace="fragments/keyword :: section-keyword"></th:block>
+		<th:block th:replace="fragments/modal :: commonModal"></th:block>
+	</th:block>
+	<th:block layout:fragment="script_area">
+	</th:block>
+</body>
 </html>
