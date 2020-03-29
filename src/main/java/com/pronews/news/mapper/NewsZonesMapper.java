@@ -1,11 +1,11 @@
-package com.mynews.newsbigdata.mapper;
+package com.pronews.news.mapper;
 
 import java.util.List;
 
-import com.mynews.newsbigdata.model.Province;
-import com.mynews.newsbigdata.model.Sigungu;
-
 import org.apache.ibatis.annotations.Mapper;
+
+import com.pronews.news.model.Province;
+import com.pronews.news.model.Sigungu;
 
 @Mapper
 public interface NewsZonesMapper {

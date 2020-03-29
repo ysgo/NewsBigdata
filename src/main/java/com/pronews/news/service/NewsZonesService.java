@@ -1,13 +1,13 @@
-package com.mynews.newsbigdata.service;
+package com.pronews.news.service;
 
 import java.util.List;
 
-import com.mynews.newsbigdata.mapper.NewsZonesMapper;
-import com.mynews.newsbigdata.model.Province;
-import com.mynews.newsbigdata.model.Sigungu;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.pronews.news.mapper.NewsZonesMapper;
+import com.pronews.news.model.Province;
+import com.pronews.news.model.Sigungu;
 
 @Service
 public class NewsZonesService {

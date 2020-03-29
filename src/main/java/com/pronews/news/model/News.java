@@ -1,4 +1,4 @@
-package com.mynews.newsbigdata.model;
+package com.pronews.news.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

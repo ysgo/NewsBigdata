@@ -1,4 +1,4 @@
-package com.mynews.newsbigdata.config;
+package com.pronews.news.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class JasyptConfig {
 	private static final String ENCRYPT_KEY = "";
 	
-	@Bean("jasyptStringEncrptor")
+	@Bean("jasyptStringEncryptor")
 	public StringEncryptor stringEncryptor() {
 		PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();

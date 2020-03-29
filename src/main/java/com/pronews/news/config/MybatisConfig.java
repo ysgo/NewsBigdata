@@ -1,4 +1,4 @@
-package com.mynews.newsbigdata.config;
+package com.pronews.news.config;
 
 import javax.sql.DataSource;
 

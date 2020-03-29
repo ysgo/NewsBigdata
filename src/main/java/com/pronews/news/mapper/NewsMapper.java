@@ -1,10 +1,10 @@
-package com.mynews.newsbigdata.mapper;
+package com.pronews.news.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.mynews.newsbigdata.model.News;
+import com.pronews.news.model.News;
 
 @Mapper
 public interface NewsMapper {

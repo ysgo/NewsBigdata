@@ -1,4 +1,4 @@
-package com.mynews.newsbigdata.constants;
+package com.pronews.news.constants;
 
 public class PathConstants {
   public static final String CRUD_INDEX = "/index";

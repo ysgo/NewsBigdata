@@ -1,36 +1,43 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.2.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
-    id 'war'
+	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
 }
 
-group = 'com.mynews'
-version = '1.0.0-SNAPSHOT'
-description = 'NewsBigdata'
+group = 'com.pronews'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-		compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.2.2'
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.flywaydb:flyway-core'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
-    
-    compile 'com.github.ulisesbocchio:jasypt-spring-boot:2.1.0'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    compile "org.springframework.boot:spring-boot-devtools"
-    implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
-    
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation('org.springframework.boot:spring-boot-starter-test') {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	implementation 'org.flywaydb:flyway-core'
+	
+	compile 'com.github.ulisesbocchio:jasypt-spring-boot:2.1.0'
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
 

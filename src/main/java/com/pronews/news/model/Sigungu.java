@@ -1,15 +1,22 @@
-package com.mynews.newsbigdata.model;
+package com.pronews.news.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "provinces")
-public class Province {
+@Table(name = "sigungus")
+public class Sigungu {
 	@Id
 	private int id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "province_id")
+	private Province province;
 
 	@Column()
 	private int code;
@@ -29,6 +36,14 @@ public class Province {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
 	public int getCode() {
@@ -67,6 +82,7 @@ public class Province {
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("[id:").append(id).append(", ");
+		str.append("province:").append(province).append(", ");
 		str.append("code:").append(code).append(", ");
 		str.append("name:").append(name).append(", ");
 		str.append("latitude:").append(latitude).append(", ");
