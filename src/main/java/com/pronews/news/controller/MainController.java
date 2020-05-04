@@ -1,5 +1,7 @@
 package com.pronews.news.controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +12,14 @@ import com.pronews.news.model.News;
 
 @Controller
 @RequestMapping("/")
+@PropertySource("classpath:api.properties")
 public class MainController {
-//	@Value("${naver.ID}")
-//	private String naverId;
+	@Value("${naver.ID}")
+	private String naverId;
 
 	@GetMapping
 	public String viewMain(Model model) {
-//		model.addAttribute("naverID", naverId);
+		model.addAttribute("naverID", naverId);
 		return News.MULTIPLE + PathConstants.CRUD_INDEX;
 	}
 }
