@@ -2,7 +2,7 @@ window.onload = function() {
   curTime();
   setInterval(curTime, 1000);
   todayNews();
-  //	searchGet(1);
+  searchGet(1);
   //	loadWordcloud();
 }
 

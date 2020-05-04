@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pronews.news.constants.PathConstants;
@@ -35,9 +36,12 @@ public class NewsController {
 	}
 
 	@GetMapping(value = PathConstants.CRUD_DETAIL, produces = "application/json; charset=utf-8")
-	public News readNews(@ModelAttribute News news) {
+	public News readNews(@ModelAttribute News news, String keyword, @RequestParam("checkedCategoryList[]") String checkedCategoryList) {
+		System.out.println(news);
+		System.out.println(keyword);
+		System.out.println(checkedCategoryList);
 		try {
-			news = newsService.getNewsByTitle(news);
+//			news = newsService.getNewsByTitle(news);
 		} catch (NullPointerException e) {
 			System.out.println("There is no matching article with the title!");
 		}

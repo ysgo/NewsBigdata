@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<section class="page-section" id="news-sec"
-	style="border-top: 1px solid #e8e8e8" th:fragment="section-search">
+<section class="page-section" id="news-sec" style="border-top: 1px solid #e8e8e8" th:fragment="section-search">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -14,14 +13,10 @@
 				<div class="blank"></div>
 
 				<form id="SearchForm" name="SearchForm" method="GET">
-					<input id="action" type="hidden" name="action" value="search" /> <input
-						id="curPage" type="hidden" name="curPage" value="1" /> <input
-						type="text" id="keyword" name="keyword"
-						style="border: 0; outline: 0; border-bottom: 1px solid #bfbfbf; width: 60%; height: 40px; font-size: 18px"
-						placeholder="검색어를 입력하세요." />
-
-					<button
-						style="width: 17%; height: 40px; border: 0; outline: 0; background-color: #799ab8; color: white;"
+					<input id="action" type="hidden" name="action" value="search" />
+					<input id="curPage" type="hidden" name="curPage" value="1" />
+					<input type="text" id="keyword" name="keyword" style="border: 0; outline: 0; border-bottom: 1px solid #bfbfbf; width: 60%; height: 40px; font-size: 18px" placeholder="검색어를 입력하세요." />
+					<button	style="width: 17%; height: 40px; border: 0; outline: 0; background-color: #799ab8; color: white;"
 						onclick="searchType('GET');return false; ">검색</button>
 				</form>
 			</div>
@@ -31,72 +26,84 @@
 			<div class="col-md-2" style="min-height: 800px">
 				<div style="padding-top: 70px; height: 100%">
 					<div id="ctg-list">
-						<div
-							style="padding-top: 20px; padding-bottom: 15px; border-bottom: 1px solid #c2c3c4">
+						<div style="padding-top: 20px; padding-bottom: 15px; border-bottom: 1px solid #c2c3c4">
 							<h4>언론사</h4>
 						</div>
-						<span id="multiPrint"></span><br />
+						<span id="multiPrint"></span>
+						<br>
 						<div class="cb">
-							KBS&nbsp;<input type="checkbox" class="check" value="KBS" /><br />
+							KBS&nbsp;<input type="checkbox" class="check" value="KBS" /><br>
 						</div>
 						<div class="cb">
-							YTN&nbsp;<input type="checkbox" class="check" value="YTN" /><br />
+							YTN&nbsp;<input type="checkbox" class="check" value="YTN" /><br>
 						</div>
 						<div class="cb">
-							서울경제&nbsp;<input type="checkbox" class="check" value="서울경제" /><br />
+							서울경제&nbsp;<input type="checkbox" class="check" value="서울경제" /><br>
 						</div>
 						<div class="cb">
-							매일경제&nbsp;<input type="checkbox" class="check" value="매일경제" /><br />
+							매일경제&nbsp;<input type="checkbox" class="check" value="매일경제" /><br>
 						</div>
 						<div class="cb">
-							중앙일보&nbsp;<input type="checkbox" class="check" value="중앙일보" /><br />
+							중앙일보&nbsp;<input type="checkbox" class="check" value="중앙일보" /><br>
 						</div>
 						<div class="cb">
-							내일신문&nbsp;<input type="checkbox" class="check" value="내일신문" /><br />
+							내일신문&nbsp;<input type="checkbox" class="check" value="내일신문" /><br>
 						</div>
 						<div class="cb">
-							동아일보&nbsp;<input type="checkbox" class="check" value="동아일보" /><br />
+							동아일보&nbsp;<input type="checkbox" class="check" value="동아일보" /><br>
 						</div>
 						<div class="cb">
-							문화일보&nbsp;<input type="checkbox" class="check" value="문화일보" /><br />
+							문화일보&nbsp;<input type="checkbox" class="check" value="문화일보" /><br>
 						</div>
 						<div class="cb">
-							국민일보&nbsp;<input type="checkbox" class="check" value="국민일보" /><br />
+							국민일보&nbsp;<input type="checkbox" class="check" value="국민일보" /><br>
 						</div>
 						<div class="cb">
-							조선일보&nbsp;<input type="checkbox" class="check" value="조선일보" /><br />
+							조선일보&nbsp;<input type="checkbox" class="check" value="조선일보" /><br>
 						</div>
 						<div class="cb">
-							머니투데이&nbsp;<input type="checkbox" class="check" value="머니투데이" /><br />
+							머니투데이&nbsp;<input type="checkbox" class="check" value="머니투데이" /><br>
 						</div>
 						<div class="cb">
-							파이낸셜뉴스&nbsp;<input type="checkbox" class="check" value="파이낸셜뉴스" /><br />
+							파이낸셜뉴스&nbsp;<input type="checkbox" class="check" value="파이낸셜뉴스" /><br>
 						</div>
 						<div class="cb">
-							디지털타임스&nbsp;<input type="checkbox" class="check" value="디지털타임스" /><br />
+							디지털타임스&nbsp;<input type="checkbox" class="check" value="디지털타임스" /><br>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-10">
 				<div id="issues-wrap" style="width: 100%;">
-					<br />
+					<br>
 					<div id="id01">
 						<span id="test"></span>
-						<h2 id="news_count" style="padding-bottom: 15px;"></h2>
+						<h2 id="news-count" style="padding-bottom: 15px;">
+							<b><font size="5" color="gray">뉴스 개수</font></b>
+						</h2>
 					</div>
 
 					<div id="tb" class="newsList" style="min-height: 800px">
 						<script id="search-template" type="text/x-handlebars-template">
-<div id="newsTable">
+<div id="news-table">
 	<table>
-		<tbody class="detail_title" id="tbody">
+		<tbody class="detail_title" id="tbody" onclick="readDetailNews()">
 			<tr>
-				<td rowspan="3"><output></output></td>
-				<td id="listTitle"><output></output></td>
+				<td rowspan="3">
+					<output id="url">
+						<img src="" style="width:100px; height:60px; padding:7px 15px 5px 2px"> 
+					</output>
+				</td>
+				<td id="listTitle">
+					<output id="title"></output>
+				</td>
 			</tr>
 			<tr id="listItems" align="left">
-				<td><output></output><output>&nbsp;}&nbsp;</output><output>&nbsp;|&nbsp;</output></td>
+				<td>
+					<output id="date"></output>
+					<output id="newsname">&nbsp;}&nbsp;</output>
+					<output id="category">&nbsp;|&nbsp;</output>
+				</td>
 			</tr>
 		</tbody>
 	</table>
