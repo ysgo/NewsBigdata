@@ -11,6 +11,8 @@ import com.pronews.news.model.News;
 public interface NewsMapper {
 	public List<News> getAllTitles();
 
+	public News getNewsById(int id);
+	
 	public News getNewsByTitle(News news);
 
 	 public void loadNews(HashMap<String, String> map);

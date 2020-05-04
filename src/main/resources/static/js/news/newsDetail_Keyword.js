@@ -111,31 +111,26 @@ function searchGet(curPage) {
 //         }
 //      }//CheckOnFlag   
       
-	const data = {
-		'keyword': keyword,
-		'name': newsname,
-		'checkedCategoryList':checkedCategoryList
-	}
-	console.log(data);
-	$.ajax({
-		type: 'GET',
-		url: '/news/detail',
-		data: data,
-		success: function(response) {
-			console.log(response);
-			let text = '총 1개의 기사가 검색되었습니다.';
-//			let text = '총'+ count + '개의 기사가 검색되었습니다.';
-			$('#news-count').text(text);
-			const source = $("#search-template").html();
-	        const template = Handlebars.compile(source);
-	        const item = template(response);
-	        $("#news-table").append(item);
-			
-		},
-		error: function(error) {
-			console.log('error: ' + error);
-		}
-	});
+//	const data = {
+//		'keyword': keyword,
+//		'name': newsname,
+//		'checkedCategoryList':checkedCategoryList
+//	}
+//	console.log(data);
+//	$.ajax({
+//		type: 'GET',
+//		url: '/news/detail/' + id,
+//		data: data,
+//		success: function(response) {
+//			console.log(response);
+//			let text = '총 1개의 기사가 검색되었습니다.';
+////			let text = '총'+ count + '개의 기사가 검색되었습니다.';
+//			$('#news-count').text(text);
+//		},
+//		error: function(error) {
+//			console.log('error: ' + error);
+//		}
+//	});
       //CheckOnFlag값과 Flag값 정의되고 ajax 하나만 수행.
       /*$.ajax({
            type: "GET",

@@ -2,7 +2,7 @@ window.onload = function() {
   curTime();
   setInterval(curTime, 1000);
   todayNews();
-  searchGet(1);
+//  searchGet(1);
   //	loadWordcloud();
 }
 
@@ -24,11 +24,25 @@ function todayNews(e) {
         const province = jsonObj.province;
         const sigungu = jsonObj.sigungu;
         const todayNews = jsonObj.todayNews;
-//        showNewsList(todayNews);
-        const source = $("#map-template").html();
-        const template = Handlebars.compile(source);
-        const item = template(jsonObj);
+        let source = $("#map-template").html();
+        let template = Handlebars.compile(source);
+        let item = template(jsonObj);
         $("#map-content").append(item);
+        
+		Handlebars.registerHelper('defaultImgUrl', function(url) {
+			if(url == 0) {
+				url = '/img/logo3.png';
+			}
+			return url;
+		});
+        source = $("#search-template").html();
+        template = Handlebars.compile(source);
+        item = template(jsonObj);
+        $("#tb").append(item);
+        
+        let newsCount = todayNews.length;
+        let text = '총' + newsCount + '개의 기사가 검색되었습니다.';
+        $('#news-count').text(text);
         
         $("#zoneName").empty();
         if (e != 1) {

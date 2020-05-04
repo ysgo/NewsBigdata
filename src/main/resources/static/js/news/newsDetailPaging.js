@@ -122,9 +122,3 @@ function goLastPage() {
 		searchGet(pageNum);  
 	});
 }
-
-//키워드 검색 화면에서 뉴스 기사 출력 AJAX 구현
-function readDetailNews(num) {
-	var value = document.getElementsByClassName("detail_title")[num].innerText.split(/\r?\n/);
-		requestAjax(value[0].substr(1));
-}

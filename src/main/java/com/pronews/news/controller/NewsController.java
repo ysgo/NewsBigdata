@@ -4,9 +4,8 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pronews.news.constants.PathConstants;
@@ -35,13 +34,11 @@ public class NewsController {
 		return map;
 	}
 
-	@GetMapping(value = PathConstants.CRUD_DETAIL, produces = "application/json; charset=utf-8")
-	public News readNews(@ModelAttribute News news, String keyword, @RequestParam("checkedCategoryList[]") String checkedCategoryList) {
-		System.out.println(news);
-		System.out.println(keyword);
-		System.out.println(checkedCategoryList);
+	@GetMapping(PathConstants.CRUD_DETAIL + "/{id}")
+	public News readNews(@PathVariable("id") int id) {
+		News news = null;
 		try {
-//			news = newsService.getNewsByTitle(news);
+			news = newsService.getNewsById(id);
 		} catch (NullPointerException e) {
 			System.out.println("There is no matching article with the title!");
 		}

@@ -78,36 +78,36 @@
 					<br>
 					<div id="id01">
 						<span id="test"></span>
-						<h2 id="news-count" style="padding-bottom: 15px;">
-							<b><font size="5" color="gray">뉴스 개수</font></b>
-						</h2>
+						<h2 id="news-count"></h2>
 					</div>
 
 					<div id="tb" class="newsList" style="min-height: 800px">
 						<script id="search-template" type="text/x-handlebars-template">
+			{{#each todayNews}}
 <div id="news-table">
 	<table>
-		<tbody class="detail_title" id="tbody" onclick="readDetailNews()">
+		<tbody class="detail_title" id="tbody" onclick="readNews({{id}})">
 			<tr>
 				<td rowspan="3">
 					<output id="url">
-						<img src="" style="width:100px; height:60px; padding:7px 15px 5px 2px"> 
+						<img src="{{defaultImgUrl url}}" style="width:100px; height:60px; padding:7px 15px 5px 2px"> 
 					</output>
 				</td>
 				<td id="listTitle">
-					<output id="title"></output>
+					<output id="title">{{title}}</output>
 				</td>
 			</tr>
 			<tr id="listItems" align="left">
 				<td>
-					<output id="date"></output>
-					<output id="newsname">&nbsp;}&nbsp;</output>
-					<output id="category">&nbsp;|&nbsp;</output>
+					<output id="date">&nbsp; {{date}}</output>
+					<output id="newsname">&nbsp;| &nbsp;{{name}}</output>
+					<output id="category">&nbsp;| &nbsp;{{category}}</output>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 </div>
+			{{/each}}
 						</script>
 					</div>
 					<div class="blank"></div>
@@ -116,7 +116,6 @@
 						<li class="disabled"><a>&lt;</a></li>
 						<li class="disabled active"><a>1</a></li>
 						<li class="goPage" data-page="2"><a>2</a></li>
-						<li class="goPage" data-page="3"><a>3</a></li>
 						<li class="disabled"><a>></a></li>
 						<li class="goLastPage"><a>>></a></li>
 					</ul>

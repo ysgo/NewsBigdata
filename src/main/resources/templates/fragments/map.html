@@ -33,7 +33,7 @@
             	<script id="map-template" type="text/x-handlebars-template">
 <ul style="width: 100%; height: 100%; margin: 0px; padding:0px 0px 0px 15px !important" id="todayNews">
 {{#each todayNews}}
-	<li class="main_title" onclick="readNews({{@index}})">
+	<li class="main_title" onclick="readNews({{id}})">
 		<span>{{title}}</span>
 	</li>
 {{/each}}

@@ -1,14 +1,12 @@
 // 뉴스 기사 클릭시 모달에 뉴스 기사 출력 AJAX 구현
-function readNews(num) {
-  var value = document.getElementsByClassName("main_title")[num].innerText;
-  requestAjax(value);
+function readNews(id) {
+  requestAjax(id);
 }
 
-function requestAjax(value) {
+function requestAjax(id) {
   $.ajax({
-    url: "/news/detail",
+    url: "/news/detail/"+id,
     type: "GET",
-    data: { title: value },
     success: function(data) {
       document.getElementById("modal_box").style.display = "block";
       document.getElementById("m_name").innerHTML = data.name;

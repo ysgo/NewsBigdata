@@ -14,10 +14,13 @@
 		<result property="content" column="content" />
 		<result property="dataSize" column="data_size" />
 	</resultMap>
-
+	
+	<select id="getNewsById" resultMap="newsMap">
+		SELECT * FROM news_lists WHERE id = #{id}
+	</select>
+	
 	<select id="getAllTitles" resultMap="newsMap">
-		SELECT id, title FROM news_lists ORDER BY RAND() LIMIT 10
-												<!-- SELECT id, title FROM news_lists WHERE date=CURDATE() ORDER BY RAND() LIMIT 10 -->
+		SELECT * FROM news_lists ORDER BY RAND() LIMIT 10
 	</select>
 
 	<select id="getNewsByTitle" parameterType="News" resultMap="newsMap">

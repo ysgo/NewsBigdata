@@ -17,6 +17,10 @@ public class NewsService {
 		return newsMapper.getAllTitles();
 	}
 
+	public News getNewsById(int id) {
+		return newsMapper.getNewsById(id);
+	}
+	
 	public News getNewsByTitle(News news) {
 		return newsMapper.getNewsByTitle(news);
 	}
